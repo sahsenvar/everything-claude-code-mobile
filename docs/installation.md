@@ -10,11 +10,8 @@
 ## Install from Plugin Marketplace
 
 ```bash
-# Search for the plugin
-/plugin marketplace search everything-claude-code-mobile
-
-# Install the plugin
-/plugin install ahmed3elshaer/everything-claude-code-mobile
+/plugin marketplace add sahsenvar/everything-claude-code-mobile
+/plugin install everything-claude-code-mobile@sahsenvar
 ```
 
 ## Manual Installation

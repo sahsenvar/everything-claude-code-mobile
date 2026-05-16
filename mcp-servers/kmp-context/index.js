@@ -13,6 +13,12 @@ const path = require('path');
 // MCP Server SDK
 const MCPServer = require('@modelcontextprotocol/sdk/server/index.js').Server;
 const { StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio.js');
+const {
+    ListResourcesRequestSchema,
+    ReadResourceRequestSchema,
+    ListToolsRequestSchema,
+    CallToolRequestSchema
+} = require('@modelcontextprotocol/sdk/types.js');
 
 // Configuration
 const CONTEXT_DIR = process.env.KMP_CONTEXT_DIR || '.claude/kmp-context';
@@ -571,7 +577,7 @@ class KMPContextServer {
 
     setupHandlers() {
         // List available resources
-        this.server.setRequestHandler('resources/list', async () => {
+        this.server.setRequestHandler(ListResourcesRequestSchema, async () => {
             const resources = Object.keys(CONTEXT_SCHEMAS).map(type => ({
                 uri: `kmp-context://${type}`,
                 name: type,
@@ -582,7 +588,7 @@ class KMPContextServer {
         });
 
         // Read resource
-        this.server.setRequestHandler('resources/read', async (request) => {
+        this.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
             const uri = request.params.uri;
             const type = uri.replace('kmp-context://', '');
 
@@ -607,7 +613,7 @@ class KMPContextServer {
         });
 
         // List available tools
-        this.server.setRequestHandler('tools/list', async () => {
+        this.server.setRequestHandler(ListToolsRequestSchema, async () => {
             return {
                 tools: [
                     {
@@ -660,7 +666,7 @@ class KMPContextServer {
         });
 
         // Call tool
-        this.server.setRequestHandler('tools/call', async (request) => {
+        this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
             const { name, arguments: args } = request.params;
             const projectRoot = process.cwd();
 

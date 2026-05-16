@@ -22,9 +22,14 @@ function getClaudeConfigDir() {
 }
 
 /**
- * Get the project root directory (where .claude or CLAUDE.md exists)
+ * Get the project root directory.
+ * Honors CLAUDE_PROJECT_DIR (set by Claude Code plugin runtime) first,
+ * then walks up from cwd looking for CLAUDE.md or .claude.
  */
 function getProjectRoot() {
+    if (process.env.CLAUDE_PROJECT_DIR) {
+        return process.env.CLAUDE_PROJECT_DIR;
+    }
     let dir = process.cwd();
     while (dir !== path.dirname(dir)) {
         if (fs.existsSync(path.join(dir, 'CLAUDE.md')) ||

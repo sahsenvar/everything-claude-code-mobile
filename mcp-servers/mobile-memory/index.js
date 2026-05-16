@@ -12,6 +12,12 @@ const path = require('path');
 // MCP Server SDK (assuming stdio transport)
 const MCPServer = require('@modelcontextprotocol/sdk/server/index.js').Server;
 const { StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio.js');
+const {
+    ListResourcesRequestSchema,
+    ReadResourceRequestSchema,
+    ListToolsRequestSchema,
+    CallToolRequestSchema
+} = require('@modelcontextprotocol/sdk/types.js');
 
 // Configuration
 const MEMORY_DIR = process.env.MOBILE_MEMORY_DIR || '.claude/mobile-memory';
@@ -332,7 +338,7 @@ class MobileMemoryServer {
 
     setupHandlers() {
         // List available resources
-        this.server.setRequestHandler('resources/list', async () => {
+        this.server.setRequestHandler(ListResourcesRequestSchema, async () => {
             const resources = Object.keys(MEMORY_SCHEMAS).map(type => ({
                 uri: `memory://${type}`,
                 name: type,
@@ -343,7 +349,7 @@ class MobileMemoryServer {
         });
 
         // Read resource
-        this.server.setRequestHandler('resources/read', async (request) => {
+        this.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
             const uri = request.params.uri;
             const type = uri.replace('memory://', '');
 
@@ -369,7 +375,7 @@ class MobileMemoryServer {
         });
 
         // List available tools
-        this.server.setRequestHandler('tools/list', async () => {
+        this.server.setRequestHandler(ListToolsRequestSchema, async () => {
             return {
                 tools: [
                     {
@@ -470,7 +476,7 @@ class MobileMemoryServer {
         });
 
         // Call tool
-        this.server.setRequestHandler('tools/call', async (request) => {
+        this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
             const { name, arguments: args } = request.params;
             const projectRoot = process.cwd();
 

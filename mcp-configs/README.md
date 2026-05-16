@@ -51,3 +51,4 @@ export JAVA_HOME="$(/usr/libexec/java_home)"
 export PATH="$ANDROID_HOME/platform-tools:$PATH"
 export PATH="$ANDROID_HOME/emulator:$PATH"
 ```
+These files are reference-only; the plugin loads MCP servers from the repo-root `.mcp.json`.
