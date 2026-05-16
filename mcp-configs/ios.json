@@ -1,9 +1,10 @@
 {
+    "_deprecated": "Superseded by /.mcp.json. Kept for reference only; the capabilities/memoryTypes fields document server schema and are NOT read by Claude Code.",
     "mcpServers": {
         "ios-memory": {
             "command": "node",
             "args": [
-                "/Users/ah3sh/Developer/everything-claude-code-mobile/mcp-servers/ios-memory/index.js"
+                "${CLAUDE_PLUGIN_ROOT}/mcp-servers/ios-memory/index.js"
             ],
             "env": {
                 "IOS_MEMORY_DIR": ".claude/ios-memory",

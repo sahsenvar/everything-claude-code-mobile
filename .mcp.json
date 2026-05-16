@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "mobile-memory": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/mobile-memory/index.js"],
+      "env": {
+        "MOBILE_MEMORY_DIR": ".claude/mobile-memory",
+        "MOBILE_MEMORY_MAX_SIZE": "10MB",
+        "MOBILE_MEMORY_RETENTION": "90days"
+      }
+    },
+    "ios-memory": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/ios-memory/index.js"],
+      "env": {
+        "IOS_MEMORY_DIR": ".claude/ios-memory",
+        "IOS_MEMORY_MAX_SIZE": "10MB",
+        "IOS_MEMORY_RETENTION": "90days"
+      }
+    },
+    "kmp-context": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/kmp-context/index.js"],
+      "env": {
+        "KMP_CONTEXT_DIR": ".claude/kmp-context"
+      }
+    }
+  }
+}

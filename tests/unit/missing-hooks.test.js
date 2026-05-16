@@ -107,3 +107,17 @@ describe('hooks/hooks.json schema', () => {
     assert.ok(raw.includes('${CLAUDE_PLUGIN_ROOT}'), 'uses plugin root variable');
   });
 });
+
+describe('.mcp.json', () => {
+  it('wires 3 servers with CLAUDE_PLUGIN_ROOT and correct kmp-context', () => {
+    const fs = require('fs');
+    const cfg = JSON.parse(fs.readFileSync(path.join(__dirname, '../../.mcp.json'), 'utf8'));
+    const s = cfg.mcpServers;
+    assert.ok(s['mobile-memory'] && s['ios-memory'] && s['kmp-context'], 'all 3 servers present');
+    const raw = fs.readFileSync(path.join(__dirname, '../../.mcp.json'), 'utf8');
+    assert.ok(!raw.includes('/Users/ah3sh/'), 'no hardcoded paths');
+    assert.ok(raw.includes('${CLAUDE_PLUGIN_ROOT}'), 'uses plugin root');
+    assert.ok(s['kmp-context'].args.some(a => a.includes('kmp-context/index.js')), 'points at real kmp-context server');
+    assert.ok(s['kmp-context'].env.KMP_CONTEXT_DIR, 'uses KMP_CONTEXT_DIR');
+  });
+});

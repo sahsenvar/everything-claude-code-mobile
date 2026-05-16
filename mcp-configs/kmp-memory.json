@@ -1,14 +1,13 @@
 {
+    "_deprecated": "Superseded by /.mcp.json. Kept for reference only; the capabilities/memoryTypes fields document server schema and are NOT read by Claude Code.",
     "mcpServers": {
-        "kmp-memory": {
+        "kmp-context": {
             "command": "node",
             "args": [
-                "/Users/ah3sh/Developer/everything-claude-code-mobile/mcp-servers/kmp-memory/index.js"
+                "${CLAUDE_PLUGIN_ROOT}/mcp-servers/kmp-context/index.js"
             ],
             "env": {
-                "KMP_MEMORY_DIR": ".claude/kmp-memory",
-                "KMP_MEMORY_MAX_SIZE": "15MB",
-                "KMP_MEMORY_RETENTION": "90days"
+                "KMP_CONTEXT_DIR": ".claude/kmp-context"
             }
         }
     },
