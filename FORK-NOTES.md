@@ -26,11 +26,15 @@ Personal fork of [ahmed3elshaer/everything-claude-code-mobile](https://github.co
   Claude Code auto-discover from the default `agents/`, `skills/`, `commands/`
   directories. Verified: `claude plugin details` → Agents (27), Skills (81),
   Hooks (3), MCP (3). Version bumped 1.1.5 → 1.2.1.
-- Known: `tests/unit/feature-builder.test.js` has ~5 assertions expecting
-  `plugin.json` to list `agents`/`skills` as arrays. These predate this fork
-  (failing at upstream baseline) and encode an outdated manifest convention;
-  deferred to the Plan 2 content-quality review. The plugin itself is fully
-  functional (components load via auto-discovery).
+- Plan 2A: the 5 `tests/unit/feature-builder.test.js` plugin-registration
+  assertions (which expected `plugin.json` to list `agents`/`skills` arrays —
+  an outdated convention removed in Plan 1) were rewritten into a structural
+  loadability guard that asserts per-file frontmatter validity for every
+  `agents/*.md` and `skills/*/SKILL.md`, verifies `commands/` is non-empty,
+  and locks `plugin.json` to metadata-only. Three agents lacking frontmatter
+  (`mobile-verifier`, `mobile-compactor`, `mobile-pattern-extractor`) were
+  fixed in the same cycle. `npm test` is fully green. (`agents/network-impl.md`
+  was already valid — an earlier note claiming a YAML parse error was wrong.)
 
 ## Pulling upstream updates
 ```bash
