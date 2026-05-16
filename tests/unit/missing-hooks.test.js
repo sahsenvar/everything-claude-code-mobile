@@ -72,3 +72,24 @@ describe('track-build.js', () => {
     fs.rmSync(tmp, { recursive: true, force: true });
   });
 });
+
+describe('track-focus.js', () => {
+  it('increments focus count for a file and exits 0', () => {
+    const os = require('os'); const fs = require('fs');
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'trackfocus-'));
+    const args = [path.join(HOOKS, 'track-focus.js'), '/repo/src/Main.kt'];
+    const env = { ...process.env, CLAUDE_PROJECT_DIR: tmp };
+    execFileSync('node', args, { cwd: tmp, env, encoding: 'utf8', timeout: 15000 });
+    execFileSync('node', args, { cwd: tmp, env, encoding: 'utf8', timeout: 15000 });
+    const f = path.join(tmp, '.claude/instincts/focus-history.json');
+    const data = JSON.parse(fs.readFileSync(f, 'utf8'));
+    assert.strictEqual(data['/repo/src/Main.kt'].count, 2);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  });
+
+  it('exits 0 with no file argument', () => {
+    assert.doesNotThrow(() => execFileSync('node', [path.join(HOOKS, 'track-focus.js')], {
+      input: '', encoding: 'utf8', timeout: 15000
+    }));
+  });
+});
