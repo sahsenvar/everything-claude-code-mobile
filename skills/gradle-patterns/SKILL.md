@@ -9,6 +9,15 @@ Modern Gradle configuration for Android.
 
 ## Version Catalog
 
+> **Version-pinning policy (this plugin's skills):** Skill examples must NOT
+> contain inline dependency version literals. They reference the consuming
+> project's version catalog via the `libs.*` accessor form shown here (the
+> Gradle convention maps `io.ktor:ktor-client-core` to `libs.ktor.client.core`,
+> and a plugin id to `libs.plugins.<alias>`). The `[versions]`/`[libraries]`
+> blocks below are an **illustrative snapshot** — the version numbers are
+> examples, not authoritative pins; resolve actual versions from the consuming
+> project's `gradle/libs.versions.toml`.
+
 ```toml
 # gradle/libs.versions.toml
 [versions]
