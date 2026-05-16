@@ -35,6 +35,19 @@ Personal fork of [ahmed3elshaer/everything-claude-code-mobile](https://github.co
   (`mobile-verifier`, `mobile-compactor`, `mobile-pattern-extractor`) were
   fixed in the same cycle. `npm test` is fully green. (`agents/network-impl.md`
   was already valid — an earlier note claiming a YAML parse error was wrong.)
+- Plan 2B: targeted stack-skill content review. Resolved both Plan 2A
+  carry-forwards — the skills auto-discovery test now hard-fails if any
+  `skills/*` dir lacks `SKILL.md` (was a silent skip), and
+  `agents/mobile-pattern-extractor.md` now documents that it is read-only by
+  design (instinct persistence is delegated to the PostToolUse hook chain;
+  adding `Write` would be wrong — investigation-confirmed). Plus stack
+  alignment: `feature-builder` commits to Ktor+Koin (was Retrofit/Ktor,
+  Koin/Hilt); `koin-patterns` notes KMP uses SQLDelight/Ktor; `offline-first`
+  names SQLDelight for shared code; `coroutines-patterns` and
+  `shared-coroutines` cross-reference (Android vs KMP). Spec bullet C6a
+  (Ktor `Logger` SAM lambda) was descoped: Ktor's `Logger` is not a Kotlin
+  `fun interface`, so `Logger { … }` would not compile. `npm test` green.
+  Library-version policy is Plan 2C.
 
 ## Pulling upstream updates
 ```bash
