@@ -14,8 +14,8 @@ Design and implement data models that work across all platforms in `shared/commo
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:1.6.0")
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
         }
     }
 }
@@ -25,7 +25,7 @@ Enable serialization plugin:
 ```kotlin
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.9.20"
+    alias(libs.plugins.kotlin.serialization)
 }
 ```
 

@@ -17,13 +17,13 @@ Configure coroutines for cross-platform async operations with platform-appropria
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:1.6.0")
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.datetime)
         }
     }
     val androidMain by getting {
         dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+            implementation(libs.kotlinx.coroutines.android)
         }
     }
 }
