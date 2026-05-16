@@ -353,10 +353,20 @@ describe('Feature Builder - Plugin Registration', () => {
     });
 
     it('should auto-discover skills and commands directories', () => {
-        const skillFiles = fs.readdirSync(SKILLS_DIR, { withFileTypes: true })
+        const skillDirs = fs.readdirSync(SKILLS_DIR, { withFileTypes: true })
             .filter(d => d.isDirectory())
-            .map(d => path.join(SKILLS_DIR, d.name, 'SKILL.md'))
-            .filter(p => fs.existsSync(p));
+            .map(d => d.name);
+        const missingSkillMd = skillDirs.filter(
+            name => !fs.existsSync(path.join(SKILLS_DIR, name, 'SKILL.md'))
+        );
+        assert.strictEqual(
+            missingSkillMd.length,
+            0,
+            `Every skills/ subdirectory must contain a SKILL.md; missing in: ${missingSkillMd.join(', ')}`
+        );
+
+        const skillFiles = skillDirs
+            .map(name => path.join(SKILLS_DIR, name, 'SKILL.md'));
         assert.ok(skillFiles.length > 0, 'skills/ should contain at least one SKILL.md');
         for (const p of skillFiles) {
             const { meta } = parseFrontmatter(fs.readFileSync(p, 'utf8'));
