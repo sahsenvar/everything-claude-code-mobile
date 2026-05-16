@@ -40,3 +40,18 @@ describe('evaluate-ios-session.js', () => {
     assert.match(out, /iOS|skip|Swift/i);
   });
 });
+
+describe('pre-compact-ios.js', () => {
+  it('runs and exits 0, writing an ios checkpoint', () => {
+    const os = require('os'); const fs = require('fs');
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'ios-precompact-'));
+    execFileSync('node', [path.join(HOOKS, 'pre-compact-ios.js')], {
+      cwd: tmp, env: { ...process.env, CLAUDE_PROJECT_DIR: tmp },
+      encoding: 'utf8', timeout: 15000
+    });
+    const dir = path.join(tmp, '.claude/checkpoints');
+    const files = fs.existsSync(dir) ? fs.readdirSync(dir) : [];
+    assert.ok(files.some(f => f.startsWith('ios-checkpoint-')), 'ios checkpoint written');
+    fs.rmSync(tmp, { recursive: true, force: true });
+  });
+});
