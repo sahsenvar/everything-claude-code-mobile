@@ -13,7 +13,7 @@ Pragmatic DI for Kotlin with Koin.
 // AppModule.kt
 val appModule = module {
     // Singletons
-    single<AppDatabase> { Room.databaseBuilder(...).build() }
+    single<AppDatabase> { Room.databaseBuilder(...).build() } // Android-only; for KMP/shared code this project uses SQLDelight — see the sqldelight-patterns skill
     single { get<AppDatabase>().userDao() }
     
     // Factories (new instance each time)
@@ -21,6 +21,8 @@ val appModule = module {
 }
 
 // NetworkModule.kt
+// Android-only example. For KMP/shared networking this project uses Ktor with
+// platform engines (OkHttp on Android, Darwin on iOS) — see the kmp-networking skill.
 val networkModule = module {
     single<HttpClient> {
         HttpClient(OkHttp) {
