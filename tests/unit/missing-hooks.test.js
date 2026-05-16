@@ -55,3 +55,20 @@ describe('pre-compact-ios.js', () => {
     fs.rmSync(tmp, { recursive: true, force: true });
   });
 });
+
+describe('track-build.js', () => {
+  it('records a build event and exits 0', () => {
+    const os = require('os'); const fs = require('fs');
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'trackbuild-'));
+    const event = JSON.stringify({ tool_name: 'Bash', tool_input: { command: 'gradle test' } });
+    execFileSync('node', [path.join(HOOKS, 'track-build.js')], {
+      cwd: tmp, env: { ...process.env, CLAUDE_PROJECT_DIR: tmp },
+      input: event, encoding: 'utf8', timeout: 15000
+    });
+    const f = path.join(tmp, '.claude/instincts/build-history.json');
+    assert.ok(fs.existsSync(f), 'build-history.json created');
+    const data = JSON.parse(fs.readFileSync(f, 'utf8'));
+    assert.ok(Array.isArray(data.events) && data.events.length >= 1);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  });
+});
