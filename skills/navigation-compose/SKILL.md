@@ -9,8 +9,8 @@ description: Jetpack Compose Navigation patterns - type-safe routes, NavHost set
 
 ```kotlin
 dependencies {
-    implementation("androidx.navigation:navigation-compose:2.8.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 }
 ```
 
