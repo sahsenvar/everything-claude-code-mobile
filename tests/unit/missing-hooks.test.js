@@ -93,3 +93,17 @@ describe('track-focus.js', () => {
     }));
   });
 });
+
+describe('hooks/hooks.json schema', () => {
+  it('is event-keyed and references CLAUDE_PLUGIN_ROOT, not hardcoded paths', () => {
+    const fs = require('fs');
+    const cfg = JSON.parse(fs.readFileSync(path.join(__dirname, '../../hooks/hooks.json'), 'utf8'));
+    assert.ok(cfg.hooks && !Array.isArray(cfg.hooks), 'hooks must be an object keyed by event');
+    for (const evt of ['Stop', 'PreCompact', 'PostToolUse']) {
+      assert.ok(Array.isArray(cfg.hooks[evt]), `${evt} must be an array`);
+    }
+    const raw = fs.readFileSync(path.join(__dirname, '../../hooks/hooks.json'), 'utf8');
+    assert.ok(!raw.includes('/Users/ah3sh/'), 'no hardcoded author paths');
+    assert.ok(raw.includes('${CLAUDE_PLUGIN_ROOT}'), 'uses plugin root variable');
+  });
+});
