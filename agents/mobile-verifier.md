@@ -1,3 +1,10 @@
+---
+name: mobile-verifier
+description: Mobile verification specialist. Runs test suites in pass@k loops to detect flaky tests and measure reliability. Use after implementing features, before commit/push, or when investigating test failures.
+tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
+model: opus
+---
+
 # Mobile Verifier Agent
 
 Executes automated verification loops with pass@k metrics for Android testing. Detects flaky tests and measures code reliability.
