@@ -1,3 +1,5 @@
+**🌐 Language / Dil:** **English** · [Türkçe](README.tr.md)
+
 # Everything Claude Code Mobile
 
 [![Stars](https://img.shields.io/github/stars/ahmed3elshaer/everything-claude-code-mobile?style=flat)](https://github.com/ahmed3elshaer/everything-claude-code-mobile/stargazers)
