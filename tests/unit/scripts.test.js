@@ -65,6 +65,17 @@ describe('scripts/lib/utils.js', () => {
       const root = utils.getProjectRoot();
       assert.ok(path.isAbsolute(root));
     });
+
+    it('returns CLAUDE_PROJECT_DIR when set', () => {
+      const orig = process.env.CLAUDE_PROJECT_DIR;
+      process.env.CLAUDE_PROJECT_DIR = '/tmp/forced-project-root';
+      try {
+        assert.strictEqual(utils.getProjectRoot(), '/tmp/forced-project-root');
+      } finally {
+        if (orig === undefined) delete process.env.CLAUDE_PROJECT_DIR;
+        else process.env.CLAUDE_PROJECT_DIR = orig;
+      }
+    });
   });
 
   // ---- isAndroidProject / hasGradleWrapper / getGradleCommand ----
