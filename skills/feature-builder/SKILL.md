@@ -152,7 +152,7 @@ Executes a five-agent dependency DAG to build the feature layer by layer.
            ▼
   ┌─────────────────┐
   │   wiring-impl   │   Phase 2d: Integration
-  │  (DI modules,   │   - Koin/Hilt module registration
+  │  (DI modules,   │   - Koin module registration
   │   navigation,   │   - Navigation graph updates
   │   manifest)     │   - AndroidManifest changes (if any)
   └─────────────────┘
@@ -171,7 +171,7 @@ Executes a five-agent dependency DAG to build the feature layer by layer.
 
 | Platform | Domain | Network | UI | Data | Wiring |
 |----------|--------|---------|-----|------|--------|
-| Android | Kotlin data classes | Retrofit/Ktor | Compose + ViewModel | Room/DataStore | Koin/Hilt + Navigation |
+| Android | Kotlin data classes | Ktor | Compose + ViewModel | Room/DataStore | Koin + Navigation |
 | iOS | Swift structs | URLSession/Alamofire | SwiftUI + ObservableObject | CoreData/SwiftData | Dependency container + NavigationStack |
 | KMP | commonMain models | Ktor (shared) | Compose Multiplatform / SwiftUI | SQLDelight | Koin + expect/actual navigation |
 
