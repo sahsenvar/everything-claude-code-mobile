@@ -5,6 +5,10 @@ description: Kotlin Coroutines and Flow patterns for structured concurrency, err
 
 # Coroutines Patterns
 
+> **Scope:** Android-focused coroutine/Flow patterns. For Kotlin Multiplatform
+> shared code (platform dispatchers, shared scopes, Flow sharing) use the
+> `shared-coroutines` skill instead.
+
 Structured concurrency for Kotlin.
 
 ## Coroutine Scopes

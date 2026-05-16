@@ -5,6 +5,9 @@ description: Shared coroutines configuration for Kotlin Multiplatform. Platform 
 
 # Shared Coroutines for KMP
 
+> **Scope:** KMP-shared coroutine configuration. For Android-only coroutine/Flow
+> usage patterns see the `coroutines-patterns` skill.
+
 Configure coroutines for cross-platform async operations with platform-appropriate dispatchers.
 
 ## Dependencies
