@@ -289,58 +289,84 @@ describe('Feature Builder - Skill File Validation', () => {
 // 4. Plugin Registration
 // ---------------------------------------------------------------------------
 describe('Feature Builder - Plugin Registration', () => {
-    it('should have a valid plugin.json', () => {
+    // Plan 1 established that Claude Code auto-discovers components from the
+    // agents/ skills/ commands/ directories. Declaring these keys in
+    // plugin.json breaks install (directory-string -> "agents: Invalid
+    // input"; explicit file array -> Agents (0)). The manifest MUST stay
+    // metadata-only; these tests validate the auto-discovery reality.
+
+    it('should have a metadata-only plugin.json (no agents/skills/commands keys)', () => {
         assert.ok(fs.existsSync(PLUGIN_FILE), 'plugin.json should exist');
         const plugin = readJson(PLUGIN_FILE);
         assert.ok(plugin, 'plugin.json should be valid JSON');
         assert.ok(plugin.name, 'Should have a name');
-        assert.ok(plugin.agents, 'Should have agents array');
-        assert.ok(plugin.skills, 'Should have skills array');
+        assert.strictEqual(plugin.agents, undefined, 'plugin.json must NOT declare an agents key (auto-discovery)');
+        assert.strictEqual(plugin.skills, undefined, 'plugin.json must NOT declare a skills key (auto-discovery)');
+        assert.strictEqual(plugin.commands, undefined, 'plugin.json must NOT declare a commands key (auto-discovery)');
     });
 
-    it('should list all 27 agents', () => {
-        const plugin = readJson(PLUGIN_FILE);
+    it('should auto-discover exactly 27 agents with valid frontmatter', () => {
+        const agentFiles = fs.readdirSync(AGENTS_DIR).filter(f => f.endsWith('.md'));
         assert.strictEqual(
-            plugin.agents.length,
+            agentFiles.length,
             27,
-            `Expected 27 agents, got ${plugin.agents.length}`
+            `Expected 27 agent files in agents/, got ${agentFiles.length}`
         );
-    });
-
-    it('should have all listed agent files existing on disk', () => {
-        const plugin = readJson(PLUGIN_FILE);
-        for (const agentPath of plugin.agents) {
-            const resolved = path.resolve(ROOT_DIR, agentPath);
-            assert.ok(
-                fs.existsSync(resolved),
-                `Agent file should exist: ${agentPath}`
-            );
+        for (const file of agentFiles) {
+            const content = fs.readFileSync(path.join(AGENTS_DIR, file), 'utf8');
+            assert.ok(content.startsWith('---'), `${file} should start with --- frontmatter`);
+            const { meta } = parseFrontmatter(content);
+            assert.ok(meta, `${file} should have parseable frontmatter`);
+            assert.ok(meta.name, `${file} should have a name field`);
+            assert.ok(meta.description, `${file} should have a description field`);
         }
     });
 
-    it('should include all 8 new feature agents', () => {
-        const plugin = readJson(PLUGIN_FILE);
+    it('should have each agent name match its filename and be unique', () => {
+        const agentFiles = fs.readdirSync(AGENTS_DIR).filter(f => f.endsWith('.md'));
+        const seen = new Set();
+        for (const file of agentFiles) {
+            const slug = file.replace(/\.md$/, '');
+            const content = fs.readFileSync(path.join(AGENTS_DIR, file), 'utf8');
+            const { meta } = parseFrontmatter(content);
+            assert.ok(meta, `${file} should have parseable frontmatter`);
+            assert.strictEqual(meta.name, slug, `${file} frontmatter name should equal "${slug}"`);
+            assert.ok(!seen.has(meta.name), `Duplicate agent name: ${meta.name}`);
+            seen.add(meta.name);
+        }
+    });
+
+    it('should include all 8 feature-builder agents with valid frontmatter', () => {
         const newAgents = [
             'feature-planner', 'network-impl', 'data-impl',
             'architecture-impl', 'ui-impl', 'wiring-impl',
             'unit-test-writer', 'ui-test-writer',
         ];
         for (const agent of newAgents) {
-            const found = plugin.agents.some(a => a.includes(agent));
-            assert.ok(found, `plugin.json should list ${agent}`);
+            const filePath = path.join(AGENTS_DIR, `${agent}.md`);
+            assert.ok(fs.existsSync(filePath), `agents/${agent}.md should exist`);
+            const { meta } = parseFrontmatter(fs.readFileSync(filePath, 'utf8'));
+            assert.ok(meta, `${agent}.md should have parseable frontmatter`);
+            assert.ok(meta.name, `${agent}.md should have a name field`);
+            assert.ok(meta.description, `${agent}.md should have a description field`);
         }
     });
 
-    it('should have skills array pointing to skills and commands', () => {
-        const plugin = readJson(PLUGIN_FILE);
-        assert.ok(
-            plugin.skills.some(s => s.includes('skills')),
-            'Should have skills directory reference'
-        );
-        assert.ok(
-            plugin.skills.some(s => s.includes('commands')),
-            'Should have commands directory reference'
-        );
+    it('should auto-discover skills and commands directories', () => {
+        const skillFiles = fs.readdirSync(SKILLS_DIR, { withFileTypes: true })
+            .filter(d => d.isDirectory())
+            .map(d => path.join(SKILLS_DIR, d.name, 'SKILL.md'))
+            .filter(p => fs.existsSync(p));
+        assert.ok(skillFiles.length > 0, 'skills/ should contain at least one SKILL.md');
+        for (const p of skillFiles) {
+            const { meta } = parseFrontmatter(fs.readFileSync(p, 'utf8'));
+            assert.ok(meta, `${p} should have parseable frontmatter`);
+            assert.ok(meta.name, `${p} should have a name field`);
+            assert.ok(meta.description, `${p} should have a description field`);
+        }
+
+        const commandFiles = fs.readdirSync(COMMANDS_DIR).filter(f => f.endsWith('.md'));
+        assert.ok(commandFiles.length > 0, 'commands/ should contain at least one .md command');
     });
 });
 
