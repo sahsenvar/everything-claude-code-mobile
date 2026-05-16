@@ -10,7 +10,7 @@ description: SQLDelight patterns for Kotlin Multiplatform - .sq file definitions
 ```kotlin
 // build.gradle.kts (shared module)
 plugins {
-    id("app.cash.sqldelight") version "2.0.2"
+    alias(libs.plugins.sqldelight)
 }
 
 sqldelight {
@@ -27,14 +27,14 @@ sqldelight {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("app.cash.sqldelight:coroutines-extensions:2.0.2")
-            implementation("app.cash.sqldelight:primitive-adapters:2.0.2")
+            implementation(libs.sqldelight.coroutines.extensions)
+            implementation(libs.sqldelight.primitive.adapters)
         }
         androidMain.dependencies {
-            implementation("app.cash.sqldelight:android-driver:2.0.2")
+            implementation(libs.sqldelight.android.driver)
         }
         iosMain.dependencies {
-            implementation("app.cash.sqldelight:native-driver:2.0.2")
+            implementation(libs.sqldelight.native.driver)
         }
     }
 }
