@@ -31,3 +31,12 @@ describe('post-tool-use.js dispatcher', () => {
     assert.doesNotThrow(() => runHook('post-tool-use.js', event));
   });
 });
+
+describe('evaluate-ios-session.js', () => {
+  it('runs and exits 0 in a non-iOS dir', () => {
+    const out = execFileSync('node', [path.join(HOOKS, 'evaluate-ios-session.js')], {
+      cwd: require('os').tmpdir(), encoding: 'utf8', timeout: 15000
+    });
+    assert.match(out, /iOS|skip|Swift/i);
+  });
+});
