@@ -1,13 +1,13 @@
 {
   "name": "everything-claude-code-mobile",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Complete Claude Code configs for mobile development - Android, iOS, and Kotlin Multiplatform",
   "author": {
-    "name": "ahmed3elshaer",
-    "url": "https://github.com/ahmed3elshaer"
+    "name": "sahsenvar",
+    "url": "https://github.com/sahsenvar"
   },
-  "homepage": "https://github.com/ahmed3elshaer/everything-claude-code-mobile",
-  "repository": "https://github.com/ahmed3elshaer/everything-claude-code-mobile",
+  "homepage": "https://github.com/sahsenvar/everything-claude-code-mobile",
+  "repository": "https://github.com/sahsenvar/everything-claude-code-mobile",
   "license": "MIT",
   "keywords": [
     "mobile",
