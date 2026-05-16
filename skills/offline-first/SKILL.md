@@ -5,6 +5,11 @@ description: Offline-first architecture patterns - NetworkBoundResource, sync st
 
 # Offline-First Architecture Patterns
 
+> **Shared persistence in this project = SQLDelight.** The `dao` in the examples
+> below is backed by SQLDelight (KMP shared `commonMain`), not Room or a generic
+> store — see the `sqldelight-patterns` skill for the concrete setup. Keep
+> offline-first cache/sync logic on SQLDelight for shared code.
+
 ## NetworkBoundResource Pattern
 
 The core abstraction that coordinates cache and network data sources.
