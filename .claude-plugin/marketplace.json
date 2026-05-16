@@ -10,7 +10,7 @@
         {
             "name": "everything-claude-code-mobile",
             "description": "Complete Claude Code configs for mobile development - Android, iOS, and Kotlin Multiplatform",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "source": "github",
                 "repo": "sahsenvar/everything-claude-code-mobile"
