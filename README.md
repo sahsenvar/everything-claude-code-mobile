@@ -2,8 +2,11 @@
 
 # Everything Claude Code Mobile
 
-[![Stars](https://img.shields.io/github/stars/ahmed3elshaer/everything-claude-code-mobile?style=flat)](https://github.com/ahmed3elshaer/everything-claude-code-mobile/stargazers)
+> **Describe a mobile feature in one sentence. Get it planned, built, tested, reviewed, and verified — across Android, iOS, and Kotlin Multiplatform.**
+
+[![Stars](https://img.shields.io/github/stars/sahsenvar/everything-claude-code-mobile?style=flat)](https://github.com/sahsenvar/everything-claude-code-mobile/stargazers)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://claude.com/claude-code)
 ![Kotlin](https://img.shields.io/badge/-Kotlin-7F52FF?logo=kotlin&logoColor=white)
 ![Compose](https://img.shields.io/badge/-Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white)
 ![Android](https://img.shields.io/badge/-Android-3DDC84?logo=android&logoColor=white)
@@ -11,380 +14,204 @@
 ![SwiftUI](https://img.shields.io/badge/-SwiftUI-0D96F6?logo=swift&logoColor=white)
 ![KMP](https://img.shields.io/badge/-Kotlin%20Multiplatform-7F52FF?logo=kotlin&logoColor=white)
 
----
-
-**The complete collection of Claude Code configs for mobile development.**
-
-27 agents, 48 skills, 35 commands, and 3 MCP servers for **Android**, **iOS**, and **Kotlin Multiplatform** development. Includes an end-to-end feature builder that plans, implements, tests, and reviews entire features automatically.
-
-> Mobile companion to [everything-claude-code](https://github.com/ahmed3elshaer/everything-claude-code)
+> 🍴 **This is a personal fork** of [`ahmed3elshaer/everything-claude-code-mobile`](https://github.com/ahmed3elshaer/everything-claude-code-mobile), hardened for real-world installs and tuned to an opinionated KMP stack. See [Credits & upstream](#-credits--upstream) and [`FORK-NOTES.md`](FORK-NOTES.md).
 
 ---
 
-## Quick Start
+## ✨ What is this?
 
-### Step 1: Install the Plugin
+**Everything Claude Code Mobile** is a [Claude Code](https://claude.com/claude-code) plugin that turns Claude into a full mobile engineering team.
+
+Instead of pasting code back and forth, you give it a feature ("Add offline-first article reading with sync"), and an orchestrated pipeline of **specialized agents** plans the architecture, implements each layer, writes the tests, fixes the build, runs quality and security review, and verifies reliability — for **Android, iOS, and Kotlin Multiplatform**. While you work, it quietly **learns the patterns of your codebase** and gets better at matching your conventions.
+
+It ships with **27 agents**, **46 skills**, **35 slash commands**, **3 background hook stages**, and **3 project-memory MCP servers** — all auto-discovered by Claude Code on install.
+
+### Who is it for?
+
+Mobile developers and teams using **Android (Kotlin/Compose)**, **iOS (Swift/SwiftUI)**, or **Kotlin Multiplatform** who want Claude Code to deliver structured, tested, review-passed features instead of loose snippets — with architectural guardrails enforced automatically.
+
+---
+
+## 🚀 Why use it?
+
+- **One command, a whole feature.** `/feature-build "<description>"` runs a 6-phase pipeline end to end — planning → implementation → tests → build-fix → quality gate → verification.
+- **Specialists, not a generalist.** 27 agents each own one job (network layer, SwiftUI, Gradle errors, security review, TDD…), so every layer is handled by something that knows that layer deeply.
+- **Cross-platform by default.** The same feature request is realized idiomatically on Android, iOS, and shared KMP code.
+- **Opinionated, consistent stack.** Koin · Ktor · MVI · SQLDelight for shared code; Jetpack Compose + native SwiftUI for UI. Skills steer agents to *your* stack, not a grab-bag of alternatives.
+- **It learns your codebase.** A continuous-learning system captures recurring patterns as reusable "instincts" so later work matches your conventions automatically.
+- **Guardrails are enforced, not suggested.** 80% test coverage, TDD, no hardcoded secrets, structured concurrency, null-safety, and code-size limits are applied on every change.
+- **Zero manual wiring.** Agents, skills, and commands are auto-discovered — install and go.
+
+---
+
+## ⚡ Quick start
+
+> **Requirements:** [Claude Code](https://claude.com/claude-code) and **Node.js ≥ 18**.
 
 ```bash
-# Add marketplace
-/plugin marketplace add ahmed3elshaer/everything-claude-code-mobile
+# 1. Add the marketplace (this fork)
+/plugin marketplace add sahsenvar/everything-claude-code-mobile
 
-# Install plugin
-/plugin install everything-claude-code-mobile@ahmed3elshaer
+# 2. Install the plugin
+/plugin install everything-claude-code-mobile@sahsenvar
 ```
 
-### Step 2: Install Rules (Required)
+```bash
+# 3. Install the MCP server dependencies — REQUIRED
+#    The 3 project-memory MCP servers won't start until this is run.
+#    Run it from the installed plugin directory:
+cd ~/.claude/plugins/cache/*/everything-claude-code-mobile/*/   # installed plugin path
+npm run mcp:install
+```
 
 ```bash
-# Clone the repo first
-git clone https://github.com/ahmed3elshaer/everything-claude-code-mobile.git
-
-# Copy rules (applies to all projects)
+# 4. (Optional) Install the bundled discipline rules into your global Claude config
+git clone https://github.com/sahsenvar/everything-claude-code-mobile.git
 cp -r everything-claude-code-mobile/rules/* ~/.claude/rules/
 ```
 
-### Step 3: Start Using
-
-```bash
-# Build a complete feature end-to-end
-/feature-build Add user authentication with biometrics
-
-# Build Android project
-/android-build
-
-# Fix Gradle issues
-/gradle-fix
-
-# TDD workflow
-/mobile-tdd
-
-# Check all commands
-/plugin list everything-claude-code-mobile@ahmed3elshaer
-```
-
----
-
-## Feature Builder Pipeline
-
-The standout capability of this plugin. `/feature-build` orchestrates specialized agents through 7 phases to build a complete feature from a single description:
-
-```bash
-/feature-build Add push notification support
-/feature-build --platform=android Implement offline caching
-/feature-build --platform=kmp Add offline sync for user data
-```
-
-### Phases
-
-| # | Phase | What Happens |
-|---|-------|--------------|
-| 1 | **Plan** | `feature-planner` + `mobile-architect` analyze your project and create a structured implementation plan |
-| 2 | **Implement** | 5 layer agents run in dependency order (architecture -> network + UI -> data -> wiring) |
-| 3 | **Test** | `unit-test-writer` + `ui-test-writer` create tests with 80% coverage target |
-| 4 | **Build Fix** | Compile and fix errors iteratively |
-| 5 | **Quality Gate** | Parallel code review + security audit + performance review |
-| 6 | **Verify** | `mobile-verifier` runs pass@k metrics and coverage sign-off |
-| 7 | **Learn** | Pattern extraction and instinct updates |
-
-### Implementation Agent DAG
+Then just ask:
 
 ```
-Phase 1:  architecture-impl    (domain models, interfaces, DI skeleton)
-               |
-          +----+----+
-Phase 2:  network   ui-impl    (API clients, DTOs / Compose screens, components)
-          -impl      |
-            |        |
-Phase 3:  data-impl  |         (repositories, local DB, caching)
-               |     |
-          +----+----+
-Phase 4:  wiring-impl          (DI bindings, navigation, feature flags)
+/feature-build "Add a favorites screen with offline persistence and pull-to-refresh"
 ```
 
-### Feature Commands
-
-| Command | Description |
-|---------|-------------|
-| `/feature-build` | End-to-end feature construction (all 7 phases) |
-| `/feature-plan` | Plan architecture, files, deps, and test strategy |
-| `/feature-implement` | Execute plan with parallel layer agents |
-| `/feature-test` | Create unit, UI, and E2E tests |
-| `/feature-build-fix` | Compile and fix build errors |
-| `/feature-quality-gate` | Code review + security + performance audit |
-| `/feature-status` | Show current feature build progress |
-| `/feature-learn` | Extract patterns from completed feature |
+> 💡 **Upgrading?** `claude plugin update` is a no-op if the version string is unchanged — bump the version or reinstall to pick up manifest changes. If MCP tools don't appear, re-run step 3 (`npm run mcp:install`) from the installed plugin directory.
 
 ---
 
-## What's Inside
+## 🛠️ The Feature Builder pipeline
+
+`/feature-build "<description>"` orchestrates **six structured phases**. Each phase hands off to the next; the implementation phase fans out across a 5-agent DAG.
 
 ```
-everything-claude-code-mobile/
-├── agents/           # 27 specialized agents
-│   ├── Code Review:    android-reviewer, ios-reviewer
-│   ├── Build:          android-build-resolver, xcode-build-resolver, gradle-expert
-│   ├── Architecture:   mobile-architect, kmp-architect, feature-planner, shared-model-designer
-│   ├── UI/Design:      compose-guide, swiftui-guide, m3-expressive-guide, liquid-glass-guide
-│   ├── Implementation: architecture-impl, network-impl, data-impl, ui-impl, wiring-impl
-│   ├── Testing:        mobile-tdd-guide, mobile-e2e-runner, unit-test-writer, ui-test-writer, mobile-verifier
-│   └── Learning:       mobile-pattern-extractor, mobile-compactor
-│
-├── skills/           # 48 platform skills
-│   ├── Android:      android-patterns, jetpack-compose, navigation-compose, coroutines-patterns,
-│   │                 koin-patterns, room-patterns, gradle-patterns, m3-expressive
-│   ├── iOS:          swift-patterns, swiftui-patterns, combine-framework, core-data,
-│   │                 ios-testing, liquid-glass
-│   ├── KMP:          kmp-di, kmp-navigation, kmp-networking, kmp-repositories,
-│   │                 expect-actual, shared-coroutines, shared-models, sqldelight-patterns
-│   ├── Architecture: mvi-architecture, feature-builder, mobile-testing, mobile-security
-│   ├── Features:     deep-linking, feature-flags, offline-first, pagination-patterns,
-│   │                 push-notifications, image-loading, localization-patterns,
-│   │                 analytics-patterns, app-lifecycle, accessibility-patterns, ktor-patterns
-│   └── Learning:     continuous-learning, continuous-learning-v2, mobile-instinct-v1,
-│                     mobile-instinct-v2, mobile-checkpoint, mobile-compaction, mobile-memory
-│
-├── commands/         # 35 slash commands
-├── rules/            # 5 always-enforced rules
-├── contexts/         # 7 dynamic context files
-├── hooks/            # Auto-triggered checks and pattern extraction
-└── mcp-servers/      # 3 persistent memory servers
+1. Planning            feature-planner + mobile-architect
+                        → architecture, modules, task DAG
+2. Implementation      architecture-impl → (network-impl ∥ ui-impl)
+                        → data-impl → wiring-impl   (dependency-ordered DAG)
+3. Testing             unit-test-writer + ui-test-writer + mobile-e2e-runner
+4. Build & Fix         compile/test loop until green
+5. Quality Gate        android-reviewer ∥ ios-reviewer ∥
+                        mobile-security-reviewer ∥ mobile-performance-reviewer
+6. Verification        mobile-verifier (pass@k reliability metrics)
 ```
 
----
-
-## Tech Stack
-
-| Category | Technologies |
-|----------|--------------|
-| **Language** | Kotlin, Swift |
-| **UI** | Jetpack Compose, SwiftUI, UIKit (legacy) |
-| **Design Systems** | Material 3 Expressive, Apple Liquid Glass |
-| **Architecture** | MVI, Clean Architecture, MVVM |
-| **DI** | Koin (Android), Environment Objects (iOS), Koin Multiplatform (KMP) |
-| **Networking** | Ktor Client (Android/KMP), URLSession + async/await (iOS) |
-| **Database** | Room (Android), CoreData/SwiftData (iOS), SQLDelight (KMP) |
-| **Async** | Kotlin Coroutines + Flow, Swift Concurrency (async/await) |
-| **Testing** | JUnit5, Mockk, Turbine, Kotest, Espresso (Android); XCTest (iOS) |
-| **Build** | Gradle (KTS), Xcode, SPM, CocoaPods |
+You can also drive phases individually: `/feature-plan`, `/feature-implement`, `/feature-test`, `/feature-build-fix`, `/feature-quality-gate`, `/feature-verify`, `/feature-status`.
 
 ---
 
-## Commands
+## 📦 What's inside
 
-### Build & Fix
+### 27 agents
 
-| Command | Description |
-|---------|-------------|
-| `/android-build` | Build Android project, fix errors, generate APK/AAB |
-| `/ios-build` | Build iOS project with Xcode |
-| `/kmp-build` | Build Kotlin Multiplatform project |
-| `/gradle-fix` | Resolve Gradle sync/dependency issues |
-| `/kmp-dependency-fix` | Fix KMP dependency conflicts |
-| `/compose-preview` | Verify Compose previews compile |
-| `/lint-android` | Run Detekt, ktlint, Android Lint |
-| `/swiftlint` | Run SwiftLint for iOS code style |
-| `/release-build` | Build release/production versions |
-| `/mobile-build` | Generic mobile build command |
+| Group | Agents | What they do |
+|---|---|---|
+| **Code review (4)** | `android-reviewer`, `ios-reviewer`, `mobile-security-reviewer`, `mobile-performance-reviewer` | Platform and cross-cutting quality, security, and performance review |
+| **Build & compile (3)** | `android-build-resolver`, `xcode-build-resolver`, `gradle-expert` | Diagnose and fix build/Gradle/Xcode errors |
+| **Architecture & planning (4)** | `mobile-architect`, `kmp-architect`, `feature-planner`, `shared-model-designer` | Plan features and design cross-platform structure |
+| **UI & design (4)** | `compose-guide`, `swiftui-guide`, `m3-expressive-guide`, `liquid-glass-guide` | Idiomatic Compose / SwiftUI / Material 3 / Liquid Glass |
+| **Implementation (5)** | `architecture-impl`, `network-impl`, `data-impl`, `ui-impl`, `wiring-impl` | The dependency-ordered feature-build DAG |
+| **Testing (5)** | `mobile-tdd-guide`, `mobile-e2e-runner`, `unit-test-writer`, `ui-test-writer`, `mobile-verifier` | TDD workflow, E2E, and reliability verification |
+| **Learning & meta (2)** | `mobile-pattern-extractor`, `mobile-compactor` | Capture reusable patterns; optimize context |
 
-### Testing
+### 46 skills
 
-| Command | Description |
-|---------|-------------|
-| `/mobile-tdd` | TDD workflow (RED -> GREEN -> REFACTOR) |
-| `/android-test` | Run Android unit and instrumentation tests |
-| `/ios-test` | Run iOS unit and UI tests |
-| `/kmp-test` | Run KMP shared tests |
-| `/compose-test` | Run Compose UI tests with Espresso |
-| `/mobile-test` | Run mobile tests (unit + UI) |
-| `/mobile-verify` | Verify implementation against specs |
+Reusable, stack-specific playbooks the agents draw on, spanning:
 
-### Planning & Review
+- **Android** — `jetpack-compose`, `navigation-compose`, `koin-patterns`, `coroutines-patterns`, `room-patterns`, `gradle-patterns`, `m3-expressive`, `android-patterns`
+- **iOS** — `swiftui-patterns`, `swift-patterns`, `combine-framework`, `core-data`, `ios-testing`, `liquid-glass`
+- **Kotlin Multiplatform** — `kmp-di`, `kmp-networking`, `kmp-navigation`, `kmp-repositories`, `shared-models`, `shared-coroutines`, `expect-actual`, `sqldelight-patterns`
+- **Architecture & quality** — `mvi-architecture`, `feature-builder`, `mobile-testing`, `mobile-verification`, `mobile-security`, `ci-cd-patterns`
+- **Feature recipes** — `offline-first`, `pagination-patterns`, `deep-linking`, `push-notifications`, `feature-flags`, `image-loading`, `localization-patterns`, `analytics-patterns`, `accessibility-patterns`, `app-lifecycle`, `ktor-patterns`
+- **Continuous learning** — `continuous-learning`(+`-v2`), `mobile-instinct-v1`/`-v2`, `mobile-checkpoint`, `mobile-compaction`, `mobile-memory`
 
-| Command | Description |
-|---------|-------------|
-| `/mobile-plan` | Plan mobile feature implementation |
-| `/android-review` | Android-specific code review |
-| `/platform-info` | Show detected platform (Android/iOS/KMP) |
+### 35 commands
 
-### Learning
-
-| Command | Description |
-|---------|-------------|
-| `/learn` | Extract patterns from current session |
-| `/instinct-status` | View learned mobile patterns |
-| `/instinct-export` | Export patterns for sharing |
-| `/instinct-import` | Import patterns from external sources |
-| `/evolve` | Cluster instincts into reusable skills |
+| Group | Examples |
+|---|---|
+| **Feature pipeline (9)** | `/feature-build`, `/feature-plan`, `/feature-implement`, `/feature-test`, `/feature-build-fix`, `/feature-quality-gate`, `/feature-status`, `/feature-verify`, `/feature-learn` |
+| **Build & compile (10)** | `/android-build`, `/ios-build`, `/kmp-build`, `/gradle-fix`, `/kmp-dependency-fix`, `/compose-preview`, `/lint-android`, `/swiftlint`, `/release-build`, `/mobile-build` |
+| **Testing (7)** | `/mobile-tdd`, `/android-test`, `/ios-test`, `/kmp-test`, `/compose-test`, `/mobile-test`, `/mobile-verify` |
+| **Planning & review (3)** | `/mobile-plan`, `/android-review`, `/platform-info` |
+| **Learning & instincts (6)** | `/learn`, `/instinct-status`, `/instinct-export`, `/instinct-import`, `/evolve`, `/mobile-checkpoint` |
 
 ---
 
-## Agents (27)
+## 🧠 How the continuous-learning system works
 
-### Code Review
+The plugin gets smarter the more you use it on a codebase — automatically, with no extra commands:
 
-| Agent | When to Use |
-|-------|-------------|
-| `android-reviewer` | Kotlin/Compose code review, Google best practices |
-| `ios-reviewer` | Swift/SwiftUI code review, Apple best practices |
-| `mobile-security-reviewer` | Security audit: secrets, encryption, network, storage |
-| `mobile-performance-reviewer` | Startup time, memory, rendering, battery |
-
-### Build & Compilation
-
-| Agent | When to Use |
-|-------|-------------|
-| `android-build-resolver` | Gradle sync, AGP, R8/ProGuard, dependency conflicts |
-| `xcode-build-resolver` | Xcode, SPM, code signing, CocoaPods, simulator errors |
-| `gradle-expert` | Gradle optimization, Version Catalogs, convention plugins |
-
-### Architecture & Planning
-
-| Agent | When to Use |
-|-------|-------------|
-| `mobile-architect` | MVI, Clean Architecture, modularization |
-| `kmp-architect` | KMP shared modules, expect/actual, cross-platform DI |
-| `feature-planner` | Feature planning with architecture review |
-| `shared-model-designer` | Cross-platform data models with @ObjCName |
-
-### UI & Design
-
-| Agent | When to Use |
-|-------|-------------|
-| `compose-guide` | Compose state, recomposition, theming, animations |
-| `swiftui-guide` | SwiftUI state, view optimization, theming |
-| `m3-expressive-guide` | Material 3 Expressive: spring animations, shape morphing, 28 components |
-| `liquid-glass-guide` | Apple Liquid Glass for SwiftUI (iOS 26+) |
-
-### Implementation (Layer Agents)
-
-These agents are orchestrated by `/feature-implement` and run in dependency order:
-
-| Agent | Layer | What It Creates |
-|-------|-------|----------------|
-| `architecture-impl` | Domain | Use cases, domain models, repository interfaces, DI modules |
-| `network-impl` | Network | API clients, DTOs, request/response models (Ktor / URLSession) |
-| `data-impl` | Data | Repositories, local storage, caching (Room / CoreData / SQLDelight) |
-| `ui-impl` | Presentation | Screens, ViewModels, state management (Compose / SwiftUI) |
-| `wiring-impl` | Integration | Navigation, DI registration, manifest entries, feature flags |
-
-### Testing
-
-| Agent | When to Use |
-|-------|-------------|
-| `mobile-tdd-guide` | TDD enforcement (mandatory for new features) |
-| `mobile-e2e-runner` | Espresso E2E tests, UI automation |
-| `unit-test-writer` | ViewModel, UseCase, Repository tests (JUnit5 + Mockk + Turbine) |
-| `ui-test-writer` | Compose UI tests, SwiftUI tests, accessibility testing |
-| `mobile-verifier` | Automated verification loops with pass@k metrics |
-
-### Learning & Quality
-
-| Agent | When to Use |
-|-------|-------------|
-| `mobile-pattern-extractor` | Analyze codebase for reusable patterns |
-| `mobile-compactor` | Strategic context compaction for token optimization |
+1. **Capture** — a `PostToolUse` hook fires whenever Claude writes or edits code.
+2. **Extract** — the read-only `mobile-pattern-extractor` agent analyzes the change and surfaces recurring patterns (MVI shapes, DI wiring, Compose idioms…).
+3. **Persist** — the hook chain (`post-tool-use.js → extract-pattern.js → instincts.js`) stores them as "instincts" under `~/.claude/instincts/`. *(The agent itself never writes — persistence is intentionally delegated to the hook, by design.)*
+4. **Observe** — the `mobile-instinct-v2` / `continuous-learning` skills detect patterns recurring across sessions.
+5. **Reuse & evolve** — `/instinct-status` lists what's been learned, `/instinct-export` / `/instinct-import` share it across machines, and `/evolve` clusters mature instincts into reusable skills.
 
 ---
 
-## Rules Enforced
+## 🔌 Hooks & MCP servers
 
-These rules are always active and apply to all projects:
+**Background hooks** (3 event stages, 9 script handlers) — registered via `hooks/hooks.json`, path-portable through `${CLAUDE_PLUGIN_ROOT}`:
 
-- **80% test coverage** minimum on all code
-- **TDD workflow** mandatory (RED -> GREEN -> REFACTOR)
-- **No hardcoded secrets** (use BuildConfig/local.properties on Android, Keychain on iOS)
-- **Immutability first** (`val`/`let`, immutable collections, data classes with `copy()`)
-- **Null safety** (safe calls, Elvis operator, minimize `!!`/force unwrap)
-- **Compose/SwiftUI best practices** (state hoisting, no side effects in composition/body)
-- **HTTPS only** with certificate pinning in production
-- **Structured concurrency** (Coroutines/async-await, no GlobalScope/DispatchQueue.main.async)
-- **Files < 400 lines, functions < 50 lines, nesting < 4 levels**
+| Event | Handlers | Purpose |
+|---|---|---|
+| `Stop` | `evaluate-session`, `v2-analysis`, `evaluate-ios-session`, `session-checkpoint-prompt` | End-of-session pattern extraction & checkpoint prompts |
+| `PreCompact` | `pre-compact`, `pre-compact-ios` | Preserve critical context before token compaction |
+| `PostToolUse` | `post-tool-use` (Write/Edit), `track-build` (Bash), `track-focus` (Read) | Instinct capture, build tracking, focus tracking |
 
----
+**Project-memory MCP servers** (3) — persistent per-project context, configured in `.mcp.json`:
 
-## MCP Servers
-
-Three persistent memory servers maintain context across sessions:
-
-| Server | Purpose |
-|--------|---------|
+| Server | Remembers |
+|---|---|
 | `mobile-memory` | Project structure, dependencies, architecture, test state |
 | `ios-memory` | iOS project state, SwiftUI components, XCTest patterns |
-| `kmp-context` | KMP module structure, expect/actual patterns, shared models |
+| `kmp-context` | KMP module structure, expect/actual, shared models |
+
+> ⚠️ MCP servers need their dependencies installed once after plugin install: `npm run mcp:install` (see [Quick start](#-quick-start) step 3).
 
 ---
 
-## Contexts
+## 🎯 Opinionated stack
 
-Dynamic context files are injected based on your project type:
+Skills and agents are tuned to a single, consistent stack so generated code is coherent rather than a mix of alternatives:
 
-| Context | When Active |
-|---------|-------------|
-| `android-dev` | Android project detected (Kotlin, Gradle, Compose) |
-| `ios-dev` | iOS project detected (Swift, Xcode, SwiftUI) |
-| `kmp-dev` | KMP project detected (shared module, multiplatform) |
-| `compose-dev` | Jetpack Compose code being edited |
-| `swiftui-dev` | SwiftUI code being edited |
-| `uikit-dev` | UIKit (legacy) code being edited |
-| `mobile-memory-context` | Persistent memory system active |
-
----
-
-## Hooks
-
-Automated checks trigger on specific events:
-
-### Android Hooks
-- **Anti-pattern detection**: Flags `GlobalScope`, `!!`, `runBlocking` in Kotlin files
-- **TDD reminders**: Prompts for test file when creating ViewModels
-- **Pattern extraction**: Learns from sessions at exit
-
-### iOS Hooks
-- **Anti-pattern detection**: Flags force unwrap `!`, `DispatchQueue.main.async` in Swift files
-- **Preview reminders**: Prompts for `#Preview` when editing `ContentView.swift`
-- **Dependency reminders**: Prompts `pod install` after Podfile changes, package resolution after `Package.swift` changes
+| Concern | Choice |
+|---|---|
+| Dependency injection | **Koin** (Koin Multiplatform for KMP) |
+| Networking | **Ktor** (platform engines: OkHttp / Darwin) |
+| Architecture | **MVI** unidirectional data flow |
+| Shared persistence | **SQLDelight** |
+| UI | **Jetpack Compose** + native **SwiftUI** |
+| Build | Gradle **version catalogs** (`libs.*`) — no inline version pins |
 
 ---
 
-## Continuous Learning
+## 🛡️ Rules enforced on every change
 
-The plugin learns from your development patterns and improves over time:
-
-```bash
-/learn                  # Extract patterns from current session
-/instinct-status        # View learned mobile patterns
-/instinct-export        # Export patterns for sharing
-/instinct-import        # Import patterns from external sources
-/evolve                 # Cluster instincts into reusable skills
-```
-
-Patterns learned include:
-- Compose recomposition optimizations
-- ViewModel/Repository patterns
-- Koin module organization
-- Ktor client configuration
-- SwiftUI state management idioms
-- KMP expect/actual patterns
-- Test patterns per framework
+≥ 80% test coverage · test-driven development · no hardcoded secrets · immutability-first & null-safety · structured concurrency · Compose/SwiftUI best practices · HTTPS + certificate pinning · code-size limits. Install them globally via [Quick start](#-quick-start) step 4.
 
 ---
 
-## Contributing
+## 🩹 Troubleshooting
 
-Contributions welcome! Areas needed:
-
-- Additional platform-specific patterns
-- CI/CD configurations (Fastlane, GitHub Actions)
-- App Store/Play Store guidelines
-- Accessibility testing commands
-- Device farm integrations
+| Symptom | Fix |
+|---|---|
+| MCP tools (mobile-memory, etc.) don't appear | Run `npm run mcp:install` from the installed plugin directory, then restart Claude Code |
+| `claude plugin update` did nothing | It no-ops on an unchanged version string — reinstall, or wait for a version bump |
+| Agents/skills not loading | They are auto-discovered from `agents/`, `skills/`, `commands/`; do not add `agents`/`skills`/`commands` keys to `plugin.json` (that breaks discovery) |
 
 ---
 
-## License
+## 🤝 Contributing
 
-MIT - Use freely, modify as needed, contribute back if you can.
+Issues and PRs are welcome on [this fork](https://github.com/sahsenvar/everything-claude-code-mobile). Good areas: new platform skills, additional feature recipes, agent prompt tuning, and instinct-system improvements. Changes are tracked in [`FORK-NOTES.md`](FORK-NOTES.md).
 
 ---
 
-**Built for mobile developers who ship quality apps with Claude Code.**
+## 🙏 Credits & upstream
+
+This project is a personal fork of **[`ahmed3elshaer/everything-claude-code-mobile`](https://github.com/ahmed3elshaer/everything-claude-code-mobile)** by Ahmed El-Shaer — full credit for the original concept and foundation goes upstream. This fork adds portability fixes (path-portable hooks, working MCP wiring, schema-correct manifest, auto-discovery), a stack-alignment content pass, and a library-version policy. The divergence is documented in [`FORK-NOTES.md`](FORK-NOTES.md).
+
+## 📄 License
+
+[MIT](LICENSE). Original work © its respective authors; fork modifications contributed under the same MIT license.

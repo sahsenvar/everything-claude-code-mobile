@@ -2,8 +2,11 @@
 
 # Everything Claude Code Mobile
 
-[![Stars](https://img.shields.io/github/stars/ahmed3elshaer/everything-claude-code-mobile?style=flat)](https://github.com/ahmed3elshaer/everything-claude-code-mobile/stargazers)
+> **Bir mobil özelliği tek cümleyle tarif et. Planlanmış, kodlanmış, test edilmiş, gözden geçirilmiş ve doğrulanmış halini al — Android, iOS ve Kotlin Multiplatform üzerinde.**
+
+[![Stars](https://img.shields.io/github/stars/sahsenvar/everything-claude-code-mobile?style=flat)](https://github.com/sahsenvar/everything-claude-code-mobile/stargazers)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](https://claude.com/claude-code)
 ![Kotlin](https://img.shields.io/badge/-Kotlin-7F52FF?logo=kotlin&logoColor=white)
 ![Compose](https://img.shields.io/badge/-Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white)
 ![Android](https://img.shields.io/badge/-Android-3DDC84?logo=android&logoColor=white)
@@ -11,380 +14,204 @@
 ![SwiftUI](https://img.shields.io/badge/-SwiftUI-0D96F6?logo=swift&logoColor=white)
 ![KMP](https://img.shields.io/badge/-Kotlin%20Multiplatform-7F52FF?logo=kotlin&logoColor=white)
 
----
-
-**Mobil geliştirme için eksiksiz Claude Code yapılandırma koleksiyonu.**
-
-**Android**, **iOS** ve **Kotlin Multiplatform** geliştirme için 27 ajan, 48 skill, 35 komut ve 3 MCP sunucusu. Tüm bir özelliği otomatik olarak planlayan, geliştiren, test eden ve gözden geçiren uçtan uca bir özellik (feature) inşa edici içerir.
-
-> [everything-claude-code](https://github.com/ahmed3elshaer/everything-claude-code) projesinin mobil tamamlayıcısıdır.
+> 🍴 **Bu bir kişisel fork'tur** — kaynağı: [`ahmed3elshaer/everything-claude-code-mobile`](https://github.com/ahmed3elshaer/everything-claude-code-mobile). Gerçek kurulumlar için sağlamlaştırıldı ve belirli bir KMP yığınına göre ayarlandı. Bkz. [Teşekkürler & kaynak](#-teşekkürler--kaynak) ve [`FORK-NOTES.md`](FORK-NOTES.md).
 
 ---
 
-## Hızlı Başlangıç
+## ✨ Bu nedir?
 
-### Adım 1: Plugin'i Kur
+**Everything Claude Code Mobile**, [Claude Code](https://claude.com/claude-code)'u eksiksiz bir mobil mühendislik ekibine dönüştüren bir eklentidir.
+
+Kod parçalarını ileri geri kopyalamak yerine, ona bir özellik tarif edersin ("Senkronizasyonlu, çevrimdışı makale okuma ekle") ve **uzmanlaşmış agent'lardan** oluşan orkestralı bir hat: mimariyi planlar, her katmanı kodlar, testleri yazar, build'i düzeltir, kalite ve güvenlik incelemesini yapar ve güvenilirliği doğrular — **Android, iOS ve Kotlin Multiplatform** için. Sen çalışırken arka planda **kod tabanının desenlerini öğrenir** ve senin konvansiyonlarına uymakta giderek ustalaşır.
+
+İçinde **27 agent**, **46 skill**, **35 slash komut**, **3 arka plan hook aşaması** ve **3 proje-hafıza MCP sunucusu** gelir — hepsi kurulumda Claude Code tarafından otomatik keşfedilir.
+
+### Kimler için?
+
+**Android (Kotlin/Compose)**, **iOS (Swift/SwiftUI)** veya **Kotlin Multiplatform** kullanan; Claude Code'dan gevşek kod parçaları yerine yapısal, test edilmiş, incelemeden geçmiş özellikler isteyen — ve mimari korkulukların otomatik uygulanmasını isteyen mobil geliştiriciler ve ekipler.
+
+---
+
+## 🚀 Neden kullanmalı?
+
+- **Tek komut, koca bir özellik.** `/feature-build "<açıklama>"` 6 fazlı bir hattı uçtan uca çalıştırır — planlama → implementasyon → testler → build-fix → kalite kapısı → doğrulama.
+- **Genelci değil, uzman.** 27 agent'ın her biri tek bir işin sahibi (network katmanı, SwiftUI, Gradle hataları, güvenlik incelemesi, TDD…), böylece her katmanı o katmanı derinlemesine bilen bir şey üstlenir.
+- **Varsayılan olarak çapraz platform.** Aynı özellik isteği Android, iOS ve paylaşılan KMP kodunda idiomatik biçimde gerçeklenir.
+- **Görüşlü, tutarlı yığın.** Paylaşılan kod için Koin · Ktor · MVI · SQLDelight; UI için Jetpack Compose + native SwiftUI. Skill'ler agent'ları rastgele alternatiflere değil *senin* yığınına yönlendirir.
+- **Kod tabanını öğrenir.** Bir continuous-learning sistemi tekrarlayan desenleri yeniden kullanılabilir "instinct"ler olarak yakalar; sonraki işler senin konvansiyonlarına otomatik uyar.
+- **Korkuluklar önerilmez, uygulanır.** %80 test kapsamı, TDD, sabit-kodlanmış sır yok, yapılandırılmış eşzamanlılık, null-güvenliği ve kod-boyutu sınırları her değişiklikte uygulanır.
+- **Sıfır manuel bağlama.** Agent, skill ve komutlar otomatik keşfedilir — kur ve başla.
+
+---
+
+## ⚡ Hızlı başlangıç
+
+> **Gereksinimler:** [Claude Code](https://claude.com/claude-code) ve **Node.js ≥ 18**.
 
 ```bash
-# Marketplace ekle
-/plugin marketplace add ahmed3elshaer/everything-claude-code-mobile
+# 1. Marketplace'i ekle (bu fork)
+/plugin marketplace add sahsenvar/everything-claude-code-mobile
 
-# Plugin'i kur
-/plugin install everything-claude-code-mobile@ahmed3elshaer
+# 2. Eklentiyi kur
+/plugin install everything-claude-code-mobile@sahsenvar
 ```
 
-### Adım 2: Kuralları Kur (Zorunlu)
+```bash
+# 3. MCP sunucu bağımlılıklarını kur — ZORUNLU
+#    Bu çalıştırılmadan 3 proje-hafıza MCP sunucusu başlamaz.
+#    Kurulu eklenti dizininden çalıştır:
+cd ~/.claude/plugins/cache/*/everything-claude-code-mobile/*/   # kurulu eklenti yolu
+npm run mcp:install
+```
 
 ```bash
-# Önce repoyu klonla
-git clone https://github.com/ahmed3elshaer/everything-claude-code-mobile.git
-
-# Kuralları kopyala (tüm projelere uygulanır)
+# 4. (İsteğe bağlı) Pakete dahil disiplin kurallarını global Claude config'ine kur
+git clone https://github.com/sahsenvar/everything-claude-code-mobile.git
 cp -r everything-claude-code-mobile/rules/* ~/.claude/rules/
 ```
 
-### Adım 3: Kullanmaya Başla
-
-```bash
-# Tam bir özelliği uçtan uca inşa et
-/feature-build Biyometrik ile kullanıcı kimlik doğrulaması ekle
-
-# Android projesini derle
-/android-build
-
-# Gradle sorunlarını düzelt
-/gradle-fix
-
-# TDD akışı
-/mobile-tdd
-
-# Tüm komutları görüntüle
-/plugin list everything-claude-code-mobile@ahmed3elshaer
-```
-
----
-
-## Feature Builder Pipeline (Özellik İnşa Hattı)
-
-Bu plugin'in öne çıkan yeteneği. `/feature-build`, tek bir açıklamadan tam bir özellik inşa etmek için özelleşmiş ajanları 7 fazda orkestre eder:
-
-```bash
-/feature-build Push bildirimi desteği ekle
-/feature-build --platform=android Çevrimdışı önbellekleme uygula
-/feature-build --platform=kmp Kullanıcı verisi için çevrimdışı senkronizasyon ekle
-```
-
-### Fazlar
-
-| # | Faz | Ne Olur |
-|---|-------|--------------|
-| 1 | **Plan** | `feature-planner` + `mobile-architect` projeni analiz eder ve yapılandırılmış bir uygulama planı oluşturur |
-| 2 | **Implement (Uygula)** | 5 katman ajanı bağımlılık sırasıyla çalışır (architecture -> network + UI -> data -> wiring) |
-| 3 | **Test** | `unit-test-writer` + `ui-test-writer` %80 kapsama hedefiyle testler oluşturur |
-| 4 | **Build Fix (Derleme Düzeltme)** | Derler ve hataları iteratif olarak düzeltir |
-| 5 | **Quality Gate (Kalite Kapısı)** | Paralel kod incelemesi + güvenlik denetimi + performans incelemesi |
-| 6 | **Verify (Doğrula)** | `mobile-verifier` pass@k metriklerini çalıştırır ve kapsama onayı verir |
-| 7 | **Learn (Öğren)** | Desen çıkarımı ve içgüdü (instinct) güncellemeleri |
-
-### Uygulama Ajanı DAG'ı
+Sonra sadece iste:
 
 ```
-Faz 1:    architecture-impl    (domain modelleri, arayüzler, DI iskeleti)
-               |
-          +----+----+
-Faz 2:    network   ui-impl    (API istemcileri, DTO'lar / Compose ekranları, bileşenler)
-          -impl      |
-            |        |
-Faz 3:    data-impl  |         (repository'ler, yerel DB, önbellekleme)
-               |     |
-          +----+----+
-Faz 4:    wiring-impl          (DI bağlamaları, navigasyon, feature flag'ler)
+/feature-build "Çevrimdışı kalıcılık ve aşağı-çekip-yenileme ile bir favoriler ekranı ekle"
 ```
 
-### Feature Komutları
-
-| Komut | Açıklama |
-|---------|-------------|
-| `/feature-build` | Uçtan uca özellik inşası (7 fazın tamamı) |
-| `/feature-plan` | Mimari, dosya, bağımlılık ve test stratejisini planla |
-| `/feature-implement` | Planı paralel katman ajanlarıyla çalıştır |
-| `/feature-test` | Birim, UI ve E2E testleri oluştur |
-| `/feature-build-fix` | Derle ve derleme hatalarını düzelt |
-| `/feature-quality-gate` | Kod incelemesi + güvenlik + performans denetimi |
-| `/feature-status` | Mevcut özellik inşa ilerlemesini göster |
-| `/feature-learn` | Tamamlanan özellikten desenleri çıkar |
+> 💡 **Güncelliyor musun?** Sürüm dizesi değişmediyse `claude plugin update` hiçbir şey yapmaz — sürümü artır ya da yeniden kur. MCP araçları görünmüyorsa 3. adımı (`npm run mcp:install`) kurulu eklenti dizininden tekrar çalıştır.
 
 ---
 
-## İçeride Neler Var
+## 🛠️ Feature Builder hattı
+
+`/feature-build "<açıklama>"` **altı yapısal fazı** orkestre eder. Her faz bir sonrakine devreder; implementasyon fazı 5 agent'lık bir DAG'a yayılır.
 
 ```
-everything-claude-code-mobile/
-├── agents/           # 27 özelleşmiş ajan
-│   ├── Kod İncelemesi: android-reviewer, ios-reviewer
-│   ├── Derleme:        android-build-resolver, xcode-build-resolver, gradle-expert
-│   ├── Mimari:         mobile-architect, kmp-architect, feature-planner, shared-model-designer
-│   ├── UI/Tasarım:     compose-guide, swiftui-guide, m3-expressive-guide, liquid-glass-guide
-│   ├── Uygulama:       architecture-impl, network-impl, data-impl, ui-impl, wiring-impl
-│   ├── Test:           mobile-tdd-guide, mobile-e2e-runner, unit-test-writer, ui-test-writer, mobile-verifier
-│   └── Öğrenme:        mobile-pattern-extractor, mobile-compactor
-│
-├── skills/           # 48 platform skill'i
-│   ├── Android:      android-patterns, jetpack-compose, navigation-compose, coroutines-patterns,
-│   │                 koin-patterns, room-patterns, gradle-patterns, m3-expressive
-│   ├── iOS:          swift-patterns, swiftui-patterns, combine-framework, core-data,
-│   │                 ios-testing, liquid-glass
-│   ├── KMP:          kmp-di, kmp-navigation, kmp-networking, kmp-repositories,
-│   │                 expect-actual, shared-coroutines, shared-models, sqldelight-patterns
-│   ├── Mimari:       mvi-architecture, feature-builder, mobile-testing, mobile-security
-│   ├── Özellikler:   deep-linking, feature-flags, offline-first, pagination-patterns,
-│   │                 push-notifications, image-loading, localization-patterns,
-│   │                 analytics-patterns, app-lifecycle, accessibility-patterns, ktor-patterns
-│   └── Öğrenme:      continuous-learning, continuous-learning-v2, mobile-instinct-v1,
-│                     mobile-instinct-v2, mobile-checkpoint, mobile-compaction, mobile-memory
-│
-├── commands/         # 35 slash komutu
-├── rules/            # Her zaman uygulanan 5 kural
-├── contexts/         # 7 dinamik bağlam dosyası
-├── hooks/            # Otomatik tetiklenen kontroller ve desen çıkarımı
-└── mcp-servers/      # 3 kalıcı bellek sunucusu
+1. Planlama           feature-planner + mobile-architect
+                       → mimari, modüller, görev DAG'ı
+2. Implementasyon     architecture-impl → (network-impl ∥ ui-impl)
+                       → data-impl → wiring-impl   (bağımlılık sıralı DAG)
+3. Test               unit-test-writer + ui-test-writer + mobile-e2e-runner
+4. Build & Fix        yeşil olana dek derle/test döngüsü
+5. Kalite Kapısı      android-reviewer ∥ ios-reviewer ∥
+                       mobile-security-reviewer ∥ mobile-performance-reviewer
+6. Doğrulama          mobile-verifier (pass@k güvenilirlik metrikleri)
 ```
 
----
-
-## Teknoloji Yığını (Tech Stack)
-
-| Kategori | Teknolojiler |
-|----------|--------------|
-| **Dil** | Kotlin, Swift |
-| **UI** | Jetpack Compose, SwiftUI, UIKit (eski) |
-| **Tasarım Sistemleri** | Material 3 Expressive, Apple Liquid Glass |
-| **Mimari** | MVI, Clean Architecture, MVVM |
-| **DI** | Koin (Android), Environment Objects (iOS), Koin Multiplatform (KMP) |
-| **Ağ İletişimi** | Ktor Client (Android/KMP), URLSession + async/await (iOS) |
-| **Veritabanı** | Room (Android), CoreData/SwiftData (iOS), SQLDelight (KMP) |
-| **Asenkron** | Kotlin Coroutines + Flow, Swift Concurrency (async/await) |
-| **Test** | JUnit5, Mockk, Turbine, Kotest, Espresso (Android); XCTest (iOS) |
-| **Derleme** | Gradle (KTS), Xcode, SPM, CocoaPods |
+Fazları tek tek de sürebilirsin: `/feature-plan`, `/feature-implement`, `/feature-test`, `/feature-build-fix`, `/feature-quality-gate`, `/feature-verify`, `/feature-status`.
 
 ---
 
-## Komutlar
+## 📦 İçinde ne var
 
-### Derleme ve Düzeltme
+### 27 agent
 
-| Komut | Açıklama |
-|---------|-------------|
-| `/android-build` | Android projesini derle, hataları düzelt, APK/AAB üret |
-| `/ios-build` | iOS projesini Xcode ile derle |
-| `/kmp-build` | Kotlin Multiplatform projesini derle |
-| `/gradle-fix` | Gradle senkronizasyon/bağımlılık sorunlarını çöz |
-| `/kmp-dependency-fix` | KMP bağımlılık çakışmalarını düzelt |
-| `/compose-preview` | Compose preview'larının derlendiğini doğrula |
-| `/lint-android` | Detekt, ktlint, Android Lint çalıştır |
-| `/swiftlint` | iOS kod stili için SwiftLint çalıştır |
-| `/release-build` | Release/production sürümlerini derle |
-| `/mobile-build` | Genel mobil derleme komutu |
+| Grup | Agent'lar | Ne yapar |
+|---|---|---|
+| **Kod incelemesi (4)** | `android-reviewer`, `ios-reviewer`, `mobile-security-reviewer`, `mobile-performance-reviewer` | Platform ve kesişen kalite, güvenlik, performans incelemesi |
+| **Build & derleme (3)** | `android-build-resolver`, `xcode-build-resolver`, `gradle-expert` | Build/Gradle/Xcode hatalarını teşhis ve düzeltme |
+| **Mimari & planlama (4)** | `mobile-architect`, `kmp-architect`, `feature-planner`, `shared-model-designer` | Özellik planlama ve çapraz platform tasarım |
+| **UI & tasarım (4)** | `compose-guide`, `swiftui-guide`, `m3-expressive-guide`, `liquid-glass-guide` | İdiomatik Compose / SwiftUI / Material 3 / Liquid Glass |
+| **Implementasyon (5)** | `architecture-impl`, `network-impl`, `data-impl`, `ui-impl`, `wiring-impl` | Bağımlılık sıralı feature-build DAG'ı |
+| **Test (5)** | `mobile-tdd-guide`, `mobile-e2e-runner`, `unit-test-writer`, `ui-test-writer`, `mobile-verifier` | TDD akışı, E2E ve güvenilirlik doğrulaması |
+| **Öğrenme & meta (2)** | `mobile-pattern-extractor`, `mobile-compactor` | Yeniden kullanılabilir desen yakalama; bağlam optimizasyonu |
 
-### Test
+### 46 skill
 
-| Komut | Açıklama |
-|---------|-------------|
-| `/mobile-tdd` | TDD akışı (RED -> GREEN -> REFACTOR) |
-| `/android-test` | Android birim ve enstrümantasyon testlerini çalıştır |
-| `/ios-test` | iOS birim ve UI testlerini çalıştır |
-| `/kmp-test` | KMP paylaşımlı testlerini çalıştır |
-| `/compose-test` | Compose UI testlerini Espresso ile çalıştır |
-| `/mobile-test` | Mobil testleri çalıştır (birim + UI) |
-| `/mobile-verify` | Uygulamayı spesifikasyonlara karşı doğrula |
+Agent'ların başvurduğu, yeniden kullanılabilir, yığına özel rehberler:
 
-### Planlama ve İnceleme
+- **Android** — `jetpack-compose`, `navigation-compose`, `koin-patterns`, `coroutines-patterns`, `room-patterns`, `gradle-patterns`, `m3-expressive`, `android-patterns`
+- **iOS** — `swiftui-patterns`, `swift-patterns`, `combine-framework`, `core-data`, `ios-testing`, `liquid-glass`
+- **Kotlin Multiplatform** — `kmp-di`, `kmp-networking`, `kmp-navigation`, `kmp-repositories`, `shared-models`, `shared-coroutines`, `expect-actual`, `sqldelight-patterns`
+- **Mimari & kalite** — `mvi-architecture`, `feature-builder`, `mobile-testing`, `mobile-verification`, `mobile-security`, `ci-cd-patterns`
+- **Özellik reçeteleri** — `offline-first`, `pagination-patterns`, `deep-linking`, `push-notifications`, `feature-flags`, `image-loading`, `localization-patterns`, `analytics-patterns`, `accessibility-patterns`, `app-lifecycle`, `ktor-patterns`
+- **Continuous learning** — `continuous-learning`(+`-v2`), `mobile-instinct-v1`/`-v2`, `mobile-checkpoint`, `mobile-compaction`, `mobile-memory`
 
-| Komut | Açıklama |
-|---------|-------------|
-| `/mobile-plan` | Mobil özellik uygulamasını planla |
-| `/android-review` | Android'e özel kod incelemesi |
-| `/platform-info` | Tespit edilen platformu göster (Android/iOS/KMP) |
+### 35 komut
 
-### Öğrenme
-
-| Komut | Açıklama |
-|---------|-------------|
-| `/learn` | Mevcut oturumdan desenleri çıkar |
-| `/instinct-status` | Öğrenilen mobil desenleri görüntüle |
-| `/instinct-export` | Desenleri paylaşım için dışa aktar |
-| `/instinct-import` | Dış kaynaklardan desenleri içe aktar |
-| `/evolve` | İçgüdüleri yeniden kullanılabilir skill'lere kümele |
+| Grup | Örnekler |
+|---|---|
+| **Özellik hattı (9)** | `/feature-build`, `/feature-plan`, `/feature-implement`, `/feature-test`, `/feature-build-fix`, `/feature-quality-gate`, `/feature-status`, `/feature-verify`, `/feature-learn` |
+| **Build & derleme (10)** | `/android-build`, `/ios-build`, `/kmp-build`, `/gradle-fix`, `/kmp-dependency-fix`, `/compose-preview`, `/lint-android`, `/swiftlint`, `/release-build`, `/mobile-build` |
+| **Test (7)** | `/mobile-tdd`, `/android-test`, `/ios-test`, `/kmp-test`, `/compose-test`, `/mobile-test`, `/mobile-verify` |
+| **Planlama & inceleme (3)** | `/mobile-plan`, `/android-review`, `/platform-info` |
+| **Öğrenme & instinct (6)** | `/learn`, `/instinct-status`, `/instinct-export`, `/instinct-import`, `/evolve`, `/mobile-checkpoint` |
 
 ---
 
-## Ajanlar (27)
+## 🧠 Continuous-learning sistemi nasıl çalışır
 
-### Kod İncelemesi
+Eklenti, bir kod tabanında kullandıkça daha akıllı hale gelir — otomatik, ek komut gerekmeden:
 
-| Ajan | Ne Zaman Kullanılır |
-|-------|-------------|
-| `android-reviewer` | Kotlin/Compose kod incelemesi, Google en iyi pratikleri |
-| `ios-reviewer` | Swift/SwiftUI kod incelemesi, Apple en iyi pratikleri |
-| `mobile-security-reviewer` | Güvenlik denetimi: gizli anahtarlar, şifreleme, ağ, depolama |
-| `mobile-performance-reviewer` | Başlangıç süresi, bellek, render, pil |
-
-### Derleme ve Compile
-
-| Ajan | Ne Zaman Kullanılır |
-|-------|-------------|
-| `android-build-resolver` | Gradle senkronizasyon, AGP, R8/ProGuard, bağımlılık çakışmaları |
-| `xcode-build-resolver` | Xcode, SPM, kod imzalama, CocoaPods, simülatör hataları |
-| `gradle-expert` | Gradle optimizasyonu, Version Catalog'lar, convention plugin'leri |
-
-### Mimari ve Planlama
-
-| Ajan | Ne Zaman Kullanılır |
-|-------|-------------|
-| `mobile-architect` | MVI, Clean Architecture, modülerleştirme |
-| `kmp-architect` | KMP paylaşımlı modüller, expect/actual, platformlar arası DI |
-| `feature-planner` | Mimari incelemeli özellik planlaması |
-| `shared-model-designer` | @ObjCName ile platformlar arası veri modelleri |
-
-### UI ve Tasarım
-
-| Ajan | Ne Zaman Kullanılır |
-|-------|-------------|
-| `compose-guide` | Compose state, recomposition, temalama, animasyonlar |
-| `swiftui-guide` | SwiftUI state, view optimizasyonu, temalama |
-| `m3-expressive-guide` | Material 3 Expressive: spring animasyonları, şekil dönüşümü, 28 bileşen |
-| `liquid-glass-guide` | SwiftUI için Apple Liquid Glass (iOS 26+) |
-
-### Uygulama (Katman Ajanları)
-
-Bu ajanlar `/feature-implement` tarafından orkestre edilir ve bağımlılık sırasıyla çalışır:
-
-| Ajan | Katman | Ne Oluşturur |
-|-------|-------|----------------|
-| `architecture-impl` | Domain | Use case'ler, domain modelleri, repository arayüzleri, DI modülleri |
-| `network-impl` | Ağ | API istemcileri, DTO'lar, istek/yanıt modelleri (Ktor / URLSession) |
-| `data-impl` | Veri | Repository'ler, yerel depolama, önbellekleme (Room / CoreData / SQLDelight) |
-| `ui-impl` | Sunum | Ekranlar, ViewModel'ler, state yönetimi (Compose / SwiftUI) |
-| `wiring-impl` | Entegrasyon | Navigasyon, DI kaydı, manifest girişleri, feature flag'ler |
-
-### Test
-
-| Ajan | Ne Zaman Kullanılır |
-|-------|-------------|
-| `mobile-tdd-guide` | TDD zorlaması (yeni özellikler için zorunlu) |
-| `mobile-e2e-runner` | Espresso E2E testleri, UI otomasyonu |
-| `unit-test-writer` | ViewModel, UseCase, Repository testleri (JUnit5 + Mockk + Turbine) |
-| `ui-test-writer` | Compose UI testleri, SwiftUI testleri, erişilebilirlik testi |
-| `mobile-verifier` | pass@k metrikleriyle otomatik doğrulama döngüleri |
-
-### Öğrenme ve Kalite
-
-| Ajan | Ne Zaman Kullanılır |
-|-------|-------------|
-| `mobile-pattern-extractor` | Kod tabanını yeniden kullanılabilir desenler için analiz et |
-| `mobile-compactor` | Token optimizasyonu için stratejik bağlam sıkıştırma |
+1. **Yakala** — Claude her kod yazdığında/düzenlediğinde bir `PostToolUse` hook tetiklenir.
+2. **Çıkar** — salt-okunur `mobile-pattern-extractor` agent'ı değişikliği analiz eder ve tekrarlayan desenleri (MVI şekilleri, DI bağlama, Compose idiom'ları…) yüzeye çıkarır.
+3. **Kalıcılaştır** — hook zinciri (`post-tool-use.js → extract-pattern.js → instincts.js`) bunları `~/.claude/instincts/` altında "instinct" olarak saklar. *(Agent'ın kendisi asla yazmaz — kalıcılık tasarımca hook'a delege edilmiştir.)*
+4. **Gözlemle** — `mobile-instinct-v2` / `continuous-learning` skill'leri oturumlar boyu tekrarlayan desenleri tespit eder.
+5. **Yeniden kullan & evrimleştir** — `/instinct-status` öğrenilenleri listeler, `/instinct-export` / `/instinct-import` makineler arası paylaşır, `/evolve` olgunlaşmış instinct'leri yeniden kullanılabilir skill'lere kümeler.
 
 ---
 
-## Uygulanan Kurallar
+## 🔌 Hook'lar & MCP sunucuları
 
-Bu kurallar her zaman aktiftir ve tüm projelere uygulanır:
+**Arka plan hook'ları** (3 olay aşaması, 9 script handler) — `hooks/hooks.json` ile kayıtlı, `${CLAUDE_PLUGIN_ROOT}` ile yola-taşınabilir:
 
-- Tüm kodda en az **%80 test kapsamı**
-- **TDD akışı** zorunlu (RED -> GREEN -> REFACTOR)
-- **Hardcode edilmiş gizli anahtar yok** (Android'de BuildConfig/local.properties, iOS'ta Keychain kullan)
-- **Önce değişmezlik (immutability)** (`val`/`let`, değişmez koleksiyonlar, `copy()`'li data class'lar)
-- **Null güvenliği** (güvenli çağrılar, Elvis operatörü, `!!`/force unwrap minimumda)
-- **Compose/SwiftUI en iyi pratikleri** (state hoisting, composition/body içinde yan etki yok)
-- Production'da sertifika pinleme ile **yalnızca HTTPS**
-- **Yapısal eşzamanlılık** (Coroutines/async-await, GlobalScope/DispatchQueue.main.async yok)
-- **Dosyalar < 400 satır, fonksiyonlar < 50 satır, iç içe geçme < 4 seviye**
+| Olay | Handler'lar | Amaç |
+|---|---|---|
+| `Stop` | `evaluate-session`, `v2-analysis`, `evaluate-ios-session`, `session-checkpoint-prompt` | Oturum sonu desen çıkarımı & checkpoint istemleri |
+| `PreCompact` | `pre-compact`, `pre-compact-ios` | Token compaction öncesi kritik bağlamı koru |
+| `PostToolUse` | `post-tool-use` (Write/Edit), `track-build` (Bash), `track-focus` (Read) | Instinct yakalama, build izleme, odak izleme |
 
----
+**Proje-hafıza MCP sunucuları** (3) — proje başına kalıcı bağlam, `.mcp.json` ile yapılandırılır:
 
-## MCP Sunucuları
-
-Üç kalıcı bellek sunucusu oturumlar arası bağlamı korur:
-
-| Sunucu | Amaç |
-|--------|---------|
+| Sunucu | Hatırladığı |
+|---|---|
 | `mobile-memory` | Proje yapısı, bağımlılıklar, mimari, test durumu |
 | `ios-memory` | iOS proje durumu, SwiftUI bileşenleri, XCTest desenleri |
-| `kmp-context` | KMP modül yapısı, expect/actual desenleri, paylaşımlı modeller |
+| `kmp-context` | KMP modül yapısı, expect/actual, paylaşılan modeller |
+
+> ⚠️ MCP sunucuları, eklenti kurulumundan sonra bir kez bağımlılık kurulumu ister: `npm run mcp:install` (bkz. [Hızlı başlangıç](#-hızlı-başlangıç) 3. adım).
 
 ---
 
-## Bağlamlar (Contexts)
+## 🎯 Görüşlü yığın
 
-Dinamik bağlam dosyaları proje tipine göre enjekte edilir:
+Skill ve agent'lar tek, tutarlı bir yığına göre ayarlanmıştır; böylece üretilen kod alternatiflerin karışımı değil tutarlıdır:
 
-| Bağlam | Ne Zaman Aktif |
-|---------|-------------|
-| `android-dev` | Android projesi tespit edildi (Kotlin, Gradle, Compose) |
-| `ios-dev` | iOS projesi tespit edildi (Swift, Xcode, SwiftUI) |
-| `kmp-dev` | KMP projesi tespit edildi (paylaşımlı modül, multiplatform) |
-| `compose-dev` | Jetpack Compose kodu düzenleniyor |
-| `swiftui-dev` | SwiftUI kodu düzenleniyor |
-| `uikit-dev` | UIKit (eski) kodu düzenleniyor |
-| `mobile-memory-context` | Kalıcı bellek sistemi aktif |
-
----
-
-## Hook'lar
-
-Belirli olaylarda otomatik kontroller tetiklenir:
-
-### Android Hook'ları
-- **Anti-pattern tespiti**: Kotlin dosyalarında `GlobalScope`, `!!`, `runBlocking` işaretler
-- **TDD hatırlatmaları**: ViewModel oluştururken test dosyası ister
-- **Desen çıkarımı**: Çıkışta oturumlardan öğrenir
-
-### iOS Hook'ları
-- **Anti-pattern tespiti**: Swift dosyalarında force unwrap `!`, `DispatchQueue.main.async` işaretler
-- **Preview hatırlatmaları**: `ContentView.swift` düzenlenirken `#Preview` ister
-- **Bağımlılık hatırlatmaları**: Podfile değişikliğinden sonra `pod install`, `Package.swift` değişikliğinden sonra paket çözümlemesi ister
+| Konu | Seçim |
+|---|---|
+| Bağımlılık enjeksiyonu | **Koin** (KMP için Koin Multiplatform) |
+| Ağ | **Ktor** (platform engine'leri: OkHttp / Darwin) |
+| Mimari | **MVI** tek-yönlü veri akışı |
+| Paylaşılan kalıcılık | **SQLDelight** |
+| UI | **Jetpack Compose** + native **SwiftUI** |
+| Build | Gradle **version catalog** (`libs.*`) — satır içi sürüm sabitleme yok |
 
 ---
 
-## Sürekli Öğrenme
+## 🛡️ Her değişiklikte uygulanan kurallar
 
-Plugin geliştirme desenlerinizden öğrenir ve zamanla gelişir:
-
-```bash
-/learn                  # Mevcut oturumdan desenleri çıkar
-/instinct-status        # Öğrenilen mobil desenleri görüntüle
-/instinct-export        # Desenleri paylaşım için dışa aktar
-/instinct-import        # Dış kaynaklardan desenleri içe aktar
-/evolve                 # İçgüdüleri yeniden kullanılabilir skill'lere kümele
-```
-
-Öğrenilen desenler şunları içerir:
-- Compose recomposition optimizasyonları
-- ViewModel/Repository desenleri
-- Koin modül organizasyonu
-- Ktor istemci yapılandırması
-- SwiftUI state yönetimi deyimleri
-- KMP expect/actual desenleri
-- Framework başına test desenleri
+≥ %80 test kapsamı · test-güdümlü geliştirme · sabit-kodlanmış sır yok · önce-değişmezlik & null-güvenliği · yapılandırılmış eşzamanlılık · Compose/SwiftUI en iyi pratikleri · HTTPS + sertifika pinning · kod-boyutu sınırları. Global kurulum için [Hızlı başlangıç](#-hızlı-başlangıç) 4. adım.
 
 ---
 
-## Katkıda Bulunma
+## 🩹 Sorun giderme
 
-Katkılar memnuniyetle karşılanır! İhtiyaç duyulan alanlar:
-
-- Ek platforma özel desenler
-- CI/CD yapılandırmaları (Fastlane, GitHub Actions)
-- App Store/Play Store yönergeleri
-- Erişilebilirlik test komutları
-- Cihaz çiftliği (device farm) entegrasyonları
+| Belirti | Çözüm |
+|---|---|
+| MCP araçları (mobile-memory vb.) görünmüyor | Kurulu eklenti dizininden `npm run mcp:install` çalıştır, sonra Claude Code'u yeniden başlat |
+| `claude plugin update` hiçbir şey yapmadı | Sürüm dizesi değişmemişse no-op olur — yeniden kur ya da sürüm artışını bekle |
+| Agent/skill yüklenmiyor | `agents/`, `skills/`, `commands/` dizinlerinden otomatik keşfedilir; `plugin.json`'a `agents`/`skills`/`commands` anahtarları **ekleme** (keşfi bozar) |
 
 ---
 
-## Lisans
+## 🤝 Katkı
 
-MIT - Özgürce kullanın, ihtiyaca göre değiştirin, mümkünse geri katkıda bulunun.
+[Bu fork'ta](https://github.com/sahsenvar/everything-claude-code-mobile) issue ve PR'lara açığız. İyi alanlar: yeni platform skill'leri, ek özellik reçeteleri, agent prompt ayarı ve instinct-sistemi iyileştirmeleri. Değişiklikler [`FORK-NOTES.md`](FORK-NOTES.md)'de izlenir.
 
 ---
 
-**Claude Code ile kaliteli uygulamalar yayınlayan mobil geliştiriciler için inşa edildi.**
+## 🙏 Teşekkürler & kaynak
+
+Bu proje, Ahmed El-Shaer'in **[`ahmed3elshaer/everything-claude-code-mobile`](https://github.com/ahmed3elshaer/everything-claude-code-mobile)** projesinin kişisel bir fork'udur — özgün fikir ve temel için tüm kredi yukarı akıma (upstream) aittir. Bu fork; taşınabilirlik düzeltmeleri (yola-taşınabilir hook'lar, çalışan MCP bağlama, şema-uyumlu manifest, otomatik keşif), bir yığın-hizalama içerik geçişi ve bir kütüphane-sürüm politikası ekler. Ayrışma [`FORK-NOTES.md`](FORK-NOTES.md)'de belgelenir.
+
+## 📄 Lisans
+
+[MIT](LICENSE). Özgün eser © ilgili sahiplerine aittir; fork değişiklikleri aynı MIT lisansı altında katkılanmıştır.
