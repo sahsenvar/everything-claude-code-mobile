@@ -48,6 +48,14 @@ Personal fork of [ahmed3elshaer/everything-claude-code-mobile](https://github.co
   (Ktor `Logger` SAM lambda) was descoped: Ktor's `Logger` is not a Kotlin
   `fun interface`, so `Logger { … }` would not compile. `npm test` green.
   Library-version policy is Plan 2C.
+- Plan 2C: library-version policy. `gradle-patterns` now states the policy
+  (skill examples reference the project's version catalog via `libs.*`; never
+  inline pins; its `[versions]` block is an illustrative snapshot). Inline
+  pinned coordinates were converted to `libs.*` accessors in the owner
+  core-stack skills: `kmp-networking` (Ktor), `sqldelight-patterns`,
+  `navigation-compose`, `shared-coroutines`, `shared-models`. Non-stack skills,
+  all agents/commands, the pedagogical catalog blocks, and prose mentions were
+  left as-is (out of scope by design). `npm test` green.
 
 ## Pulling upstream updates
 ```bash
