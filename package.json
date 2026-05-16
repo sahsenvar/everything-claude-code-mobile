@@ -11,7 +11,8 @@
     "verify": "node tests/verify.js",
     "lint:json": "node scripts/lint-json.js",
     "lint:scripts": "node --check scripts/hooks/*.js scripts/lib/*.js",
-    "pretest": "npm run lint:scripts"
+    "pretest": "npm run lint:scripts",
+    "mcp:install": "node scripts/install-mcp-deps.js"
   },
   "engines": {
     "node": ">=18.0.0"
