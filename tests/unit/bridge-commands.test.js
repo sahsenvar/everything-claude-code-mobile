@@ -36,3 +36,12 @@ describe('Feature B — github-pr-feature', () => {
       'references PR read/update');
   });
 });
+
+describe('Feature B — figma-ui-impl', () => {
+  it('exists, valid, soft-detect, references Figma + ui-impl', () => {
+    const c = read('figma-ui-impl.md');
+    assertCommon(c, 'figma-ui-impl.md');
+    assert.ok(c.includes('get_design_context'), 'references get_design_context');
+    assert.ok(c.includes('ui-impl'), 'hands off to ui-impl agent');
+  });
+});
