@@ -1,0 +1,66 @@
+const { describe, it } = require('node:test');
+const assert = require('node:assert');
+const fs = require('fs');
+const path = require('path');
+
+const ROOT = path.join(__dirname, '..', '..');
+const DISC = 'ecc-operating-discipline';
+
+describe('Feature G — accessibility-reviewer agent', () => {
+  it('exists, valid read-only frontmatter, discipline ref, a11y scope + skill ref', () => {
+    const p = path.join(ROOT, 'agents', 'accessibility-reviewer.md');
+    assert.ok(fs.existsSync(p), 'agent file must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    const m = c.match(/^---\n([\s\S]*?)\n---\n/);
+    assert.ok(m, 'frontmatter block');
+    assert.match(m[1], /name:\s*accessibility-reviewer/);
+    assert.match(m[1], /description:\s*\S/);
+    assert.match(m[1], /model:\s*opus/);
+    assert.ok(!/"Write"|"Edit"/.test(m[1]), 'read-only: no Write/Edit tool');
+    assert.ok(c.includes(DISC), 'operating-discipline ref');
+    assert.ok(/contentDescription/.test(c), 'Compose a11y scope');
+    assert.ok(/accessibilityLabel/.test(c), 'SwiftUI a11y scope');
+    assert.ok(/48dp|44pt/.test(c), 'touch-target scope');
+    assert.ok(c.includes('accessibility-patterns'), 'references the sibling skill');
+  });
+});
+
+describe('Feature G — localization-reviewer agent', () => {
+  it('exists, valid read-only frontmatter, discipline ref, i18n scope + skill ref', () => {
+    const p = path.join(ROOT, 'agents', 'localization-reviewer.md');
+    assert.ok(fs.existsSync(p), 'agent file must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    const m = c.match(/^---\n([\s\S]*?)\n---\n/);
+    assert.ok(m, 'frontmatter block');
+    assert.match(m[1], /name:\s*localization-reviewer/);
+    assert.match(m[1], /model:\s*opus/);
+    assert.ok(!/"Write"|"Edit"/.test(m[1]), 'read-only: no Write/Edit tool');
+    assert.ok(c.includes(DISC), 'operating-discipline ref');
+    assert.ok(/stringResource|R\.string/.test(c), 'Android i18n scope');
+    assert.ok(/NSLocalizedString|String\(localized/.test(c), 'iOS i18n scope');
+    assert.ok(/RTL|start.*end|plural/i.test(c), 'RTL/plurals scope');
+    assert.ok(c.includes('localization-patterns'), 'references the sibling skill');
+  });
+});
+
+describe('Feature G — accessibility-review command', () => {
+  it('exists, valid frontmatter, discipline ref, invokes the agent', () => {
+    const p = path.join(ROOT, 'commands', 'accessibility-review.md');
+    assert.ok(fs.existsSync(p), 'command must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    assert.match(c, /^---\n[\s\S]*?description:\s*\S[\s\S]*?\n---\n/, 'frontmatter');
+    assert.ok(c.includes(DISC), 'discipline ref');
+    assert.ok(c.includes('accessibility-reviewer'), 'invokes the agent');
+  });
+});
+
+describe('Feature G — localization-review command', () => {
+  it('exists, valid frontmatter, discipline ref, invokes the agent', () => {
+    const p = path.join(ROOT, 'commands', 'localization-review.md');
+    assert.ok(fs.existsSync(p), 'command must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    assert.match(c, /^---\n[\s\S]*?description:\s*\S[\s\S]*?\n---\n/, 'frontmatter');
+    assert.ok(c.includes(DISC), 'discipline ref');
+    assert.ok(c.includes('localization-reviewer'), 'invokes the agent');
+  });
+});

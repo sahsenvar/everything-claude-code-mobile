@@ -140,6 +140,39 @@ function decayUnusedInstincts(daysThreshold = 30) {
     return data;
 }
 
+function _instinctList(data) {
+  return data && Array.isArray(data.instincts) ? data.instincts : [];
+}
+function _isStale(i, staleDays) {
+  if (!i || !i.lastUsed) return false;
+  const t = Date.parse(i.lastUsed);
+  if (Number.isNaN(t)) return false;
+  return Date.now() - t > staleDays * 86400000;
+}
+function _isLowConfidence(i, maxConfidence) {
+  return i && typeof i.confidence === 'number' && i.confidence < maxConfidence;
+}
+
+const DEFAULT_MAX_CONFIDENCE = 0.3;
+const DEFAULT_STALE_DAYS = 60;
+
+function selectPrunable(data, { maxConfidence = DEFAULT_MAX_CONFIDENCE, staleDays = DEFAULT_STALE_DAYS } = {}) {
+  return _instinctList(data).filter(
+    (i) => _isLowConfidence(i, maxConfidence) || _isStale(i, staleDays)
+  );
+}
+
+function instinctHealth(data) {
+  const list = _instinctList(data);
+  return {
+    total: list.length,
+    confident: list.filter((i) => i && typeof i.confidence === 'number' && i.confidence >= 0.7).length,
+    stale: list.filter((i) => _isStale(i, DEFAULT_STALE_DAYS)).length,
+    lowConfidence: list.filter((i) => _isLowConfidence(i, DEFAULT_MAX_CONFIDENCE)).length,
+    prunable: selectPrunable(data).length,
+  };
+}
+
 module.exports = {
     loadInstincts,
     saveInstincts,
@@ -148,5 +181,7 @@ module.exports = {
     getHighConfidenceInstincts,
     exportInstincts,
     importInstincts,
-    decayUnusedInstincts
+    decayUnusedInstincts,
+    instinctHealth,
+    selectPrunable
 };

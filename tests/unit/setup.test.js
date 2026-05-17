@@ -141,7 +141,7 @@ describe('scripts/lib/setup.js — doctorReport', () => {
     const proj = tmpdir('ecc-docp-');
     const f = path.join(tmpdir('ecc-docpl-'), 'installed_plugins.json');
     fs.writeFileSync(f, JSON.stringify({ plugins: {} }));
-    const r = setup.doctorReport({ pluginRoot: root, projectDir: proj, pluginsFile: f });
+    const r = setup.doctorReport({ pluginRoot: root, projectDir: proj, pluginsFile: f, instinctsFile: '/no/such/ecc-test-instincts.json' });
     assert.deepStrictEqual(Object.keys(r.mcp).sort(), [...setup.SERVERS].sort());
     assert.strictEqual(r.mcp['mobile-memory'].depsInstalled, false);
     assert.strictEqual(r.platform, 'unknown');
@@ -165,7 +165,7 @@ describe('scripts/lib/setup.js — doctorReport', () => {
     }));
     const f = path.join(tmpdir('ecc-doc2pl-'), 'p.json');
     fs.writeFileSync(f, JSON.stringify({ plugins: {} }));
-    const r = setup.doctorReport({ pluginRoot: root, projectDir: root, pluginsFile: f });
+    const r = setup.doctorReport({ pluginRoot: root, projectDir: root, pluginsFile: f, instinctsFile: '/no/such/ecc-test-instincts.json' });
     assert.strictEqual(r.ok, true);
   });
 });

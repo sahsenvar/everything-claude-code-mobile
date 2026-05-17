@@ -2,7 +2,7 @@
 
 # Commands reference
 
-**42 slash commands.** Type them in Claude Code. These are the things *you* invoke; they orchestrate the [agents](AGENTS.md) and [skills](SKILLS.md) behind the scenes.
+**46 slash commands.** Type them in Claude Code. These are the things *you* invoke; they orchestrate the [agents](AGENTS.md) and [skills](SKILLS.md) behind the scenes.
 
 ---
 
@@ -11,7 +11,7 @@
 | Command | What it does | Example |
 |---|---|---|
 | `/ecc-setup` | One-command setup: installs the 3 bundled MCP server deps, verifies health. Idempotent. | `/ecc-setup` |
-| `/ecc-doctor` | Read-only health report: MCP deps, platform, discipline skill, SessionStart hook, detected companion plugins. | `/ecc-doctor` |
+| `/ecc-doctor` | Read-only health report: MCP deps, platform, discipline skill, SessionStart hook, detected companion plugins. Includes instinct health. | `/ecc-doctor` |
 
 ---
 
@@ -55,6 +55,7 @@ The headline workflow. `/feature-build` runs all 6 phases; the rest let you driv
 | `/crash-triage` | Triages a pasted stacktrace/logcat/Crashlytics/Sentry crash into root cause + minimal fix via `mobile-crash-resolver`. | `/crash-triage` |
 | `/android-ci [generate\|fix]` | Generates or repairs the GitHub Actions Android CI workflow via `android-ci-generator`. | `/android-ci` |
 | `/kmp-dependency-fix` | Resolves KMP dependency conflicts/version mismatches. | `/kmp-dependency-fix` |
+| `/dependency-upgrade [--check]` | Upgrades AGP/Kotlin/Gradle/SwiftPM/KMP versions (coordinated sets + migration) via `mobile-dependency-upgrader`; `--check` is read-only. | `/dependency-upgrade kotlin` |
 | `/release-build [apk\|bundle]` | Signed, R8-optimized production build with size report. | `/release-build bundle` |
 | `/compose-preview [<Component>]` | Adds/verifies `@Preview`s and checks they render. | `/compose-preview HomeScreen` |
 
@@ -72,6 +73,8 @@ The headline workflow. `/feature-build` runs all 6 phases; the rest let you driv
 | `/lint-android [--fix]` | Android Lint + Detekt + ktlint, optional auto-fix. | `/lint-android --fix` |
 | `/swiftlint [fix\|strict]` | SwiftLint style check + auto-fix. | `/swiftlint fix` |
 | `/android-review [<branch>]` | Reviews Kotlin/Compose/MVI: style, patterns, security, perf. | `/android-review feature/home` |
+| `/accessibility-review [path]` | Read-only a11y audit (Compose/SwiftUI/KMP) via `accessibility-reviewer`. | `/accessibility-review` |
+| `/localization-review [path]` | Read-only i18n audit (strings/plurals/RTL/locale) via `localization-reviewer`. | `/localization-review` |
 
 ## Planning & review
 
@@ -92,6 +95,7 @@ These drive the [continuous-learning system](HOOKS-AND-MCP.md#continuous-learnin
 | `/instinct-export [<file>]` | Exports instincts to JSON for sharing. | `/instinct-export patterns.json` |
 | `/instinct-import <file>` | Imports + merges instincts (dedupes, keeps confidence). | `/instinct-import patterns.json` |
 | `/evolve [--context <ctx>]` | Clusters mature instincts into new reusable `SKILL.md` skills. | `/evolve` |
+| `/instinct-review [--prune]` | Reports instinct health + prunable (stale/low-confidence); prunes only on explicit confirm, after a `.bak`. | `/instinct-review` |
 
 ---
 

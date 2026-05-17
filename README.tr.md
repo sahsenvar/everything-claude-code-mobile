@@ -24,7 +24,7 @@
 
 Kod parçalarını ileri geri kopyalamak yerine, ona bir özellik tarif edersin ("Senkronizasyonlu, çevrimdışı makale okuma ekle") ve **uzmanlaşmış agent'lardan** oluşan orkestralı bir hat: mimariyi planlar, her katmanı kodlar, testleri yazar, build'i düzeltir, kalite ve güvenlik incelemesini yapar ve güvenilirliği doğrular — **Android, iOS ve Kotlin Multiplatform** için. Sen çalışırken arka planda **kod tabanının desenlerini öğrenir** ve senin konvansiyonlarına uymakta giderek ustalaşır.
 
-İçinde **29 agent**, **47 skill**, **42 slash komut**, **3 arka plan hook aşaması** ve **3 proje-hafıza MCP sunucusu** gelir — hepsi kurulumda Claude Code tarafından otomatik keşfedilir.
+İçinde **32 agent**, **47 skill**, **46 slash komut**, **3 arka plan hook aşaması** ve **3 proje-hafıza MCP sunucusu** gelir — hepsi kurulumda Claude Code tarafından otomatik keşfedilir.
 
 ### Kimler için?
 
@@ -35,7 +35,7 @@ Kod parçalarını ileri geri kopyalamak yerine, ona bir özellik tarif edersin 
 ## 🚀 Neden kullanmalı?
 
 - **Tek komut, koca bir özellik.** `/feature-build "<açıklama>"` 6 fazlı bir hattı uçtan uca çalıştırır — planlama → implementasyon → testler → build-fix → kalite kapısı → doğrulama.
-- **Genelci değil, uzman.** 29 agent'ın her biri tek bir işin sahibi (network katmanı, SwiftUI, Gradle hataları, güvenlik incelemesi, TDD…), böylece her katmanı o katmanı derinlemesine bilen bir şey üstlenir.
+- **Genelci değil, uzman.** 32 agent'ın her biri tek bir işin sahibi (network katmanı, SwiftUI, Gradle hataları, güvenlik incelemesi, TDD…), böylece her katmanı o katmanı derinlemesine bilen bir şey üstlenir.
 - **Varsayılan olarak çapraz platform.** Aynı özellik isteği Android, iOS ve paylaşılan KMP kodunda idiomatik biçimde gerçeklenir.
 - **Görüşlü, tutarlı yığın.** Paylaşılan kod için Koin · Ktor · MVI · SQLDelight; UI için Jetpack Compose + native SwiftUI. Skill'ler agent'ları rastgele alternatiflere değil *senin* yığınına yönlendirir.
 - **Kod tabanını öğrenir.** Bir continuous-learning sistemi tekrarlayan desenleri yeniden kullanılabilir "instinct"ler olarak yakalar; sonraki işler senin konvansiyonlarına otomatik uyar.
@@ -131,7 +131,7 @@ Her komut, agent ve skill'in tek tek açıklandığı tam katalog → **[Doküma
 
 > 📚 Bunlar özet. **Her bir agent, skill ve komut** aşağıdaki [Dokümantasyon](#-dokümantasyon) bölümünde tam olarak açıklanıyor (İngilizce + Türkçe).
 
-### 29 agent — [tam referans →](docs/tr/AGENTS.md)
+### 32 agent — [tam referans →](docs/tr/AGENTS.md)
 
 | Grup | Agent'lar | Ne yapar |
 |---|---|---|
@@ -154,7 +154,7 @@ Agent'ların başvurduğu, yeniden kullanılabilir, yığına özel rehberler:
 - **Özellik reçeteleri** — `offline-first`, `pagination-patterns`, `deep-linking`, `push-notifications`, `feature-flags`, `image-loading`, `localization-patterns`, `analytics-patterns`, `accessibility-patterns`, `app-lifecycle`, `ktor-patterns`
 - **Continuous learning** — `continuous-learning`(+`-v2`), `mobile-instinct-v1`/`-v2`, `mobile-checkpoint`, `mobile-compaction`, `mobile-memory`
 
-### 42 komut — [tam referans →](docs/tr/COMMANDS.md)
+### 46 komut — [tam referans →](docs/tr/COMMANDS.md)
 
 | Grup | Örnekler |
 |---|---|

@@ -2,7 +2,7 @@
 
 # Agent referansı
 
-Bu plugin **29 özelleşmiş agent** içerir. Her agent tek bir işe sahiptir ve Claude Code tarafından **otomatik olarak** devreye alınır — `/agent-adı` şeklinde slash command yoktur. Bir agent şu durumlarda çalışır:
+Bu plugin **32 özelleşmiş agent** içerir. Her agent tek bir işe sahiptir ve Claude Code tarafından **otomatik olarak** devreye alınır — `/agent-adı` şeklinde slash command yoktur. Bir agent şu durumlarda çalışır:
 
 - **[Feature Builder pipeline](../../README.md#️-the-feature-builder-pipeline)**, o agentin sorumlu olduğu aşamaya ulaştığında (örneğin `/feature-build` → planlama → `feature-planner`),
 - bir **[command](COMMANDS.md)** tarafından yönlendirildiğinde (örneğin `/android-build` → `android-build-resolver`),
@@ -65,6 +65,14 @@ Güvensiz depolama, zayıf transport, sızdırılan secret'lar, eksik input doğ
 ### `mobile-performance-reviewer`
 Başlatma süresi, bellek, rendering ve pil maliyetini inceler; gerileme noktalarını işaretler.
 
+### `accessibility-reviewer`
+Compose/SwiftUI/KMP arayüzünün salt-okunur a11y denetimi — etiketler, semantics, dokunma hedefleri, Dynamic Type; önem sırasına göre bulgular. Kod değiştirmez.
+**Devreye girer:** `/accessibility-review`.
+
+### `localization-reviewer`
+Android/iOS/KMP için salt-okunur i18n denetimi — sabit metinler, çoğullar, RTL düzeni, yerel biçimlendirme; önem sırasına göre bulgular. Kod değiştirmez.
+**Devreye girer:** `/localization-review`.
+
 ## Build & Derleme çözücüler
 
 ### `android-build-resolver`
@@ -86,6 +94,10 @@ Gradle'ı optimize eder: version catalog'lar, convention plugin'ler, build önbe
 ### `android-ci-generator`
 GitHub Actions Android CI workflow'larını üretir ve onarır (build/test/lint/detekt, Gradle önbelleği, artefakt yükleme). Mevcut workflow'lara minimal-diff onarım uygular.
 **Devreye girer:** `/android-ci`.
+
+### `mobile-dependency-upgrader`
+AGP/Kotlin/Gradle, SwiftPM ve KMP sürümlerini eşgüdümlü sürüm setleriyle + minimal-diff migration ile yükseltir (ileri yükseltme, çakışma çözümü değil).
+**Devreye girer:** `/dependency-upgrade`.
 
 ## UI & Tasarım
 

@@ -2,7 +2,7 @@
 
 # Komut referansı
 
-**42 slash komutu.** Claude Code'da yazarak çalıştırırsınız. Bunlar *sizin* çağırdığınız komutlardır; arka planda [ajanları](AGENTS.md) ve [becerileri](SKILLS.md) düzenlerler.
+**46 slash komutu.** Claude Code'da yazarak çalıştırırsınız. Bunlar *sizin* çağırdığınız komutlardır; arka planda [ajanları](AGENTS.md) ve [becerileri](SKILLS.md) düzenlerler.
 
 ---
 
@@ -11,7 +11,7 @@
 | Komut | Ne yapar | Örnek |
 |---|---|---|
 | `/ecc-setup` | Tek komutla kurulum: 3 paket halinde gelen MCP sunucu bağımlılıklarını kurar, sağlığı doğrular. Idempotent. | `/ecc-setup` |
-| `/ecc-doctor` | Salt okunur sağlık raporu: MCP bağımlılıkları, platform, disiplin skill'i, SessionStart hook'u, tespit edilen tamamlayıcı eklentiler. | `/ecc-doctor` |
+| `/ecc-doctor` | Salt okunur sağlık raporu: MCP bağımlılıkları, platform, disiplin skill'i, SessionStart hook'u, tespit edilen tamamlayıcı eklentiler. Instinct sağlığını da içerir. | `/ecc-doctor` |
 
 ---
 
@@ -55,6 +55,7 @@ Ana iş akışı. `/feature-build` 6 fazın tamamını çalıştırır; diğerle
 | `/crash-triage` | Yapıştırılan stacktrace/logcat/Crashlytics/Sentry kazasını `mobile-crash-resolver` aracılığıyla kök neden + minimal düzeltmeye dönüştürür. | `/crash-triage` |
 | `/android-ci [generate\|fix]` | `android-ci-generator` aracılığıyla GitHub Actions Android CI workflow'unu üretir veya onarır. | `/android-ci` |
 | `/kmp-dependency-fix` | KMP bağımlılık çakışmalarını/sürüm uyumsuzluklarını çözer. | `/kmp-dependency-fix` |
+| `/dependency-upgrade [--check]` | AGP/Kotlin/Gradle/SwiftPM/KMP sürümlerini eşgüdümlü setler + migration ile `mobile-dependency-upgrader` aracılığıyla yükseltir; `--check` salt okunurdur. | `/dependency-upgrade kotlin` |
 | `/release-build [apk\|bundle]` | Boyut raporuyla imzalı, R8 ile optimize edilmiş production derlemesi. | `/release-build bundle` |
 | `/compose-preview [<Component>]` | `@Preview` ekler/doğrular ve bunların render edildiğini kontrol eder. | `/compose-preview HomeScreen` |
 
@@ -72,6 +73,8 @@ Ana iş akışı. `/feature-build` 6 fazın tamamını çalıştırır; diğerle
 | `/lint-android [--fix]` | Android Lint + Detekt + ktlint, isteğe bağlı otomatik düzeltme. | `/lint-android --fix` |
 | `/swiftlint [fix\|strict]` | SwiftLint stil denetimi + otomatik düzeltme. | `/swiftlint fix` |
 | `/android-review [<branch>]` | Kotlin/Compose/MVI incelemesi: stil, kalıplar, güvenlik, performans. | `/android-review feature/home` |
+| `/accessibility-review [path]` | `accessibility-reviewer` aracılığıyla salt-okunur a11y denetimi (Compose/SwiftUI/KMP). | `/accessibility-review` |
+| `/localization-review [path]` | `localization-reviewer` aracılığıyla salt-okunur i18n denetimi (metinler/çoğullar/RTL/yerel biçimlendirme). | `/localization-review` |
 
 ## Planlama ve inceleme
 
@@ -92,6 +95,7 @@ Bunlar [sürekli öğrenme sistemini](HOOKS-AND-MCP.md#continuous-learning) yön
 | `/instinct-export [<file>]` | İçgüdüleri paylaşım için JSON'a dışa aktarır. | `/instinct-export patterns.json` |
 | `/instinct-import <file>` | İçgüdüleri içe aktarır ve birleştirir (tekrarları kaldırır, güveni korur). | `/instinct-import patterns.json` |
 | `/evolve [--context <ctx>]` | Olgun içgüdüleri yeni yeniden kullanılabilir `SKILL.md` becerilerine kümelendirir. | `/evolve` |
+| `/instinct-review [--prune]` | Instinct sağlığını + budanabilirleri (bayat/düşük-güven) raporlar; yalnızca açık onayla, .bak sonrası budar. | `/instinct-review` |
 
 ---
 

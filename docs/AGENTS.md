@@ -2,7 +2,7 @@
 
 # Agents reference
 
-This plugin ships **29 specialized agents**. Each owns one job and is engaged by Claude Code **automatically** — there are no `/agent-name` slash commands. An agent runs when:
+This plugin ships **32 specialized agents**. Each owns one job and is engaged by Claude Code **automatically** — there are no `/agent-name` slash commands. An agent runs when:
 
 - the **[Feature Builder pipeline](../README.md#️-the-feature-builder-pipeline)** reaches the phase it owns (e.g. `/feature-build` → planning → `feature-planner`),
 - a **[command](COMMANDS.md)** orchestrates it (e.g. `/android-build` → `android-build-resolver`),
@@ -65,6 +65,14 @@ Audits for insecure storage, weak transport, leaked secrets, missing input valid
 ### `mobile-performance-reviewer`
 Reviews startup time, memory, rendering, and battery cost; flags regressions.
 
+### `accessibility-reviewer`
+Read-only a11y audit of Compose/SwiftUI/KMP UI — labels, semantics, touch targets, Dynamic Type; severity-ranked findings. Does not modify code.
+**Engaged:** `/accessibility-review`.
+
+### `localization-reviewer`
+Read-only i18n audit for Android/iOS/KMP — hardcoded strings, plurals, RTL layout, locale-sensitive formatting; severity-ranked findings. Does not modify code.
+**Engaged:** `/localization-review`.
+
 ## Build & compile resolvers
 
 ### `android-build-resolver`
@@ -86,6 +94,10 @@ Optimizes Gradle: version catalogs, convention plugins, build caching, configura
 ### `android-ci-generator`
 Generates and fixes GitHub Actions Android CI workflows (build/test/lint/detekt, Gradle caching, artifact upload). Applies minimal-diff repairs to existing workflows.
 **Engaged:** `/android-ci`.
+
+### `mobile-dependency-upgrader`
+Bumps AGP/Kotlin/Gradle, SwiftPM, and KMP versions with coordinated version sets + minimal-diff migration (forward upgrades, not conflict resolution).
+**Engaged:** `/dependency-upgrade`.
 
 ## UI & design
 

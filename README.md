@@ -24,7 +24,7 @@
 
 Instead of pasting code back and forth, you give it a feature ("Add offline-first article reading with sync"), and an orchestrated pipeline of **specialized agents** plans the architecture, implements each layer, writes the tests, fixes the build, runs quality and security review, and verifies reliability — for **Android, iOS, and Kotlin Multiplatform**. While you work, it quietly **learns the patterns of your codebase** and gets better at matching your conventions.
 
-It ships with **29 agents**, **47 skills**, **42 slash commands**, **3 background hook stages**, and **3 project-memory MCP servers** — all auto-discovered by Claude Code on install.
+It ships with **32 agents**, **47 skills**, **46 slash commands**, **3 background hook stages**, and **3 project-memory MCP servers** — all auto-discovered by Claude Code on install.
 
 ### Who is it for?
 
@@ -35,7 +35,7 @@ Mobile developers and teams using **Android (Kotlin/Compose)**, **iOS (Swift/Swi
 ## 🚀 Why use it?
 
 - **One command, a whole feature.** `/feature-build "<description>"` runs a 6-phase pipeline end to end — planning → implementation → tests → build-fix → quality gate → verification.
-- **Specialists, not a generalist.** 29 agents each own one job (network layer, SwiftUI, Gradle errors, security review, TDD…), so every layer is handled by something that knows that layer deeply.
+- **Specialists, not a generalist.** 32 agents each own one job (network layer, SwiftUI, Gradle errors, security review, TDD…), so every layer is handled by something that knows that layer deeply.
 - **Cross-platform by default.** The same feature request is realized idiomatically on Android, iOS, and shared KMP code.
 - **Opinionated, consistent stack.** Koin · Ktor · MVI · SQLDelight for shared code; Jetpack Compose + native SwiftUI for UI. Skills steer agents to *your* stack, not a grab-bag of alternatives.
 - **It learns your codebase.** A continuous-learning system captures recurring patterns as reusable "instincts" so later work matches your conventions automatically.
@@ -131,7 +131,7 @@ Full catalog with every command, agent, and skill explained → **[Documentation
 
 > 📚 These are summaries. **Every single agent, skill, and command is explained** in the [Documentation](#-documentation) section below (English + Türkçe).
 
-### 29 agents — [full reference →](docs/AGENTS.md)
+### 32 agents — [full reference →](docs/AGENTS.md)
 
 | Group | Agents | What they do |
 |---|---|---|
@@ -154,7 +154,7 @@ Reusable, stack-specific playbooks the agents draw on, spanning:
 - **Feature recipes** — `offline-first`, `pagination-patterns`, `deep-linking`, `push-notifications`, `feature-flags`, `image-loading`, `localization-patterns`, `analytics-patterns`, `accessibility-patterns`, `app-lifecycle`, `ktor-patterns`
 - **Continuous learning** — `continuous-learning`(+`-v2`), `mobile-instinct-v1`/`-v2`, `mobile-checkpoint`, `mobile-compaction`, `mobile-memory`
 
-### 42 commands — [full reference →](docs/COMMANDS.md)
+### 46 commands — [full reference →](docs/COMMANDS.md)
 
 | Group | Examples |
 |---|---|
