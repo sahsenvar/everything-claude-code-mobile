@@ -216,3 +216,16 @@ describe('skills/ecc-operating-discipline/SKILL.md', () => {
     }
   });
 });
+
+describe('commands/ecc-setup.md + ecc-doctor.md', () => {
+  for (const name of ['ecc-setup', 'ecc-doctor']) {
+    it(`${name}.md exists with valid frontmatter and references setup lib`, () => {
+      const p = path.join(__dirname, `../../commands/${name}.md`);
+      assert.ok(fs.existsSync(p), `${name}.md must exist`);
+      const c = fs.readFileSync(p, 'utf8');
+      assert.ok(c.startsWith('---'), 'must start with frontmatter');
+      assert.match(c, /^---\n[\s\S]*?description:\s*\S[\s\S]*?\n---\n/);
+      assert.ok(c.includes('scripts/lib/setup'), 'must drive the tested setup lib');
+    });
+  }
+});
