@@ -53,3 +53,14 @@ describe('Feature G — accessibility-review command', () => {
     assert.ok(c.includes('accessibility-reviewer'), 'invokes the agent');
   });
 });
+
+describe('Feature G — localization-review command', () => {
+  it('exists, valid frontmatter, discipline ref, invokes the agent', () => {
+    const p = path.join(ROOT, 'commands', 'localization-review.md');
+    assert.ok(fs.existsSync(p), 'command must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    assert.match(c, /^---\n[\s\S]*?description:\s*\S[\s\S]*?\n---\n/, 'frontmatter');
+    assert.ok(c.includes(DISC), 'discipline ref');
+    assert.ok(c.includes('localization-reviewer'), 'invokes the agent');
+  });
+});
