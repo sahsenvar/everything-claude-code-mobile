@@ -179,3 +179,24 @@ describe('scripts/install-mcp-deps.js — CLI shim', () => {
     assert.ok(before);
   });
 });
+
+describe('hooks/hooks.json — SessionStart registration', () => {
+  it('registers check-setup.js under SessionStart with plugin-root var', () => {
+    const cfg = JSON.parse(fs.readFileSync(
+      path.join(__dirname, '../../hooks/hooks.json'), 'utf8'));
+    assert.ok(Array.isArray(cfg.hooks.SessionStart), 'SessionStart must be an array');
+    const flat = JSON.stringify(cfg.hooks.SessionStart);
+    assert.ok(flat.includes('check-setup.js'), 'must reference check-setup.js');
+    assert.ok(flat.includes('${CLAUDE_PLUGIN_ROOT}'), 'must use plugin-root variable');
+    for (const e of ['Stop', 'PreCompact', 'PostToolUse']) {
+      assert.ok(Array.isArray(cfg.hooks[e]), `${e} still present`);
+    }
+  });
+
+  it('check-setup.js is syntactically valid and requires only lib modules', () => {
+    const src = fs.readFileSync(
+      path.join(__dirname, '../../scripts/hooks/check-setup.js'), 'utf8');
+    assert.ok(src.includes("require('../lib/setup')"));
+    assert.ok(src.includes("require('../lib/paths')"));
+  });
+});
