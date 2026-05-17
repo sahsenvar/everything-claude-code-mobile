@@ -2,7 +2,7 @@
 
 # Agents reference
 
-This plugin ships **29 specialized agents**. Each owns one job and is engaged by Claude Code **automatically** — there are no `/agent-name` slash commands. An agent runs when:
+This plugin ships **32 specialized agents**. Each owns one job and is engaged by Claude Code **automatically** — there are no `/agent-name` slash commands. An agent runs when:
 
 - the **[Feature Builder pipeline](../README.md#️-the-feature-builder-pipeline)** reaches the phase it owns (e.g. `/feature-build` → planning → `feature-planner`),
 - a **[command](COMMANDS.md)** orchestrates it (e.g. `/android-build` → `android-build-resolver`),

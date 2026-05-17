@@ -2,7 +2,7 @@
 
 # Agent referansı
 
-Bu plugin **29 özelleşmiş agent** içerir. Her agent tek bir işe sahiptir ve Claude Code tarafından **otomatik olarak** devreye alınır — `/agent-adı` şeklinde slash command yoktur. Bir agent şu durumlarda çalışır:
+Bu plugin **32 özelleşmiş agent** içerir. Her agent tek bir işe sahiptir ve Claude Code tarafından **otomatik olarak** devreye alınır — `/agent-adı` şeklinde slash command yoktur. Bir agent şu durumlarda çalışır:
 
 - **[Feature Builder pipeline](../../README.md#️-the-feature-builder-pipeline)**, o agentin sorumlu olduğu aşamaya ulaştığında (örneğin `/feature-build` → planlama → `feature-planner`),
 - bir **[command](COMMANDS.md)** tarafından yönlendirildiğinde (örneğin `/android-build` → `android-build-resolver`),

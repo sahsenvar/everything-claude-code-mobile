@@ -2,7 +2,7 @@
 
 # Commands reference
 
-**42 slash commands.** Type them in Claude Code. These are the things *you* invoke; they orchestrate the [agents](AGENTS.md) and [skills](SKILLS.md) behind the scenes.
+**46 slash commands.** Type them in Claude Code. These are the things *you* invoke; they orchestrate the [agents](AGENTS.md) and [skills](SKILLS.md) behind the scenes.
 
 ---
 
