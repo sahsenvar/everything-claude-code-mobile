@@ -65,6 +65,14 @@ Audits for insecure storage, weak transport, leaked secrets, missing input valid
 ### `mobile-performance-reviewer`
 Reviews startup time, memory, rendering, and battery cost; flags regressions.
 
+### `accessibility-reviewer`
+Read-only a11y audit of Compose/SwiftUI/KMP UI — labels, semantics, touch targets, Dynamic Type; severity-ranked findings. Does not modify code.
+**Engaged:** `/accessibility-review`.
+
+### `localization-reviewer`
+Read-only i18n audit for Android/iOS/KMP — hardcoded strings, plurals, RTL layout, locale-sensitive formatting; severity-ranked findings. Does not modify code.
+**Engaged:** `/localization-review`.
+
 ## Build & compile resolvers
 
 ### `android-build-resolver`

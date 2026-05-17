@@ -73,6 +73,8 @@ Ana iş akışı. `/feature-build` 6 fazın tamamını çalıştırır; diğerle
 | `/lint-android [--fix]` | Android Lint + Detekt + ktlint, isteğe bağlı otomatik düzeltme. | `/lint-android --fix` |
 | `/swiftlint [fix\|strict]` | SwiftLint stil denetimi + otomatik düzeltme. | `/swiftlint fix` |
 | `/android-review [<branch>]` | Kotlin/Compose/MVI incelemesi: stil, kalıplar, güvenlik, performans. | `/android-review feature/home` |
+| `/accessibility-review [path]` | `accessibility-reviewer` aracılığıyla salt-okunur a11y denetimi (Compose/SwiftUI/KMP). | `/accessibility-review` |
+| `/localization-review [path]` | `localization-reviewer` aracılığıyla salt-okunur i18n denetimi (metinler/çoğullar/RTL/yerel biçimlendirme). | `/localization-review` |
 
 ## Planlama ve inceleme
 

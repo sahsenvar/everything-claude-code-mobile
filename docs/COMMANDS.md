@@ -73,6 +73,8 @@ The headline workflow. `/feature-build` runs all 6 phases; the rest let you driv
 | `/lint-android [--fix]` | Android Lint + Detekt + ktlint, optional auto-fix. | `/lint-android --fix` |
 | `/swiftlint [fix\|strict]` | SwiftLint style check + auto-fix. | `/swiftlint fix` |
 | `/android-review [<branch>]` | Reviews Kotlin/Compose/MVI: style, patterns, security, perf. | `/android-review feature/home` |
+| `/accessibility-review [path]` | Read-only a11y audit (Compose/SwiftUI/KMP) via `accessibility-reviewer`. | `/accessibility-review` |
+| `/localization-review [path]` | Read-only i18n audit (strings/plurals/RTL/locale) via `localization-reviewer`. | `/localization-review` |
 
 ## Planning & review
 

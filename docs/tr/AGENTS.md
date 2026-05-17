@@ -65,6 +65,14 @@ Güvensiz depolama, zayıf transport, sızdırılan secret'lar, eksik input doğ
 ### `mobile-performance-reviewer`
 Başlatma süresi, bellek, rendering ve pil maliyetini inceler; gerileme noktalarını işaretler.
 
+### `accessibility-reviewer`
+Compose/SwiftUI/KMP arayüzünün salt-okunur a11y denetimi — etiketler, semantics, dokunma hedefleri, Dynamic Type; önem sırasına göre bulgular. Kod değiştirmez.
+**Devreye girer:** `/accessibility-review`.
+
+### `localization-reviewer`
+Android/iOS/KMP için salt-okunur i18n denetimi — sabit metinler, çoğullar, RTL düzeni, yerel biçimlendirme; önem sırasına göre bulgular. Kod değiştirmez.
+**Devreye girer:** `/localization-review`.
+
 ## Build & Derleme çözücüler
 
 ### `android-build-resolver`
