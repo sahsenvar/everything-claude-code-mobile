@@ -23,16 +23,17 @@ You perform forward version upgrades across Android, iOS, and KMP with the small
 1. **Detect current versions** from the source of truth: Android → `gradle/libs.versions.toml` + `gradle/wrapper/gradle-wrapper.properties`; iOS → `Package.swift` / `Package.resolved`; KMP → `gradle/libs.versions.toml` + shared `build.gradle.kts`.
 2. **Pick target + coupled set** (see Coordinated Version Sets). Confirm the target with the user if ambiguous.
 3. **Apply minimal edits** to the version source of truth only (the `[versions]` table / `Package.swift` / wrapper `distributionUrl`), not scattered through modules.
-4. **Build/sync**: `./gradlew help` or a fast compile / `swift package resolve` — verify the upgrade resolves.
+4. **Build/sync**: run a fast compile — e.g. `./gradlew :app:compileDebugKotlin` (not `./gradlew help`, which only validates the configuration phase and misses upgrade breakage) / `swift package resolve` — verify the upgrade actually resolves AND compiles.
 5. **Fix migration breakage minimally**: deprecated/renamed APIs, removed Gradle options, AGP namespace/DSL changes — change only what the new version requires.
 6. **Report**: old→new versions, the coupled set applied, files touched, migration changes, and any manual follow-up.
 
 ## Coordinated Version Sets
 
 Bump these together (a mismatch breaks the build):
-- **Kotlin ↔ KSP ↔ Compose compiler** (KSP is `<kotlin>-<ksp>`; Compose compiler must match the Kotlin/Compose-BOM line).
-- **AGP ↔ Gradle** (each AGP has a minimum Gradle; bump the wrapper `distributionUrl` accordingly).
-- **Compose BOM ↔ Compose libraries** (let the BOM drive; don't pin members against it).
+- **Kotlin ↔ KSP** — KSP version is `<kotlin>-<ksp>` (e.g. `2.0.0-1.0.21`); bump KSP whenever Kotlin moves.
+- **Kotlin ↔ Compose compiler** — Kotlin 2.0+: the Compose compiler is the `org.jetbrains.kotlin.plugin.compose` Gradle plugin and its version **equals the Kotlin version** (there is no separate `compose-compiler` entry). Kotlin < 2.0: a separate Compose-compiler version matched via the Compose compiler ↔ Kotlin compatibility map (not the BOM).
+- **AGP ↔ Gradle** — each AGP has a minimum Gradle. Bumping AGP may require bumping the wrapper `distributionUrl` (never the reverse); check the AGP release notes for the required min-Gradle.
+- **Compose BOM ↔ Compose libraries** — let the BOM drive `compose-ui`/`compose-material3`/etc.; never pin members against it. The BOM does not drive the Compose *compiler*.
 
 For version-catalog structure/conventions, defer to the `gradle-expert` agent — do not restate catalog layout here; only edit the `[versions]` values.
 
