@@ -134,3 +134,38 @@ describe('scripts/lib/setup.js — detectCompanions', () => {
       { figma: 'unknown', atlassian: 'unknown', github: 'unknown' });
   });
 });
+
+describe('scripts/lib/setup.js — doctorReport', () => {
+  it('composes a structured report with ok=false when deps missing', () => {
+    const root = tmpdir('ecc-doc-');
+    const proj = tmpdir('ecc-docp-');
+    const f = path.join(tmpdir('ecc-docpl-'), 'installed_plugins.json');
+    fs.writeFileSync(f, JSON.stringify({ plugins: {} }));
+    const r = setup.doctorReport({ pluginRoot: root, projectDir: proj, pluginsFile: f });
+    assert.deepStrictEqual(Object.keys(r.mcp).sort(), [...setup.SERVERS].sort());
+    assert.strictEqual(r.mcp['mobile-memory'].depsInstalled, false);
+    assert.strictEqual(r.platform, 'unknown');
+    assert.strictEqual(r.disciplineSkillPresent, false);
+    assert.strictEqual(r.sessionStartHookRegistered, false);
+    assert.deepStrictEqual(r.companions, { figma: 'absent', atlassian: 'absent', github: 'absent' });
+    assert.ok(Array.isArray(r.projectDataDirs) && r.projectDataDirs.includes('.claude/mobile-memory'));
+    assert.strictEqual(r.ok, false);
+  });
+
+  it('ok=true when all deps installed + skill + hook registered', () => {
+    const root = tmpdir('ecc-doc2-');
+    for (const s of setup.SERVERS) {
+      fs.mkdirSync(path.join(root, 'mcp-servers', s, 'node_modules'), { recursive: true });
+    }
+    fs.mkdirSync(path.join(root, 'skills', 'ecc-operating-discipline'), { recursive: true });
+    fs.writeFileSync(path.join(root, 'skills', 'ecc-operating-discipline', 'SKILL.md'), 'x');
+    fs.mkdirSync(path.join(root, 'hooks'), { recursive: true });
+    fs.writeFileSync(path.join(root, 'hooks', 'hooks.json'), JSON.stringify({
+      hooks: { SessionStart: [{ hooks: [{ type: 'command', command: 'node "x/scripts/hooks/check-setup.js"' }] }] }
+    }));
+    const f = path.join(tmpdir('ecc-doc2pl-'), 'p.json');
+    fs.writeFileSync(f, JSON.stringify({ plugins: {} }));
+    const r = setup.doctorReport({ pluginRoot: root, projectDir: root, pluginsFile: f });
+    assert.strictEqual(r.ok, true);
+  });
+});

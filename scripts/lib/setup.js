@@ -97,4 +97,28 @@ function detectCompanions({ pluginsFile = defaultPluginsFile() } = {}) {
   return result;
 }
 
-module.exports = { SERVERS, NUDGE, detectState, setupNudge, installMcpDeps, detectCompanions, getClaudeConfigDir };
+const PROJECT_DATA_DIRS = [
+  '.claude/mobile-memory', '.claude/ios-memory', '.claude/kmp-context', '.claude/checkpoints',
+];
+
+function doctorReport({ pluginRoot, projectDir, pluginsFile }) {
+  const state = detectState({ pluginRoot, projectDir });
+  const companions = detectCompanions(pluginsFile ? { pluginsFile } : {});
+  const mcp = {};
+  for (const s of SERVERS) mcp[s] = { depsInstalled: state.mcpDeps[s] };
+  const ok =
+    Object.values(state.mcpDeps).every(Boolean) &&
+    state.disciplineSkillPresent &&
+    state.sessionStartHookRegistered;
+  return {
+    mcp,
+    platform: state.platform,
+    disciplineSkillPresent: state.disciplineSkillPresent,
+    sessionStartHookRegistered: state.sessionStartHookRegistered,
+    companions,
+    projectDataDirs: PROJECT_DATA_DIRS.slice(),
+    ok,
+  };
+}
+
+module.exports = { SERVERS, NUDGE, detectState, setupNudge, installMcpDeps, detectCompanions, doctorReport, getClaudeConfigDir };
