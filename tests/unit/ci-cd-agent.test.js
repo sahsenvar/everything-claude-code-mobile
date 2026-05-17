@@ -22,3 +22,16 @@ describe('Feature C — android-ci-generator agent', () => {
     assert.ok(c.includes('./gradlew'), 'gradle build steps');
   });
 });
+
+describe('Feature C — android-ci command', () => {
+  it('exists, valid frontmatter, discipline ref, invokes the agent, generate+fix', () => {
+    const p = path.join(ROOT, 'commands', 'android-ci.md');
+    assert.ok(fs.existsSync(p), 'command file must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    assert.match(c, /^---\n[\s\S]*?description:\s*\S[\s\S]*?\n---\n/, 'frontmatter description');
+    assert.ok(c.includes(DISC), 'operating-discipline ref');
+    assert.ok(c.includes('android-ci-generator'), 'invokes the agent');
+    assert.match(c, /generate/i, 'documents generate mode');
+    assert.match(c, /fix/i, 'documents fix mode');
+  });
+});
