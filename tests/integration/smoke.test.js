@@ -1,4 +1,4 @@
-const { describe, it } = require('node:test');
+const { describe, it, after } = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
 const path = require('path');
@@ -39,7 +39,8 @@ function runHook(name, event, projectDir) {
 }
 
 describe('Feature A — hook runtime smoke', () => {
-  const proj = path.join(os.tmpdir(), 'ecc-smoke-' + process.pid);
+  const proj = path.join(os.tmpdir(), `ecc-smoke-${process.pid}-${Date.now()}`);
+  after(() => cleanupDir(proj));
   it('setup: scaffold a temp android project', () => {
     createMockAndroidProject(proj);
     assert.ok(fs.existsSync(proj));
@@ -73,7 +74,6 @@ describe('Feature A — hook runtime smoke', () => {
     assert.ok(fs.existsSync(cp) && fs.readdirSync(cp).length >= 1, 'checkpoint written');
   });
 
-  it('teardown', () => { cleanupDir(proj); assert.ok(!fs.existsSync(proj)); });
 });
 
 describe('Feature A — doctorReport runtime', () => {
