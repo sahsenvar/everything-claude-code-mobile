@@ -80,4 +80,26 @@ function installMcpDeps({ pluginRoot, servers = SERVERS, runInstall = defaultRun
   return { perServer };
 }
 
-module.exports = { SERVERS, NUDGE, detectState, setupNudge, installMcpDeps, getClaudeConfigDir };
+const COMPANION_PREFIXES = { figma: 'figma', atlassian: 'atlassian', github: 'github' };
+
+function defaultPluginsFile() {
+  return path.join(getClaudeConfigDir(), 'plugins', 'installed_plugins.json');
+}
+
+function detectCompanions({ pluginsFile = defaultPluginsFile() } = {}) {
+  const result = { figma: 'unknown', atlassian: 'unknown', github: 'unknown' };
+  let json;
+  try {
+    json = JSON.parse(fs.readFileSync(pluginsFile, 'utf8'));
+  } catch (_) {
+    return result;
+  }
+  const keys = Object.keys((json && json.plugins) || {});
+  const names = keys.map((k) => k.split('@')[0]);
+  for (const [companion, prefix] of Object.entries(COMPANION_PREFIXES)) {
+    result[companion] = names.some((n) => n.startsWith(prefix)) ? 'present' : 'absent';
+  }
+  return result;
+}
+
+module.exports = { SERVERS, NUDGE, detectState, setupNudge, installMcpDeps, detectCompanions, getClaudeConfigDir };

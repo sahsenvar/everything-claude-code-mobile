@@ -108,3 +108,29 @@ describe('scripts/lib/setup.js — installMcpDeps', () => {
     );
   });
 });
+
+describe('scripts/lib/setup.js — detectCompanions', () => {
+  it('maps known prefixes present/absent, tolerant of @marketplace + version', () => {
+    const f = path.join(tmpdir('ecc-pl-'), 'installed_plugins.json');
+    fs.writeFileSync(f, JSON.stringify({
+      plugins: {
+        'figma@claude-plugins-official': [{ version: '2.1.30' }],
+        'github-mcp@some-market': [{ version: '1.0.0' }],
+        'everything-claude-code-mobile@everything-claude-code-mobile': [{ version: '1.2.1' }]
+      }
+    }));
+    const c = setup.detectCompanions({ pluginsFile: f });
+    assert.strictEqual(c.figma, 'present');
+    assert.strictEqual(c.github, 'present');
+    assert.strictEqual(c.atlassian, 'absent');
+  });
+
+  it('returns all unknown when file missing or unparseable', () => {
+    const miss = setup.detectCompanions({ pluginsFile: '/no/such/file.json' });
+    assert.deepStrictEqual(miss, { figma: 'unknown', atlassian: 'unknown', github: 'unknown' });
+    const bad = path.join(tmpdir('ecc-bad-'), 'installed_plugins.json');
+    fs.writeFileSync(bad, 'not json');
+    assert.deepStrictEqual(setup.detectCompanions({ pluginsFile: bad }),
+      { figma: 'unknown', atlassian: 'unknown', github: 'unknown' });
+  });
+});
