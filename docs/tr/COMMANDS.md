@@ -2,7 +2,7 @@
 
 # Komut referansı
 
-**35 slash komutu.** Claude Code'da yazarak çalıştırırsınız. Bunlar *sizin* çağırdığınız komutlardır; arka planda [ajanları](AGENTS.md) ve [becerileri](SKILLS.md) düzenlerler.
+**42 slash komutu.** Claude Code'da yazarak çalıştırırsınız. Bunlar *sizin* çağırdığınız komutlardır; arka planda [ajanları](AGENTS.md) ve [becerileri](SKILLS.md) düzenlerler.
 
 ---
 
