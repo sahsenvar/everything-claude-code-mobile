@@ -74,3 +74,37 @@ describe('scripts/lib/setup.js — setupNudge', () => {
     );
   });
 });
+
+describe('scripts/lib/setup.js — installMcpDeps', () => {
+  it('skips servers without package.json, installs/falls back, aggregates failures', () => {
+    const root = tmpdir('ecc-inst-');
+    fs.mkdirSync(path.join(root, 'mcp-servers', 'mobile-memory'), { recursive: true });
+    fs.writeFileSync(path.join(root, 'mcp-servers', 'mobile-memory', 'package.json'), '{}');
+    fs.writeFileSync(path.join(root, 'mcp-servers', 'mobile-memory', 'package-lock.json'), '{}');
+    fs.mkdirSync(path.join(root, 'mcp-servers', 'ios-memory'), { recursive: true });
+    fs.writeFileSync(path.join(root, 'mcp-servers', 'ios-memory', 'package.json'), '{}');
+    // kmp-context dir absent entirely -> skipped
+
+    const calls = [];
+    const runInstall = (dir, hasLock) => {
+      calls.push({ dir, hasLock });
+      if (dir.includes('ios-memory')) throw new Error('boom');
+    };
+    const { perServer } = setup.installMcpDeps({ pluginRoot: root, runInstall });
+
+    assert.strictEqual(perServer['mobile-memory'].status, 'installed');
+    assert.strictEqual(perServer['ios-memory'].status, 'failed');
+    assert.match(perServer['ios-memory'].error, /boom/);
+    assert.strictEqual(perServer['kmp-context'].status, 'skipped');
+    assert.strictEqual(calls.find((c) => c.dir.includes('mobile-memory')).hasLock, true);
+  });
+
+  it('never throws even if runInstall throws for all', () => {
+    const root = tmpdir('ecc-inst2-');
+    fs.mkdirSync(path.join(root, 'mcp-servers', 'mobile-memory'), { recursive: true });
+    fs.writeFileSync(path.join(root, 'mcp-servers', 'mobile-memory', 'package.json'), '{}');
+    assert.doesNotThrow(() =>
+      setup.installMcpDeps({ pluginRoot: root, runInstall: () => { throw new Error('x'); } })
+    );
+  });
+});

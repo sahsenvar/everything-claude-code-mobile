@@ -57,4 +57,27 @@ function setupNudge(state) {
   return missing ? NUDGE : null;
 }
 
-module.exports = { SERVERS, NUDGE, detectState, setupNudge, getClaudeConfigDir };
+function defaultRunInstall(dir, hasLock) {
+  execFileSync('npm', [hasLock ? 'ci' : 'install', '--omit=dev'], { cwd: dir, stdio: 'inherit' });
+}
+
+function installMcpDeps({ pluginRoot, servers = SERVERS, runInstall = defaultRunInstall }) {
+  const perServer = {};
+  for (const name of servers) {
+    const dir = path.join(pluginRoot, 'mcp-servers', name);
+    if (!fs.existsSync(path.join(dir, 'package.json'))) {
+      perServer[name] = { status: 'skipped' };
+      continue;
+    }
+    const hasLock = fs.existsSync(path.join(dir, 'package-lock.json'));
+    try {
+      runInstall(dir, hasLock);
+      perServer[name] = { status: 'installed' };
+    } catch (e) {
+      perServer[name] = { status: 'failed', error: String((e && e.message) || e) };
+    }
+  }
+  return { perServer };
+}
+
+module.exports = { SERVERS, NUDGE, detectState, setupNudge, installMcpDeps, getClaudeConfigDir };
