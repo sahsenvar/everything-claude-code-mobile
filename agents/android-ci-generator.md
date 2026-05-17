@@ -40,9 +40,13 @@ jobs:
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
       - name: Build & unit test
-        run: ./gradlew assembleDebug testDebugUnitTest lintDebug --stacktrace
+        run: ./gradlew assembleDebug testDebugUnitTest
+      - name: Lint
+        if: always()
+        run: ./gradlew lintDebug
       - name: Detekt (if configured)
-        run: ./gradlew detekt --stacktrace || echo "detekt not configured; skipping"
+        if: always()
+        run: ./gradlew detekt || echo "detekt not configured; skipping"
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -53,7 +57,7 @@ jobs:
             **/build/outputs/apk/**
 ```
 
-Adjust `java-version`/branch/module tasks to the detected project. Keep `gradle/actions/setup-gradle@v4` for built-in caching (do not hand-roll cache keys unless asked).
+Adjust `java-version`/branch/module tasks to the detected project. Keep `gradle/actions/setup-gradle@v4` for built-in caching (do not hand-roll cache keys unless asked). Do NOT add `--stacktrace`/`--info` to the generated steps — keep CI logs minimal; those flags belong in **Fix Mode** for diagnosis only.
 
 ## Fix Mode
 
@@ -63,6 +67,7 @@ Diagnose then minimally patch:
 - `gradlew: Permission denied` → add `chmod +x ./gradlew` step (or `git update-index --chmod=+x`).
 - Flaky/no reports on failure → add `if: always()` artifact upload.
 - Deprecated action majors → bump to current majors only.
+- Need failure detail → add `--stacktrace` (or `--info`) to the specific failing step only, as a temporary diagnostic; remove once resolved.
 Change only the failing lines; preserve unrelated steps and formatting.
 
 ## Minimal Diff Strategy
