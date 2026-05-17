@@ -153,7 +153,10 @@ function _isLowConfidence(i, maxConfidence) {
   return i && typeof i.confidence === 'number' && i.confidence < maxConfidence;
 }
 
-function selectPrunable(data, { maxConfidence = 0.3, staleDays = 60 } = {}) {
+const DEFAULT_MAX_CONFIDENCE = 0.3;
+const DEFAULT_STALE_DAYS = 60;
+
+function selectPrunable(data, { maxConfidence = DEFAULT_MAX_CONFIDENCE, staleDays = DEFAULT_STALE_DAYS } = {}) {
   return _instinctList(data).filter(
     (i) => _isLowConfidence(i, maxConfidence) || _isStale(i, staleDays)
   );
@@ -164,8 +167,8 @@ function instinctHealth(data) {
   return {
     total: list.length,
     confident: list.filter((i) => i && typeof i.confidence === 'number' && i.confidence >= 0.7).length,
-    stale: list.filter((i) => _isStale(i, 60)).length,
-    lowConfidence: list.filter((i) => _isLowConfidence(i, 0.3)).length,
+    stale: list.filter((i) => _isStale(i, DEFAULT_STALE_DAYS)).length,
+    lowConfidence: list.filter((i) => _isLowConfidence(i, DEFAULT_MAX_CONFIDENCE)).length,
     prunable: selectPrunable(data).length,
   };
 }
