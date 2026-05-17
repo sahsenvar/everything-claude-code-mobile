@@ -24,3 +24,15 @@ describe('Feature D — mobile-crash-resolver agent', () => {
     assert.ok(/Root cause/i.test(c), 'structured output: root cause');
   });
 });
+
+describe('Feature D — crash-triage command', () => {
+  it('exists, valid frontmatter, discipline ref, invokes the agent', () => {
+    const p = path.join(ROOT, 'commands', 'crash-triage.md');
+    assert.ok(fs.existsSync(p), 'command file must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    assert.match(c, /^---\n[\s\S]*?description:\s*\S[\s\S]*?\n---\n/, 'frontmatter description');
+    assert.ok(c.includes(DISC), 'operating-discipline ref');
+    assert.ok(c.includes('mobile-crash-resolver'), 'invokes the agent');
+    assert.match(c, /paste|stacktrace|crash/i, 'documents pasting a crash');
+  });
+});
