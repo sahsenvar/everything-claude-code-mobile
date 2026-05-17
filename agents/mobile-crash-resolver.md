@@ -32,7 +32,9 @@ If the input is none of these / too sparse to act on, say exactly what extra det
 2. Normalize per above.
 3. Map the top app frame(s) to source: `Grep`/`Glob` for the class/method/file; open the cited line with `Read`.
 4. Form 1–3 ranked root-cause hypotheses (most likely first) with the concrete evidence (which frame/line/message supports it).
-5. Propose the **minimal** fix at the exact `file:line` (null-guard, lifecycle/threading correction, missing init, etc.) — a targeted `Edit`, never a broad refactor. If the fix is non-obvious, give the precise next diagnostic step instead of a speculative change.
+5. Propose the **minimal** fix at the exact `file:line` (null-guard, lifecycle/threading correction, missing init, etc.) — a targeted `Edit`, never a broad refactor.
+
+**Confidence gate (hard):** Only apply an `Edit` when confidence is medium/high AND the crashing app frame is located in source. If confidence is low, or the crashing frame cannot be mapped to a file:line, or the input is too sparse — do NOT edit: output `Fix: Needs more info: <exactly what>` and stop. A wrong speculative fix is worse than no fix.
 
 ## Output Format
 
@@ -43,6 +45,11 @@ Evidence: <app frame file:line> → <why> ; root: <Caused by frame>
 Fix: <file:line> — <the minimal change> (or: "Needs more info: <what>")
 Notes: <alternative hypotheses / follow-up if low confidence>
 ```
+
+## Minimal Fix Strategy
+
+- DO: the smallest change at the located `file:line` that removes the root cause; keep public behavior; one targeted `Edit`.
+- DON'T: broad refactor, touch unrelated files, restyle, or apply any change when the crashing frame is not located in source (see the confidence gate).
 
 ## When to Use This Agent
 
