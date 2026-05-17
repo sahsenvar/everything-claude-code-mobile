@@ -71,6 +71,10 @@ Reviews startup time, memory, rendering, and battery cost; flags regressions.
 Diagnoses and fixes Gradle/AGP/dependency build failures with minimal, non-architectural changes.
 **Engaged:** `/android-build`, `/gradle-fix`, build-fix loop.
 
+### `mobile-crash-resolver`
+Triages a pasted stacktrace/logcat/Crashlytics/Sentry crash into a ranked root cause + minimal fix at the exact file:line (text-only, no external service calls).
+**Engaged:** `/crash-triage`.
+
 ### `xcode-build-resolver`
 Fixes Xcode build, Swift Package Manager, and signing/certificate failures.
 **Engaged:** `/ios-build`.

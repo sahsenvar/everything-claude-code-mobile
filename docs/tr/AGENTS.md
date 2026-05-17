@@ -71,6 +71,10 @@ Başlatma süresi, bellek, rendering ve pil maliyetini inceler; gerileme noktala
 Gradle/AGP/bağımlılık build hatalarını minimal, mimari olmayan değişikliklerle tespit eder ve düzeltir.
 **Devreye girer:** `/android-build`, `/gradle-fix`, build-fix döngüsü.
 
+### `mobile-crash-resolver`
+Yapıştırılan stacktrace/logcat/Crashlytics/Sentry kazasını sıralı kök neden + tam `file:line`'da minimal düzeltmeye dönüştürür (yalnızca metin, dış servis çağrısı yok).
+**Devreye girer:** `/crash-triage`.
+
 ### `xcode-build-resolver`
 Xcode build, Swift Package Manager ve signing/sertifika hatalarını düzeltir.
 **Devreye girer:** `/ios-build`.
