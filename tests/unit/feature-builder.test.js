@@ -305,12 +305,12 @@ describe('Feature Builder - Plugin Registration', () => {
         assert.strictEqual(plugin.commands, undefined, 'plugin.json must NOT declare a commands key (auto-discovery)');
     });
 
-    it('should auto-discover exactly 28 agents with valid frontmatter', () => {
+    it('should auto-discover exactly 29 agents with valid frontmatter', () => {
         const agentFiles = fs.readdirSync(AGENTS_DIR).filter(f => f.endsWith('.md'));
         assert.strictEqual(
             agentFiles.length,
-            28,
-            `Expected 28 agent files in agents/, got ${agentFiles.length}`
+            29,
+            `Expected 29 agent files in agents/, got ${agentFiles.length}`
         );
         for (const file of agentFiles) {
             const content = fs.readFileSync(path.join(AGENTS_DIR, file), 'utf8');
