@@ -1,26 +1,20 @@
 #!/usr/bin/env node
 /**
  * Install npm dependencies for each bundled MCP server.
- * Run after cloning / before first plugin use.
+ * Thin CLI shim — logic lives in scripts/lib/setup.js (single source of truth).
  */
+const { installMcpDeps } = require('./lib/setup');
+const { pluginRoot } = require('./lib/paths');
 
-const path = require('path');
-const fs = require('fs');
-const { execFileSync } = require('child_process');
-
-const SERVERS = ['mobile-memory', 'ios-memory', 'kmp-context'];
-const root = path.resolve(__dirname, '..');
-
-for (const name of SERVERS) {
-    const dir = path.join(root, 'mcp-servers', name);
-    if (!fs.existsSync(path.join(dir, 'package.json'))) {
-        console.log(`skip ${name}: no package.json`);
-        continue;
-    }
-    const hasLock = fs.existsSync(path.join(dir, 'package-lock.json'));
-    console.log(`installing deps for ${name} (${hasLock ? 'npm ci' : 'npm install'})...`);
-    execFileSync('npm', [hasLock ? 'ci' : 'install', '--omit=dev'], {
-        cwd: dir, stdio: 'inherit'
-    });
+if (require.main === module) {
+  const { perServer } = installMcpDeps({ pluginRoot: pluginRoot() });
+  let failed = false;
+  for (const [name, r] of Object.entries(perServer)) {
+    console.log(`${name}: ${r.status}${r.error ? ' — ' + r.error : ''}`);
+    if (r.status === 'failed') failed = true;
+  }
+  console.log('MCP server dependencies install complete.');
+  if (failed) process.exitCode = 1;
 }
-console.log('MCP server dependencies installed.');
+
+module.exports = { installMcpDeps };

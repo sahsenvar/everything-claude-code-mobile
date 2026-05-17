@@ -6,7 +6,7 @@ This is the "it gets smarter as you work" machinery. None of it needs manual inv
 
 ---
 
-## Background hooks (9 handlers, 3 events)
+## Background hooks (10 handlers, 4 events)
 
 Registered in `hooks/hooks.json`, path-portable via `${CLAUDE_PLUGIN_ROOT}`. Hooks run asynchronously and never fail your session.
 
@@ -34,11 +34,17 @@ Registered in `hooks/hooks.json`, path-portable via `${CLAUDE_PLUGIN_ROOT}`. Hoo
 | `track-build.js` | `Bash` | Logs build/test command runs (kind, command, branch) to a rolling history (last 100). |
 | `track-focus.js` | `Read` | Counts repeated reads of the same file — files you revisit a lot mark your problem-solving focus. |
 
+### `SessionStart` — when a session begins
+
+| Handler | What it does |
+|---|---|
+| `check-setup.js` | Detection-only: on session start, if any bundled MCP server's deps are missing, prints a one-line nudge to run `/ecc-setup`. Never installs, no network, never fails the session. |
+
 ## Project-memory MCP servers (3)
 
 Configured in `.mcp.json`. Each is a small server that remembers project state **across sessions** so Claude doesn't have to re-read your whole codebase every time.
 
-> ⚙️ **One-time setup:** after installing the plugin, run `npm run mcp:install` from the installed plugin directory. It installs each server's dependencies (`npm ci` / `npm install --omit=dev`). Without it, the MCP tools won't appear.
+> ⚙️ **One-time setup:** after installing the plugin, run `/ecc-setup` (installs the bundled MCP server deps and verifies). Check status anytime with `/ecc-doctor`.
 
 | Server | Remembers | Config (`.mcp.json`) |
 |---|---|---|

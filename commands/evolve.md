@@ -2,6 +2,8 @@
 description: Cluster related instincts into reusable skills.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Evolve Command
 
 Evolve instincts into skills.

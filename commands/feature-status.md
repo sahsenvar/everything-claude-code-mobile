@@ -2,6 +2,8 @@
 description: Show the current status of a feature build - which phase is active, what has completed, what remains, and any blockers.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Feature Status Command
 
 Progress tracker for feature builds. Reads state files and displays a summary of phase completion, agent status, and blockers.

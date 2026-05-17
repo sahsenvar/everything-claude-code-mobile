@@ -2,6 +2,8 @@
 description: Run Android unit and instrumentation tests. Invokes mobile-tdd-guide for test-driven development.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Android Test Command
 
 Run tests and verify coverage.

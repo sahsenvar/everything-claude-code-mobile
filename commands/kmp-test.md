@@ -2,6 +2,8 @@
 description: Run KMP tests across all platforms.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # KMP Test Command
 
 Run Kotlin Multiplatform tests on all platforms.

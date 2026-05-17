@@ -2,6 +2,8 @@
 description: Unified mobile test command. Detects platform (Android/iOS/KMP) and delegates to appropriate test command.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Mobile Test Command
 
 Unified test command for mobile projects. Detects platform and delegates appropriately.

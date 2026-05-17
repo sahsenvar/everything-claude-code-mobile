@@ -5,6 +5,8 @@ tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: opus
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # UI Layer Implementation Specialist
 
 You are a senior mobile UI engineer. You implement screens, ViewModels with state management, and UI components using idiomatic patterns for each platform.

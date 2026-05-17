@@ -2,6 +2,8 @@
 description: Build KMP project for all platforms. Invokes kmp-dependency-fix for issues.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # KMP Build Command
 
 Build Kotlin Multiplatform project for all target platforms.

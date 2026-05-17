@@ -2,6 +2,8 @@
 description: Save and restore mobile development checkpoints. Capture build variants, test states, and project state before risky operations.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Mobile Checkpoint Command
 
 Save and restore Android project state at critical points during development.

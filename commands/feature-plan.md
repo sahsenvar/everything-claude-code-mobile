@@ -2,6 +2,8 @@
 description: Plan a mobile feature with architecture decisions, file breakdown, dependency analysis, and test strategy. Produces a structured plan document reviewed by an architecture agent.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Feature Plan Command
 
 Phase 1 of the feature build pipeline. Creates a structured plan document and gets architecture review before implementation begins.

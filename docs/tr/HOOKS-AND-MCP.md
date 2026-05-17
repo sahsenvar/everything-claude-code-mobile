@@ -6,7 +6,7 @@ Bu, "çalıştıkça zekileşir" mekanizmasıdır. Hiçbir şeyi elle çağırma
 
 ---
 
-## Arka plan hook'ları (9 işleyici, 3 olay)
+## Arka plan hook'ları (10 işleyici, 4 olay)
 
 `hooks/hooks.json` dosyasında kayıtlıdır; `${CLAUDE_PLUGIN_ROOT}` üzerinden taşınabilir yol kullanır. Hook'lar asenkron çalışır ve oturumunuzu hiçbir zaman başarısız yapmaz.
 
@@ -34,11 +34,17 @@ Bu, "çalıştıkça zekileşir" mekanizmasıdır. Hiçbir şeyi elle çağırma
 | `track-build.js` | `Bash` | Derleme/test komut çalıştırmalarını (tür, komut, branch) kayan geçmişe kaydeder (son 100). |
 | `track-focus.js` | `Read` | Aynı dosyanın tekrar tekrar okunmasını sayar — çok ziyaret ettiğiniz dosyalar problem çözme odağınızı işaretler. |
 
+### `SessionStart` — bir oturum başladığında
+
+| İşleyici | Ne yapar |
+|---|---|
+| `check-setup.js` | Yalnızca tespit: oturum başlarken, paket halinde gelen MCP sunucularından herhangi birinin bağımlılıkları eksikse, `/ecc-setup` çalıştırması için tek satırlık bir uyarı yazdırır. Hiçbir şey kurmaz, ağ kullanmaz, oturumu hiçbir zaman başarısız kılmaz. |
+
 ## Proje bellek MCP sunucuları (3)
 
 `.mcp.json` dosyasında yapılandırılmıştır. Her biri proje durumunu **oturumlar arası** hatırlayan küçük bir sunucudur; böylece Claude her seferinde tüm kod tabanınızı yeniden okumak zorunda kalmaz.
 
-> ⚙️ **Bir kerelik kurulum:** eklentiyi yükledikten sonra, yüklü eklenti dizininden `npm run mcp:install` komutunu çalıştırın. Her sunucunun bağımlılıklarını yükler (`npm ci` / `npm install --omit=dev`). Bu yapılmadan MCP araçları görünmez.
+> ⚙️ **Bir kerelik kurulum:** eklentiyi yükledikten sonra `/ecc-setup` çalıştırın (paketteki MCP sunucu bağımlılıklarını kurar ve doğrular). Durumu istediğin zaman `/ecc-doctor` ile kontrol et.
 
 | Sunucu | Neleri hatırlar | Yapılandırma (`.mcp.json`) |
 |---|---|---|

@@ -2,6 +2,8 @@
 description: Build release APK/AAB with signing, ProGuard/R8, and optimizations.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Release Build Command
 
 Build production-ready Android artifacts.

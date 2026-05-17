@@ -2,6 +2,8 @@
 description: Build iOS project with Xcode, fix errors, generate IPA. Invokes xcode-build-resolver for issues.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # iOS Build Command
 
 Build and fix iOS project issues.

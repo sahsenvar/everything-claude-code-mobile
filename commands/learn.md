@@ -2,6 +2,8 @@
 description: Extract patterns from current session into reusable knowledge.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Learn Command
 
 Extract patterns mid-session.

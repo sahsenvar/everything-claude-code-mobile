@@ -2,6 +2,8 @@
 description: Build Android project with Gradle, fix errors, generate APK/AAB. Invokes android-build-resolver for issues.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Android Build Command
 
 Build and fix Android project issues.

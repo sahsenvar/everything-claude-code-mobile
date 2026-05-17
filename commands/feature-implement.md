@@ -2,6 +2,8 @@
 description: Implement a planned mobile feature using parallel specialized agents for network, data, architecture, UI, and wiring layers. Requires an approved feature plan.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Feature Implement Command
 
 Phase 2 of the feature build pipeline. Executes the approved plan using specialized agents running in dependency order.

@@ -2,6 +2,8 @@
 description: Compile the feature, run all tests, and iteratively fix compilation errors and test failures until everything passes. Max 5 iterations.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Feature Build Fix Command
 
 Phase 4 of the feature build pipeline. Iteratively compiles and fixes until the feature builds and all tests pass.

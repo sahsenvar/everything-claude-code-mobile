@@ -2,6 +2,8 @@
 description: Run automated verification loops with pass@k metrics for mobile testing. Executes tests multiple times to detect flakiness.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Mobile Verify Command
 
 Automated test verification with pass@k metrics for mobile development.

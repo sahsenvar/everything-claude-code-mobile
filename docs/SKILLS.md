@@ -40,6 +40,7 @@
 
 ## Architecture & quality
 
+- **`ecc-operating-discipline`** — Operating discipline ECC agents/commands follow: agent delegation, Android/iOS style, mobile security, testing/TDD. Consolidated from `rules/`, shipped in-plugin (zero copy). *Applied automatically by all ECC agents and commands.*
 - **`mvi-architecture`** — Model-View-Intent unidirectional flow: state/intent/side-effect. *Structuring app architecture.*
 - **`feature-builder`** — The 6-phase end-to-end feature pipeline itself. *Building a complete feature start to finish.*
 - **`mobile-testing`** — Test strategy (JUnit5/Mockk/Turbine/Compose), ≥80% coverage. *Writing the test layer.*
