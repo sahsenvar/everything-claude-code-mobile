@@ -151,7 +151,7 @@ Group patterns by:
 > **Persistence is automatic and delegated — this agent does not write files.**
 > Instinct JSON is persisted by the PostToolUse hook chain
 > (`scripts/hooks/post-tool-use.js` → `scripts/hooks/extract-pattern.js` →
-> `scripts/lib/instincts.js` → `.omc/instincts/mobile-instincts.json`).
+> `scripts/lib/instincts.js` → `~/.claude/instincts/mobile-instincts.json`).
 > This agent is read-only by design (`tools: Read, Grep, Glob, Bash`); it only
 > surfaces the pattern shapes below. Do NOT add a Write tool — it would
 > duplicate/conflict with the hook system.

@@ -100,9 +100,29 @@ Fazları tek tek de sürebilirsin: `/feature-plan`, `/feature-implement`, `/feat
 
 ---
 
+## 🧭 Daha fazla kullanım yolu
+
+`/feature-build` vitrin özelliği ama eklentinin çoğu tek başına da işe yarar — ne yapıyorsan ona yönelt:
+
+| İstediğin | Çalıştır | Ne olur |
+|---|---|---|
+| Bozuk Android build'i düzelt | `/android-build` | `android-build-resolver` Gradle/AGP/bağımlılık hatalarını teşhis edip minimal düzeltir |
+| Eksik testleri tamamla | `/mobile-tdd "<gereksinim>"` | `mobile-tdd-guide` + `unit-test-writer`/`ui-test-writer` önce test yazar, sonra implementasyon |
+| PR öncesi branch incele | `/android-review <branch>` | `android-reviewer` Kotlin/Compose/MVI stil, güvenlik, performans bakar |
+| Flaky testleri yakala | `/mobile-verify --k=3` | `mobile-verifier` suite'i k kez çalıştırıp pass@k güvenilirliği raporlar |
+| Kodlamadan önce planla | `/mobile-plan "<açıklama>"` | `feature-planner` + `mobile-architect` mimari/görev planı üretir |
+| Ne öğrendiğini gör | `/instinct-status` | Kod tabanından yakalanan desenleri ("instinct") güven skoruyla listeler |
+| Desenleri skill'e dönüştür | `/evolve` | Olgun instinct'leri yeni yeniden-kullanılabilir `SKILL.md` skill'lerine kümeler |
+
+Her komut, agent ve skill'in tek tek açıklandığı tam katalog → **[Dokümantasyon](#-dokümantasyon)**.
+
+---
+
 ## 📦 İçinde ne var
 
-### 27 agent
+> 📚 Bunlar özet. **Her bir agent, skill ve komut** aşağıdaki [Dokümantasyon](#-dokümantasyon) bölümünde tam olarak açıklanıyor (İngilizce + Türkçe).
+
+### 27 agent — [tam referans →](docs/tr/AGENTS.md)
 
 | Grup | Agent'lar | Ne yapar |
 |---|---|---|
@@ -114,7 +134,7 @@ Fazları tek tek de sürebilirsin: `/feature-plan`, `/feature-implement`, `/feat
 | **Test (5)** | `mobile-tdd-guide`, `mobile-e2e-runner`, `unit-test-writer`, `ui-test-writer`, `mobile-verifier` | TDD akışı, E2E ve güvenilirlik doğrulaması |
 | **Öğrenme & meta (2)** | `mobile-pattern-extractor`, `mobile-compactor` | Yeniden kullanılabilir desen yakalama; bağlam optimizasyonu |
 
-### 46 skill
+### 46 skill — [tam referans →](docs/tr/SKILLS.md)
 
 Agent'ların başvurduğu, yeniden kullanılabilir, yığına özel rehberler:
 
@@ -125,7 +145,7 @@ Agent'ların başvurduğu, yeniden kullanılabilir, yığına özel rehberler:
 - **Özellik reçeteleri** — `offline-first`, `pagination-patterns`, `deep-linking`, `push-notifications`, `feature-flags`, `image-loading`, `localization-patterns`, `analytics-patterns`, `accessibility-patterns`, `app-lifecycle`, `ktor-patterns`
 - **Continuous learning** — `continuous-learning`(+`-v2`), `mobile-instinct-v1`/`-v2`, `mobile-checkpoint`, `mobile-compaction`, `mobile-memory`
 
-### 35 komut
+### 35 komut — [tam referans →](docs/tr/COMMANDS.md)
 
 | Grup | Örnekler |
 |---|---|
@@ -146,6 +166,8 @@ Eklenti, bir kod tabanında kullandıkça daha akıllı hale gelir — otomatik,
 3. **Kalıcılaştır** — hook zinciri (`post-tool-use.js → extract-pattern.js → instincts.js`) bunları `~/.claude/instincts/` altında "instinct" olarak saklar. *(Agent'ın kendisi asla yazmaz — kalıcılık tasarımca hook'a delege edilmiştir.)*
 4. **Gözlemle** — `mobile-instinct-v2` / `continuous-learning` skill'leri oturumlar boyu tekrarlayan desenleri tespit eder.
 5. **Yeniden kullan & evrimleştir** — `/instinct-status` öğrenilenleri listeler, `/instinct-export` / `/instinct-import` makineler arası paylaşır, `/evolve` olgunlaşmış instinct'leri yeniden kullanılabilir skill'lere kümeler.
+
+Kesin veri akışı, dosya yolları ve her handler → [docs/tr/HOOKS-AND-MCP.md](docs/tr/HOOKS-AND-MCP.md#continuous-learning).
 
 ---
 
@@ -168,6 +190,21 @@ Eklenti, bir kod tabanında kullandıkça daha akıllı hale gelir — otomatik,
 | `kmp-context` | KMP modül yapısı, expect/actual, paylaşılan modeller |
 
 > ⚠️ MCP sunucuları, eklenti kurulumundan sonra bir kez bağımlılık kurulumu ister: `npm run mcp:install` (bkz. [Hızlı başlangıç](#-hızlı-başlangıç) 3. adım).
+
+**Her hook handler'ı ve MCP sunucusu, ve tam öğrenme veri-akışı → [docs/tr/HOOKS-AND-MCP.md](docs/tr/HOOKS-AND-MCP.md).**
+
+---
+
+## 📚 Dokümantasyon
+
+README genel bakıştır. Her agent, skill, komut, hook ve MCP sunucusu tam olarak belgelenmiştir — **İngilizce ve Türkçe**:
+
+| Referans | İngilizce | Türkçe |
+|---|---|---|
+| **Agent'lar** — 27'sinin tümü, ne yapar & nasıl devreye girer | [docs/AGENTS.md](docs/AGENTS.md) | [docs/tr/AGENTS.md](docs/tr/AGENTS.md) |
+| **Skill'ler** — 46'sının tümü, amaç & ne zaman | [docs/SKILLS.md](docs/SKILLS.md) | [docs/tr/SKILLS.md](docs/tr/SKILLS.md) |
+| **Komutlar** — 35'inin tümü, kullanım & örnek | [docs/COMMANDS.md](docs/COMMANDS.md) | [docs/tr/COMMANDS.md](docs/tr/COMMANDS.md) |
+| **Hook & MCP** — 9 hook, 3 sunucu, öğrenme akışı | [docs/HOOKS-AND-MCP.md](docs/HOOKS-AND-MCP.md) | [docs/tr/HOOKS-AND-MCP.md](docs/tr/HOOKS-AND-MCP.md) |
 
 ---
 

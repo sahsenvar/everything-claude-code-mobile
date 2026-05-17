@@ -100,9 +100,29 @@ You can also drive phases individually: `/feature-plan`, `/feature-implement`, `
 
 ---
 
+## 🧭 More ways to use it
+
+`/feature-build` is the headline, but most of the plugin is useful on its own — point it at whatever you're doing:
+
+| You want to… | Run | What happens |
+|---|---|---|
+| Fix a broken Android build | `/android-build` | `android-build-resolver` diagnoses Gradle/AGP/dependency errors and applies minimal fixes |
+| Backfill missing tests | `/mobile-tdd "<requirement>"` | `mobile-tdd-guide` + `unit-test-writer`/`ui-test-writer` write tests first, then implement |
+| Review a branch before PR | `/android-review <branch>` | `android-reviewer` checks Kotlin/Compose/MVI style, security, performance |
+| Catch flaky tests | `/mobile-verify --k=3` | `mobile-verifier` runs the suite k times and reports pass@k reliability |
+| Plan before coding | `/mobile-plan "<desc>"` | `feature-planner` + `mobile-architect` produce an architecture/task plan |
+| See what it learned | `/instinct-status` | Lists the patterns ("instincts") captured from your codebase, with confidence |
+| Turn patterns into skills | `/evolve` | Clusters mature instincts into new reusable `SKILL.md` skills |
+
+Full catalog with every command, agent, and skill explained → **[Documentation](#-documentation)**.
+
+---
+
 ## 📦 What's inside
 
-### 27 agents
+> 📚 These are summaries. **Every single agent, skill, and command is explained** in the [Documentation](#-documentation) section below (English + Türkçe).
+
+### 27 agents — [full reference →](docs/AGENTS.md)
 
 | Group | Agents | What they do |
 |---|---|---|
@@ -114,7 +134,7 @@ You can also drive phases individually: `/feature-plan`, `/feature-implement`, `
 | **Testing (5)** | `mobile-tdd-guide`, `mobile-e2e-runner`, `unit-test-writer`, `ui-test-writer`, `mobile-verifier` | TDD workflow, E2E, and reliability verification |
 | **Learning & meta (2)** | `mobile-pattern-extractor`, `mobile-compactor` | Capture reusable patterns; optimize context |
 
-### 46 skills
+### 46 skills — [full reference →](docs/SKILLS.md)
 
 Reusable, stack-specific playbooks the agents draw on, spanning:
 
@@ -125,7 +145,7 @@ Reusable, stack-specific playbooks the agents draw on, spanning:
 - **Feature recipes** — `offline-first`, `pagination-patterns`, `deep-linking`, `push-notifications`, `feature-flags`, `image-loading`, `localization-patterns`, `analytics-patterns`, `accessibility-patterns`, `app-lifecycle`, `ktor-patterns`
 - **Continuous learning** — `continuous-learning`(+`-v2`), `mobile-instinct-v1`/`-v2`, `mobile-checkpoint`, `mobile-compaction`, `mobile-memory`
 
-### 35 commands
+### 35 commands — [full reference →](docs/COMMANDS.md)
 
 | Group | Examples |
 |---|---|
@@ -146,6 +166,8 @@ The plugin gets smarter the more you use it on a codebase — automatically, wit
 3. **Persist** — the hook chain (`post-tool-use.js → extract-pattern.js → instincts.js`) stores them as "instincts" under `~/.claude/instincts/`. *(The agent itself never writes — persistence is intentionally delegated to the hook, by design.)*
 4. **Observe** — the `mobile-instinct-v2` / `continuous-learning` skills detect patterns recurring across sessions.
 5. **Reuse & evolve** — `/instinct-status` lists what's been learned, `/instinct-export` / `/instinct-import` share it across machines, and `/evolve` clusters mature instincts into reusable skills.
+
+Exact data flow, file paths, and every handler → [docs/HOOKS-AND-MCP.md](docs/HOOKS-AND-MCP.md#continuous-learning).
 
 ---
 
@@ -168,6 +190,21 @@ The plugin gets smarter the more you use it on a codebase — automatically, wit
 | `kmp-context` | KMP module structure, expect/actual, shared models |
 
 > ⚠️ MCP servers need their dependencies installed once after plugin install: `npm run mcp:install` (see [Quick start](#-quick-start) step 3).
+
+**Every hook handler and MCP server, and the full learning data-flow, explained → [docs/HOOKS-AND-MCP.md](docs/HOOKS-AND-MCP.md).**
+
+---
+
+## 📚 Documentation
+
+The README is the overview. Every agent, skill, command, hook, and MCP server is documented in full — in **English and Türkçe**:
+
+| Reference | English | Türkçe |
+|---|---|---|
+| **Agents** — all 27, what each does & how it's engaged | [docs/AGENTS.md](docs/AGENTS.md) | [docs/tr/AGENTS.md](docs/tr/AGENTS.md) |
+| **Skills** — all 46, purpose & when each applies | [docs/SKILLS.md](docs/SKILLS.md) | [docs/tr/SKILLS.md](docs/tr/SKILLS.md) |
+| **Commands** — all 35, usage & examples | [docs/COMMANDS.md](docs/COMMANDS.md) | [docs/tr/COMMANDS.md](docs/tr/COMMANDS.md) |
+| **Hooks & MCP** — 9 hooks, 3 servers, learning flow | [docs/HOOKS-AND-MCP.md](docs/HOOKS-AND-MCP.md) | [docs/tr/HOOKS-AND-MCP.md](docs/tr/HOOKS-AND-MCP.md) |
 
 ---
 
