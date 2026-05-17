@@ -23,3 +23,15 @@ describe('Feature E — mobile-dependency-upgrader agent', () => {
     assert.ok(/KSP|Compose compiler|coordinated/i.test(c), 'coordinated version set');
   });
 });
+
+describe('Feature E — dependency-upgrade command', () => {
+  it('exists, valid frontmatter, discipline ref, invokes the agent, --check', () => {
+    const p = path.join(ROOT, 'commands', 'dependency-upgrade.md');
+    assert.ok(fs.existsSync(p), 'command file must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    assert.match(c, /^---\n[\s\S]*?description:\s*\S[\s\S]*?\n---\n/, 'frontmatter description');
+    assert.ok(c.includes(DISC), 'operating-discipline ref');
+    assert.ok(c.includes('mobile-dependency-upgrader'), 'invokes the agent');
+    assert.match(c, /--check/, 'documents read-only --check mode');
+  });
+});
