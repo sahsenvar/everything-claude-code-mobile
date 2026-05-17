@@ -44,7 +44,7 @@ Bu, "çalıştıkça zekileşir" mekanizmasıdır. Hiçbir şeyi elle çağırma
 
 `.mcp.json` dosyasında yapılandırılmıştır. Her biri proje durumunu **oturumlar arası** hatırlayan küçük bir sunucudur; böylece Claude her seferinde tüm kod tabanınızı yeniden okumak zorunda kalmaz.
 
-> ⚙️ **Bir kerelik kurulum:** eklentiyi yükledikten sonra, yüklü eklenti dizininden `npm run mcp:install` komutunu çalıştırın. Her sunucunun bağımlılıklarını yükler (`npm ci` / `npm install --omit=dev`). Bu yapılmadan MCP araçları görünmez.
+> ⚙️ **Bir kerelik kurulum:** eklentiyi yükledikten sonra `/ecc-setup` çalıştırın (paketteki MCP sunucu bağımlılıklarını kurar ve doğrular). Durumu istediğin zaman `/ecc-doctor` ile kontrol et.
 
 | Sunucu | Neleri hatırlar | Yapılandırma (`.mcp.json`) |
 |---|---|---|

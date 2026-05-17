@@ -44,7 +44,7 @@ Registered in `hooks/hooks.json`, path-portable via `${CLAUDE_PLUGIN_ROOT}`. Hoo
 
 Configured in `.mcp.json`. Each is a small server that remembers project state **across sessions** so Claude doesn't have to re-read your whole codebase every time.
 
-> ⚙️ **One-time setup:** after installing the plugin, run `npm run mcp:install` from the installed plugin directory. It installs each server's dependencies (`npm ci` / `npm install --omit=dev`). Without it, the MCP tools won't appear.
+> ⚙️ **One-time setup:** after installing the plugin, run `/ecc-setup` (installs the bundled MCP server deps and verifies). Check status anytime with `/ecc-doctor`.
 
 | Server | Remembers | Config (`.mcp.json`) |
 |---|---|---|
