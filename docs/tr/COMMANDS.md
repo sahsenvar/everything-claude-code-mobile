@@ -15,6 +15,18 @@
 
 ---
 
+## Tamamlayıcı köprüler
+
+Bunlar ECC'yi resmi Atlassian/GitHub/Figma eklentilerine bağlar. Soft-detect: companion kurulu değilse açıklayıp atlar — asla başarısız olmaz. Hangileri tespit edildi görmek için `/ecc-doctor`.
+
+| Komut | Ne yapar | Örnek |
+|---|---|---|
+| `/jira-feature-build <KEY>` | Bir Jira sorununu (Atlassian MCP) getirir ve açıklama olarak `/feature-build` ile çalıştırır. | `/jira-feature-build PROJ-123` |
+| `/github-pr-feature [name]` | Mevcut özellik dalı için bir GitHub PR'ı (GitHub MCP) açar/günceller. | `/github-pr-feature auth` |
+| `/figma-ui-impl <url>` | Figma tasarım bağlamını (Figma MCP) getirir ve `ui-impl`'e iletir. | `/figma-ui-impl https://figma.com/design/…` |
+
+---
+
 ## Özellik hattı
 
 Ana iş akışı. `/feature-build` 6 fazın tamamını çalıştırır; diğerleri tek tek fazları yönetmenizi veya incelemenizi sağlar.

@@ -15,6 +15,18 @@
 
 ---
 
+## Companion bridges
+
+These connect ECC to the official Atlassian/GitHub/Figma plugins. They soft-detect: if the companion plugin is not installed they explain and skip — never fail. Run `/ecc-doctor` to see which companions are detected.
+
+| Command | What it does | Example |
+|---|---|---|
+| `/jira-feature-build <KEY>` | Fetches a Jira issue (Atlassian MCP) and runs `/feature-build` with it as the description. | `/jira-feature-build PROJ-123` |
+| `/github-pr-feature [name]` | Opens/updates a GitHub PR (GitHub MCP) for the current feature branch. | `/github-pr-feature auth` |
+| `/figma-ui-impl <url>` | Fetches Figma design context (Figma MCP) and hands it to `ui-impl`. | `/figma-ui-impl https://figma.com/design/…` |
+
+---
+
 ## Feature pipeline
 
 The headline workflow. `/feature-build` runs all 6 phases; the rest let you drive or inspect individual phases.
