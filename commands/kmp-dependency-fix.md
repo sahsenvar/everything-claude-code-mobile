@@ -2,6 +2,8 @@
 description: Fix KMP dependency conflicts, version mismatches, and Gradle issues.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # KMP Dependency Fix
 
 Fix Kotlin Multiplatform dependency and Gradle issues.

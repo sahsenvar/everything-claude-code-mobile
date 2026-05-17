@@ -2,6 +2,8 @@
 description: Unified mobile build command. Detects platform (Android/iOS/KMP) and delegates to appropriate build command. Invokes platform-specific resolver on failure.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Mobile Build Command
 
 Unified build command for mobile projects. Detects platform and delegates appropriately.

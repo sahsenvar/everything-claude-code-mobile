@@ -2,6 +2,8 @@
 description: Run SwiftLint to check Swift code style. Auto-fix issues where possible.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # SwiftLint Command
 
 Run SwiftLint for Swift code quality checks.

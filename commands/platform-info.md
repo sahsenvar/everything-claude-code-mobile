@@ -2,6 +2,8 @@
 description: Detect project type (Android/iOS/KMP), list platforms, show platform info, and delegate to appropriate commands.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Platform Info Command
 
 Detect project platform and show information.

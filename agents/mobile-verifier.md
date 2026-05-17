@@ -5,6 +5,8 @@ tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: opus
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Mobile Verifier Agent
 
 Executes automated verification loops with pass@k metrics for Android testing. Detects flaky tests and measures code reliability.

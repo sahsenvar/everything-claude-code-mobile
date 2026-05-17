@@ -229,3 +229,18 @@ describe('commands/ecc-setup.md + ecc-doctor.md', () => {
     });
   }
 });
+
+describe('operating-discipline reference convention', () => {
+  const dirs = ['agents', 'commands'];
+  it('every agents/*.md and commands/*.md references ecc-operating-discipline', () => {
+    const offenders = [];
+    for (const d of dirs) {
+      const base = path.join(__dirname, '../../', d);
+      for (const f of fs.readdirSync(base).filter((x) => x.endsWith('.md'))) {
+        const c = fs.readFileSync(path.join(base, f), 'utf8');
+        if (!c.includes('ecc-operating-discipline')) offenders.push(`${d}/${f}`);
+      }
+    }
+    assert.deepStrictEqual(offenders, [], `missing reference: ${offenders.join(', ')}`);
+  });
+});

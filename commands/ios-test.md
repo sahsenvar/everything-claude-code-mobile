@@ -2,6 +2,8 @@
 description: Run iOS tests with xcodebuild, show coverage. Invokes ios-testing patterns.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # iOS Test Command
 
 Run iOS unit and UI tests.

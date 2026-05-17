@@ -5,6 +5,8 @@ tools: ["Read", "Grep", "Glob"]
 model: opus
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Mobile Compactor Agent
 
 Analyzes mobile development sessions and performs strategic context compaction to optimize token usage while preserving critical information.

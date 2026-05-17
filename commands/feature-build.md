@@ -2,6 +2,8 @@
 description: Build a complete mobile feature from description to running code with E2E tests. Orchestrates 6 phases - planning, implementation, testing, build-fix, quality gate, and verification. Auto-detects platform.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Feature Build Command
 
 Master entry point for end-to-end mobile feature construction. Runs all 6 phases sequentially, tracking progress in state files.

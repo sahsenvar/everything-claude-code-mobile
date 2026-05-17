@@ -2,6 +2,8 @@
 description: Create all tests for an implemented feature - unit tests (ViewModel, UseCase, Repository), Compose UI tests, and E2E user flow tests.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Feature Test Command
 
 Phase 3 of the feature build pipeline. Creates comprehensive tests for the implemented feature using parallel test-writing agents.

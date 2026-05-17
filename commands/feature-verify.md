@@ -2,6 +2,8 @@
 description: Run final verification - pass@k test metrics, coverage report, and sign-off. Confirms feature is production-ready.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Feature Verify Command
 
 Phase 6 of the feature build pipeline. Final verification gate that confirms the feature is production-ready through repeated test runs and coverage analysis.

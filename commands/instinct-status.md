@@ -2,6 +2,8 @@
 description: Show learned instincts with confidence scores.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Instinct Status Command
 
 View learned patterns.

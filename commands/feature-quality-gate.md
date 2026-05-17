@@ -2,6 +2,8 @@
 description: Run quality reviews on an implemented feature - code review, security audit, and performance review. Collect findings and apply fixes.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Feature Quality Gate Command
 
 Phase 5 of the feature build pipeline. Runs parallel quality reviews, collects findings, applies fixes, and re-verifies critical issues.

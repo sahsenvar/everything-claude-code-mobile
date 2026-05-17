@@ -2,6 +2,8 @@
 description: Plan mobile feature implementation with architecture decisions and task breakdown.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Mobile Plan Command
 
 Plan feature implementation.

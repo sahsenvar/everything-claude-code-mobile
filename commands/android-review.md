@@ -2,6 +2,8 @@
 description: Android code review for Kotlin, Compose, and MVI patterns.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Android Review Command
 
 Review Android code.

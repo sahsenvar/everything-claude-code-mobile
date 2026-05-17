@@ -2,6 +2,8 @@
 description: Mobile TDD workflow. Write tests first, implement, refactor. 80%+ coverage required.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Mobile TDD Command
 
 Test-driven development for Android.

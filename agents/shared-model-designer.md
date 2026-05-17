@@ -5,6 +5,8 @@ tools: ["Read", "Write", "Edit", "Bash"]
 model: opus
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Shared Model Designer
 
 Design and implement cross-platform data models for Kotlin Multiplatform.

@@ -2,6 +2,8 @@
 description: Generate and verify Compose previews for UI components.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Compose Preview Command
 
 Generate and verify @Preview annotations.

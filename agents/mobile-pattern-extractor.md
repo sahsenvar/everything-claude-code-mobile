@@ -5,6 +5,8 @@ tools: ["Read", "Grep", "Glob", "Bash"]
 model: opus
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Mobile Pattern Extractor Agent
 
 Analyzes codebases to extract and categorize mobile development patterns for continuous learning.

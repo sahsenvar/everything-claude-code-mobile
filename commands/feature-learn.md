@@ -2,6 +2,8 @@
 description: View and manage patterns learned from feature builds. Shows extracted instincts, confidence scores, and feature completeness history.
 ---
 
+> **Operating discipline:** follow the `ecc-operating-discipline` skill (agent delegation, Android/iOS style, mobile security, testing/TDD).
+
 # Feature Learn Command
 
 View patterns learned from feature builds. Displays instincts captured during Phase 7 (Learning), confidence scores, and feature completeness history over time.
