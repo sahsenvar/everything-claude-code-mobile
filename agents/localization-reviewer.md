@@ -19,10 +19,13 @@ You audit mobile code for internationalization defects and report prioritized fi
 
 ## Audit Checklist
 
-### Hardcoded strings (all platforms)
-- ❌ user-facing string literal in `*.kt` → ✅ `stringResource(R.string.key)`.
-- ❌ user-facing literal in `*.swift` → ✅ `String(localized:)` / `NSLocalizedString`.
-- ❌ KMP shared user-facing literal → ✅ shared string provider (e.g. moko-resources / expect-actual StringProvider).
+### Hardcoded strings (UI / presentation layer only)
+
+Scope: user-facing UI text only — `@Composable` / Activity / Fragment display code (`.kt`), SwiftUI / UIKit views (`.swift`), KMP `commonMain` UI. **Exclude** log tags/messages, exception messages, JSON/API keys, annotation strings, `BuildConfig`, and test files — those are NOT i18n violations and must not be flagged.
+
+- ❌ user-facing string literal in Compose / Activity / Fragment (`.kt`) → ✅ `stringResource(R.string.key)`.
+- ❌ user-facing literal in a SwiftUI / UIKit view (`.swift`) → ✅ `String(localized:)` / `NSLocalizedString`.
+- ❌ user-facing literal in KMP `commonMain` UI → ✅ a shared string mechanism — Compose Multiplatform `stringResource()` or a resources library (moko-resources / lyricist); see the `localization-patterns` skill for the concrete expect/actual contract.
 
 ### Plurals & formatting
 - ❌ count text via concatenation → ✅ `R.plurals` (Android) / `.stringsdict` (iOS).
@@ -37,8 +40,8 @@ You audit mobile code for internationalization defects and report prioritized fi
 | Priority | Issue |
 |---|---|
 | 🔴 | Hardcoded user-facing string (untranslatable) |
-| 🟡 | Concatenated/plural-unsafe text, locale-unsafe date/number formatting |
-| 🟢 | RTL `left/right` usage, non-mirrored directional asset |
+| 🟡 | Concatenated/plural-unsafe text, locale-unsafe date/number formatting, RTL `left/right` layout (breaks Arabic/Hebrew) |
+| 🟢 | Non-mirrored directional asset |
 
 ## Output Format
 
