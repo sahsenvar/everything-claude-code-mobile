@@ -27,21 +27,22 @@ You audit mobile UI for accessibility violations and report prioritized findings
 - ❌ dynamic content without `liveRegion` → ✅ `LiveRegionMode.Polite/Assertive`.
 
 ### iOS / SwiftUI
-- ❌ interactive view without `.accessibilityLabel` → ✅ labelled (or `.accessibilityHidden(true)` if purely decorative).
+- ❌ icon/image-only interactive control (e.g. `Image(systemName:)`-only `Button`) with no `.accessibilityLabel` — text-labeled controls synthesize a usable label and are NOT violations → ✅ label icon-only controls (or `.accessibilityHidden(true)` if purely decorative).
 - ❌ fixed font sizes → ✅ Dynamic Type (`.font(.body)` / `@ScaledMetric`).
 - ❌ touch target < 44pt → ✅ ≥ 44pt.
 - ❌ motion without `@Environment(\.accessibilityReduceMotion)` honor → ✅ respected.
 
 ### KMP
-- ❌ shared UI that bypasses platform a11y APIs → ✅ a11y parity on each platform's actual UI layer.
+- ❌ Compose Multiplatform shared composable missing semantics → ✅ the same `contentDescription`/`semantics` rules as Android Compose apply to shared composables.
+- ❌ shared logic delegating to native UI that strips/forwards events without preserving the platform accessibility tree → ✅ verify each platform's native UI layer keeps its a11y nodes intact.
 
 ## Severity
 
 | Priority | Issue |
 |---|---|
 | 🔴 | Interactive element with no accessible name (blocks screen-reader use) |
-| 🟡 | Sub-min touch target, missing heading semantics, no Dynamic Type |
-| 🟢 | Missing live region, decorative not explicitly hidden |
+| 🟡 | Sub-min touch target, missing heading semantics, no Dynamic Type, missing live region on a validation/error message |
+| 🟢 | Missing live region on informational content, decorative not explicitly hidden |
 
 ## Output Format
 
