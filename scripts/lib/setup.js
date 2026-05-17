@@ -88,14 +88,9 @@ function defaultPluginsFile() {
 
 function detectCompanions({ pluginsFile = defaultPluginsFile() } = {}) {
   const result = { figma: 'unknown', atlassian: 'unknown', github: 'unknown' };
-  let json;
-  try {
-    json = JSON.parse(fs.readFileSync(pluginsFile, 'utf8'));
-  } catch (_) {
-    return result;
-  }
-  const keys = Object.keys((json && json.plugins) || {});
-  const names = keys.map((k) => k.split('@')[0]);
+  const json = readJsonFile(pluginsFile);
+  if (!json) return result;
+  const names = Object.keys((json.plugins) || {}).map((k) => k.split('@')[0]);
   for (const [companion, prefix] of Object.entries(COMPANION_PREFIXES)) {
     result[companion] = names.some((n) => n.startsWith(prefix)) ? 'present' : 'absent';
   }
