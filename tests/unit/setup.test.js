@@ -200,3 +200,19 @@ describe('hooks/hooks.json — SessionStart registration', () => {
     assert.ok(src.includes("require('../lib/paths')"));
   });
 });
+
+describe('skills/ecc-operating-discipline/SKILL.md', () => {
+  it('exists with valid frontmatter (name + description)', () => {
+    const p = path.join(__dirname, '../../skills/ecc-operating-discipline/SKILL.md');
+    assert.ok(fs.existsSync(p), 'SKILL.md must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    assert.ok(c.startsWith('---'), 'must start with frontmatter');
+    const m = c.match(/^---\n([\s\S]*?)\n---\n/);
+    assert.ok(m, 'frontmatter block must parse');
+    assert.match(m[1], /name:\s*ecc-operating-discipline/);
+    assert.match(m[1], /description:\s*\S/);
+    for (const kw of ['Agent Delegation', 'Android', 'iOS', 'Security', 'Testing']) {
+      assert.ok(c.includes(kw), `body must cover ${kw}`);
+    }
+  });
+});
