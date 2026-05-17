@@ -21,6 +21,8 @@ Idempotent: if deps are already present it reports "already set up" and does not
 
 1. Preview + verify-after via the doctor report:
 
+   > If the node command below errors with `Cannot find module 'undefined/...'`, `$CLAUDE_PLUGIN_ROOT` is unset — Claude Code normally sets it automatically when the command runs; otherwise set it to the plugin install directory and retry.
+
    ```bash
    node -e "const{doctorReport}=require(process.env.CLAUDE_PLUGIN_ROOT+'/scripts/lib/setup');const{pluginRoot,projectDir}=require(process.env.CLAUDE_PLUGIN_ROOT+'/scripts/lib/paths');console.log(JSON.stringify(doctorReport({pluginRoot:pluginRoot(),projectDir:projectDir()}),null,2))"
    ```
@@ -31,7 +33,7 @@ Idempotent: if deps are already present it reports "already set up" and does not
    node "$CLAUDE_PLUGIN_ROOT/scripts/install-mcp-deps.js"
    ```
 
-3. Re-run the command in step 1 to verify. Present the result as a green/red checklist (MCP deps per server, platform, discipline skill, SessionStart hook). For any server still failing, tell the user to re-run step 2 or, for one server, `cd "$CLAUDE_PLUGIN_ROOT/mcp-servers/<server>" && npm ci --omit=dev`.
+3. Re-run the command in step 1 to verify. Present the result as a green/red checklist (MCP deps per server, platform, discipline skill, SessionStart hook). For any server still failing, tell the user to re-run step 2 or, for a single server, run `cd "$CLAUDE_PLUGIN_ROOT/mcp-servers/<server>" && npm ci --omit=dev` — substitute `<server>` with the actual failing server name from the doctor output (one of `mobile-memory`, `ios-memory`, `kmp-context`); do not emit the literal text `<server>`.
 
 ## Invokes
 

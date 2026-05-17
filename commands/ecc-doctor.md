@@ -12,6 +12,8 @@ A read-only green/red status report. Mutates nothing.
 
 1. Produce the structured report:
 
+   > If the node command below errors with `Cannot find module 'undefined/...'`, `$CLAUDE_PLUGIN_ROOT` is unset — Claude Code normally sets it automatically when the command runs; otherwise set it to the plugin install directory and retry.
+
    ```bash
    node -e "const{doctorReport}=require(process.env.CLAUDE_PLUGIN_ROOT+'/scripts/lib/setup');const{pluginRoot,projectDir}=require(process.env.CLAUDE_PLUGIN_ROOT+'/scripts/lib/paths');console.log(JSON.stringify(doctorReport({pluginRoot:pluginRoot(),projectDir:projectDir()}),null,2))"
    ```
