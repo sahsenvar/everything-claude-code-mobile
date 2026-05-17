@@ -82,3 +82,16 @@ describe('Feature F — doctorReport.instincts (injectable)', () => {
     assert.strictEqual(r.instincts.prunable, 1);
   });
 });
+
+describe('Feature F — instinct-review command', () => {
+  it('exists, valid, discipline ref, report-first + .bak + invokes instincts lib', () => {
+    const p = path.join(__dirname, '..', '..', 'commands', 'instinct-review.md');
+    assert.ok(fs.existsSync(p), 'command must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    assert.match(c, /^---\n[\s\S]*?description:\s*\S[\s\S]*?\n---\n/, 'frontmatter');
+    assert.ok(c.includes('ecc-operating-discipline'), 'discipline ref');
+    assert.match(c, /report|no flag|default/i, 'report-first wording');
+    assert.match(c, /\.bak/, 'backup before prune');
+    assert.ok(c.includes('scripts/lib/instincts'), 'invokes the instincts lib');
+  });
+});
