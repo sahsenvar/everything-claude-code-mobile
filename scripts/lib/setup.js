@@ -16,8 +16,9 @@ function detectPlatform(projectDir) {
   try {
     const has = (f) => fs.existsSync(path.join(projectDir, f));
     const gradleKts = path.join(projectDir, 'build.gradle.kts');
+    const isDir = (f) => { try { return fs.statSync(path.join(projectDir, f)).isDirectory(); } catch (_) { return false; } };
     const isKmp =
-      has('shared') ||
+      isDir('shared') ||
       (fs.existsSync(gradleKts) && fs.readFileSync(gradleKts, 'utf8').includes('kotlin("multiplatform")'));
     if (isKmp) return 'kmp';
     if (has('build.gradle') || has('build.gradle.kts') || has('settings.gradle') || has('settings.gradle.kts')) {
@@ -121,4 +122,4 @@ function doctorReport({ pluginRoot, projectDir, pluginsFile }) {
   };
 }
 
-module.exports = { SERVERS, NUDGE, detectState, setupNudge, installMcpDeps, detectCompanions, doctorReport, getClaudeConfigDir };
+module.exports = { SERVERS, NUDGE, detectState, setupNudge, installMcpDeps, detectCompanions, doctorReport };
