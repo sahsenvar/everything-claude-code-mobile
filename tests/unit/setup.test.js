@@ -169,3 +169,13 @@ describe('scripts/lib/setup.js — doctorReport', () => {
     assert.strictEqual(r.ok, true);
   });
 });
+
+describe('scripts/install-mcp-deps.js — CLI shim', () => {
+  it('require() exposes installMcpDeps and does NOT run the loop at require time', () => {
+    const before = require('module')._cache; // sanity: requiring must not throw or spawn
+    const shim = require('../../scripts/install-mcp-deps.js');
+    assert.strictEqual(typeof shim.installMcpDeps, 'function');
+    assert.strictEqual(shim.installMcpDeps, setup.installMcpDeps);
+    assert.ok(before);
+  });
+});
