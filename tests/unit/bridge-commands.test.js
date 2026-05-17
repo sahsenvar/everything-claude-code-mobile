@@ -26,3 +26,13 @@ describe('Feature B — jira-feature-build', () => {
     assert.ok(c.includes('/feature-build'), 'invokes /feature-build');
   });
 });
+
+describe('Feature B — github-pr-feature', () => {
+  it('exists, valid, soft-detect, references GitHub PR tools', () => {
+    const c = read('github-pr-feature.md');
+    assertCommon(c, 'github-pr-feature.md');
+    assert.ok(c.includes('create_pull_request'), 'references create_pull_request');
+    assert.ok(c.includes('update_pull_request') || c.includes('pull_request_read'),
+      'references PR read/update');
+  });
+});
