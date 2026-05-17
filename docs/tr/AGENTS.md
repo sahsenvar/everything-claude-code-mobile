@@ -79,6 +79,10 @@ Xcode build, Swift Package Manager ve signing/sertifika hatalarını düzeltir.
 Gradle'ı optimize eder: version catalog'lar, convention plugin'ler, build önbellekleme, yapılandırma.
 **Devreye girer:** Auto — build yapılandırması veya performansı görev olduğunda.
 
+### `android-ci-generator`
+GitHub Actions Android CI workflow'larını üretir ve onarır (build/test/lint/detekt, Gradle önbelleği, artefakt yükleme). Mevcut workflow'lara minimal-diff onarım uygular.
+**Devreye girer:** `/android-ci`.
+
 ## UI & Tasarım
 
 ### `compose-guide`

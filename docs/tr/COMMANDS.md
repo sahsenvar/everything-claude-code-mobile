@@ -52,6 +52,7 @@ Ana iş akışı. `/feature-build` 6 fazın tamamını çalıştırır; diğerle
 | `/ios-build [release\|test]` | Xcode derlemesi; `xcode-build-resolver` aracılığıyla otomatik düzeltir; IPA üretir. | `/ios-build release` |
 | `/kmp-build [android\|ios]` | Tüm KMP hedeflerini derler; bağımlılık hatalarını düzeltir. | `/kmp-build` |
 | `/gradle-fix [dependencies\|sync]` | Gradle senkronizasyon/bağımlılık/önbellek sorunlarını çözer. | `/gradle-fix dependencies` |
+| `/android-ci [generate\|fix]` | `android-ci-generator` aracılığıyla GitHub Actions Android CI workflow'unu üretir veya onarır. | `/android-ci` |
 | `/kmp-dependency-fix` | KMP bağımlılık çakışmalarını/sürüm uyumsuzluklarını çözer. | `/kmp-dependency-fix` |
 | `/release-build [apk\|bundle]` | Boyut raporuyla imzalı, R8 ile optimize edilmiş production derlemesi. | `/release-build bundle` |
 | `/compose-preview [<Component>]` | `@Preview` ekler/doğrular ve bunların render edildiğini kontrol eder. | `/compose-preview HomeScreen` |

@@ -52,6 +52,7 @@ The headline workflow. `/feature-build` runs all 6 phases; the rest let you driv
 | `/ios-build [release\|test]` | Xcode build; auto-fixes via `xcode-build-resolver`; produces IPA. | `/ios-build release` |
 | `/kmp-build [android\|ios]` | Builds all KMP targets; fixes dependency errors. | `/kmp-build` |
 | `/gradle-fix [dependencies\|sync]` | Resolves Gradle sync/dependency/cache problems. | `/gradle-fix dependencies` |
+| `/android-ci [generate\|fix]` | Generates or repairs the GitHub Actions Android CI workflow via `android-ci-generator`. | `/android-ci` |
 | `/kmp-dependency-fix` | Resolves KMP dependency conflicts/version mismatches. | `/kmp-dependency-fix` |
 | `/release-build [apk\|bundle]` | Signed, R8-optimized production build with size report. | `/release-build bundle` |
 | `/compose-preview [<Component>]` | Adds/verifies `@Preview`s and checks they render. | `/compose-preview HomeScreen` |

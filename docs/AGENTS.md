@@ -79,6 +79,10 @@ Fixes Xcode build, Swift Package Manager, and signing/certificate failures.
 Optimizes Gradle: version catalogs, convention plugins, build caching, configuration.
 **Engaged:** Auto, when build configuration or performance is the task.
 
+### `android-ci-generator`
+Generates and fixes GitHub Actions Android CI workflows (build/test/lint/detekt, Gradle caching, artifact upload). Applies minimal-diff repairs to existing workflows.
+**Engaged:** `/android-ci`.
+
 ## UI & design
 
 ### `compose-guide`
