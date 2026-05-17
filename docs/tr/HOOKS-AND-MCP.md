@@ -6,7 +6,7 @@ Bu, "çalıştıkça zekileşir" mekanizmasıdır. Hiçbir şeyi elle çağırma
 
 ---
 
-## Arka plan hook'ları (9 işleyici, 3 olay)
+## Arka plan hook'ları (10 işleyici, 4 olay)
 
 `hooks/hooks.json` dosyasında kayıtlıdır; `${CLAUDE_PLUGIN_ROOT}` üzerinden taşınabilir yol kullanır. Hook'lar asenkron çalışır ve oturumunuzu hiçbir zaman başarısız yapmaz.
 

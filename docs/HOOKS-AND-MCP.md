@@ -6,7 +6,7 @@ This is the "it gets smarter as you work" machinery. None of it needs manual inv
 
 ---
 
-## Background hooks (9 handlers, 3 events)
+## Background hooks (10 handlers, 4 events)
 
 Registered in `hooks/hooks.json`, path-portable via `${CLAUDE_PLUGIN_ROOT}`. Hooks run asynchronously and never fail your session.
 
