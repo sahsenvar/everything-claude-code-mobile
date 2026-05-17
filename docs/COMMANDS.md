@@ -6,6 +6,15 @@
 
 ---
 
+## Setup & health
+
+| Command | What it does | Example |
+|---|---|---|
+| `/ecc-setup` | One-command setup: installs the 3 bundled MCP server deps, verifies health. Idempotent. | `/ecc-setup` |
+| `/ecc-doctor` | Read-only health report: MCP deps, platform, discipline skill, SessionStart hook, detected companion plugins. | `/ecc-doctor` |
+
+---
+
 ## Feature pipeline
 
 The headline workflow. `/feature-build` runs all 6 phases; the rest let you drive or inspect individual phases.

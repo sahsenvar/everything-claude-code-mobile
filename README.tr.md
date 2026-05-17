@@ -57,11 +57,8 @@ Kod parçalarını ileri geri kopyalamak yerine, ona bir özellik tarif edersin 
 ```
 
 ```bash
-# 3. MCP sunucu bağımlılıklarını kur — ZORUNLU
-#    Bu çalıştırılmadan 3 proje-hafıza MCP sunucusu başlamaz.
-#    Kurulu eklenti dizininden çalıştır:
-cd ~/.claude/plugins/cache/*/everything-claude-code-mobile/*/   # kurulu eklenti yolu
-npm run mcp:install
+# 3. Kurulumu çalıştır (MCP bağımlılıkları + doğrulama): /ecc-setup
+#    Sağlığı istediğin zaman /ecc-doctor ile kontrol et.
 ```
 
 ```bash
@@ -76,7 +73,19 @@ Sonra sadece iste:
 /feature-build "Çevrimdışı kalıcılık ve aşağı-çekip-yenileme ile bir favoriler ekranı ekle"
 ```
 
-> 💡 **Güncelliyor musun?** Sürüm dizesi değişmediyse `claude plugin update` hiçbir şey yapmaz — sürümü artır ya da yeniden kur. MCP araçları görünmüyorsa 3. adımı (`npm run mcp:install`) kurulu eklenti dizininden tekrar çalıştır.
+> 💡 **Güncelliyor musun?** Sürüm dizesi değişmediyse `claude plugin update` hiçbir şey yapmaz — sürümü artır ya da yeniden kur. MCP araçları görünmüyorsa `/ecc-setup` çalıştır ya da `/ecc-doctor` ile tanı koy.
+
+### Kaldırma
+
+```
+/plugin uninstall everything-claude-code-mobile@sahsenvar
+```
+
+Temiz — global config'e hiçbir şey kopyalanmaz. Proje veri dizinleri (`.claude/mobile-memory`, `.claude/ios-memory`, `.claude/kmp-context`, `.claude/checkpoints`) senin verin; istersen elle sil.
+
+### Önerilen tamamlayıcı eklentiler
+
+ECC, official eklentilerle birlikte çalışır (içermez): Figma, Atlassian (Jira/Confluence), GitHub. Hangileri tespit edildi görmek için `/ecc-doctor` çalıştır.
 
 ---
 
@@ -189,7 +198,7 @@ Kesin veri akışı, dosya yolları ve her handler → [docs/tr/HOOKS-AND-MCP.md
 | `ios-memory` | iOS proje durumu, SwiftUI bileşenleri, XCTest desenleri |
 | `kmp-context` | KMP modül yapısı, expect/actual, paylaşılan modeller |
 
-> ⚠️ MCP sunucuları, eklenti kurulumundan sonra bir kez bağımlılık kurulumu ister: `npm run mcp:install` (bkz. [Hızlı başlangıç](#-hızlı-başlangıç) 3. adım).
+> ⚠️ MCP sunucuları, eklenti kurulumundan sonra bir kez bağımlılık kurulumu ister: `/ecc-setup` çalıştır (bkz. [Hızlı başlangıç](#-hızlı-başlangıç) 3. adım).
 
 **Her hook handler'ı ve MCP sunucusu, ve tam öğrenme veri-akışı → [docs/tr/HOOKS-AND-MCP.md](docs/tr/HOOKS-AND-MCP.md).**
 
@@ -233,7 +242,7 @@ Skill ve agent'lar tek, tutarlı bir yığına göre ayarlanmıştır; böylece 
 
 | Belirti | Çözüm |
 |---|---|
-| MCP araçları (mobile-memory vb.) görünmüyor | Kurulu eklenti dizininden `npm run mcp:install` çalıştır, sonra Claude Code'u yeniden başlat |
+| MCP araçları (mobile-memory vb.) görünmüyor | `/ecc-setup` çalıştır (bağımlılıkları kurar + doğrular), sonra Claude Code'u yeniden başlat. Neyin eksik olduğunu görmek için `/ecc-doctor` kullan. |
 | `claude plugin update` hiçbir şey yapmadı | Sürüm dizesi değişmemişse no-op olur — yeniden kur ya da sürüm artışını bekle |
 | Agent/skill yüklenmiyor | `agents/`, `skills/`, `commands/` dizinlerinden otomatik keşfedilir; `plugin.json`'a `agents`/`skills`/`commands` anahtarları **ekleme** (keşfi bozar) |
 

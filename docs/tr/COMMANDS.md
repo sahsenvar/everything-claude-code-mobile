@@ -6,6 +6,15 @@
 
 ---
 
+## Kurulum & sağlık
+
+| Komut | Ne yapar | Örnek |
+|---|---|---|
+| `/ecc-setup` | Tek komutla kurulum: 3 paket halinde gelen MCP sunucu bağımlılıklarını kurar, sağlığı doğrular. Idempotent. | `/ecc-setup` |
+| `/ecc-doctor` | Salt okunur sağlık raporu: MCP bağımlılıkları, platform, disiplin skill'i, SessionStart hook'u, tespit edilen tamamlayıcı eklentiler. | `/ecc-doctor` |
+
+---
+
 ## Özellik hattı
 
 Ana iş akışı. `/feature-build` 6 fazın tamamını çalıştırır; diğerleri tek tek fazları yönetmenizi veya incelemenizi sağlar.

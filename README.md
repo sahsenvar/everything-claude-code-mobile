@@ -57,11 +57,8 @@ Mobile developers and teams using **Android (Kotlin/Compose)**, **iOS (Swift/Swi
 ```
 
 ```bash
-# 3. Install the MCP server dependencies — REQUIRED
-#    The 3 project-memory MCP servers won't start until this is run.
-#    Run it from the installed plugin directory:
-cd ~/.claude/plugins/cache/*/everything-claude-code-mobile/*/   # installed plugin path
-npm run mcp:install
+# 3. Run setup (installs MCP server deps + verifies): /ecc-setup
+#    Check health anytime with /ecc-doctor.
 ```
 
 ```bash
@@ -76,7 +73,19 @@ Then just ask:
 /feature-build "Add a favorites screen with offline persistence and pull-to-refresh"
 ```
 
-> 💡 **Upgrading?** `claude plugin update` is a no-op if the version string is unchanged — bump the version or reinstall to pick up manifest changes. If MCP tools don't appear, re-run step 3 (`npm run mcp:install`) from the installed plugin directory.
+> 💡 **Upgrading?** `claude plugin update` is a no-op if the version string is unchanged — bump the version or reinstall to pick up manifest changes. If MCP tools don't appear, run `/ecc-setup` or `/ecc-doctor` to diagnose.
+
+### Uninstall
+
+```
+/plugin uninstall everything-claude-code-mobile@sahsenvar
+```
+
+Clean: nothing is copied into your global config. Project data dirs (`.claude/mobile-memory`, `.claude/ios-memory`, `.claude/kmp-context`, `.claude/checkpoints`) are your data; delete them manually only if you want.
+
+### Recommended companion plugins
+
+ECC works alongside (does not bundle) the official plugins — install whichever you use: Figma, Atlassian (Jira/Confluence), GitHub. Run `/ecc-doctor` to see which are detected.
 
 ---
 
@@ -189,7 +198,7 @@ Exact data flow, file paths, and every handler → [docs/HOOKS-AND-MCP.md](docs/
 | `ios-memory` | iOS project state, SwiftUI components, XCTest patterns |
 | `kmp-context` | KMP module structure, expect/actual, shared models |
 
-> ⚠️ MCP servers need their dependencies installed once after plugin install: `npm run mcp:install` (see [Quick start](#-quick-start) step 3).
+> ⚠️ MCP servers need their dependencies installed once after plugin install: run `/ecc-setup` (see [Quick start](#-quick-start) step 3).
 
 **Every hook handler and MCP server, and the full learning data-flow, explained → [docs/HOOKS-AND-MCP.md](docs/HOOKS-AND-MCP.md).**
 
@@ -233,7 +242,7 @@ Skills and agents are tuned to a single, consistent stack so generated code is c
 
 | Symptom | Fix |
 |---|---|
-| MCP tools (mobile-memory, etc.) don't appear | Run `npm run mcp:install` from the installed plugin directory, then restart Claude Code |
+| MCP tools (mobile-memory, etc.) don't appear | Run `/ecc-setup` (installs deps + verifies), then restart Claude Code. Use `/ecc-doctor` to see what's missing. |
 | `claude plugin update` did nothing | It no-ops on an unchanged version string — reinstall, or wait for a version bump |
 | Agents/skills not loading | They are auto-discovered from `agents/`, `skills/`, `commands/`; do not add `agents`/`skills`/`commands` keys to `plugin.json` (that breaks discovery) |
 

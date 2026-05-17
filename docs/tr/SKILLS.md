@@ -40,6 +40,7 @@
 
 ## Mimari ve kalite
 
+- **`ecc-operating-discipline`** — ECC agent ve komutlarının uyguladığı çalışma disiplini: agent delegasyonu, Android/iOS stili, mobil güvenlik, test/TDD. `rules/` dizininden derlendi, eklentinin içinde gönderilir (sıfır kopyalama). *Tüm ECC agent ve komutları tarafından otomatik uygulanır.*
 - **`mvi-architecture`** — Model-View-Intent tek yönlü akış: durum/niyet/yan etki. *Uygulama mimarisini yapılandırırken.*
 - **`feature-builder`** — 6 aşamalı uçtan uca özellik hattının kendisi. *Baştan sona eksiksiz bir özellik oluştururken.*
 - **`mobile-testing`** — Test stratejisi (JUnit5/Mockk/Turbine/Compose), ≥%80 kapsam. *Test katmanını yazarken.*

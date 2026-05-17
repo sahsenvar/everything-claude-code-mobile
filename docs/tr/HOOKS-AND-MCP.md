@@ -34,6 +34,12 @@ Bu, "çalıştıkça zekileşir" mekanizmasıdır. Hiçbir şeyi elle çağırma
 | `track-build.js` | `Bash` | Derleme/test komut çalıştırmalarını (tür, komut, branch) kayan geçmişe kaydeder (son 100). |
 | `track-focus.js` | `Read` | Aynı dosyanın tekrar tekrar okunmasını sayar — çok ziyaret ettiğiniz dosyalar problem çözme odağınızı işaretler. |
 
+### `SessionStart` — bir oturum başladığında
+
+| İşleyici | Ne yapar |
+|---|---|
+| `check-setup.js` | Yalnızca tespit: oturum başlarken, paket halinde gelen MCP sunucularından herhangi birinin bağımlılıkları eksikse, `/ecc-setup` çalıştırması için tek satırlık bir uyarı yazdırır. Hiçbir şey kurmaz, ağ kullanmaz, oturumu hiçbir zaman başarısız kılmaz. |
+
 ## Proje bellek MCP sunucuları (3)
 
 `.mcp.json` dosyasında yapılandırılmıştır. Her biri proje durumunu **oturumlar arası** hatırlayan küçük bir sunucudur; böylece Claude her seferinde tüm kod tabanınızı yeniden okumak zorunda kalmaz.

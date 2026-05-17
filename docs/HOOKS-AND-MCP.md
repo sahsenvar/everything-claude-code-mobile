@@ -34,6 +34,12 @@ Registered in `hooks/hooks.json`, path-portable via `${CLAUDE_PLUGIN_ROOT}`. Hoo
 | `track-build.js` | `Bash` | Logs build/test command runs (kind, command, branch) to a rolling history (last 100). |
 | `track-focus.js` | `Read` | Counts repeated reads of the same file — files you revisit a lot mark your problem-solving focus. |
 
+### `SessionStart` — when a session begins
+
+| Handler | What it does |
+|---|---|
+| `check-setup.js` | Detection-only: on session start, if any bundled MCP server's deps are missing, prints a one-line nudge to run `/ecc-setup`. Never installs, no network, never fails the session. |
+
 ## Project-memory MCP servers (3)
 
 Configured in `.mcp.json`. Each is a small server that remembers project state **across sessions** so Claude doesn't have to re-read your whole codebase every time.
