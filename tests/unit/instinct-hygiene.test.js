@@ -50,3 +50,35 @@ describe('Feature F — selectPrunable', () => {
       inst.selectPrunable(data, { maxConfidence: 0.05, staleDays: 999 }).map((i) => i.id), []);
   });
 });
+
+const os = require('os');
+const fs = require('fs');
+const path = require('path');
+const setup = require('../../scripts/lib/setup');
+
+describe('Feature F — doctorReport.instincts (injectable)', () => {
+  it('missing instinctsFile → instincts all-zero, existing keys intact', () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'f-root-'));
+    const proj = fs.mkdtempSync(path.join(os.tmpdir(), 'f-proj-'));
+    const pf = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'f-pl-')), 'p.json');
+    fs.writeFileSync(pf, JSON.stringify({ plugins: {} }));
+    const r = setup.doctorReport({ pluginRoot: root, projectDir: proj, pluginsFile: pf,
+      instinctsFile: '/no/such/instincts.json' });
+    assert.deepStrictEqual(r.instincts, { total: 0, confident: 0, stale: 0, lowConfidence: 0, prunable: 0 });
+    for (const k of ['mcp', 'platform', 'companions', 'projectDataDirs', 'ok']) assert.ok(k in r);
+  });
+  it('populated instinctsFile → health reflects it', () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'f-root2-'));
+    const proj = fs.mkdtempSync(path.join(os.tmpdir(), 'f-proj2-'));
+    const pf = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'f-pl2-')), 'p.json');
+    fs.writeFileSync(pf, JSON.stringify({ plugins: {} }));
+    const inf = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'f-in-')), 'mobile-instincts.json');
+    fs.writeFileSync(inf, JSON.stringify({ instincts: [
+      { id: 'a', confidence: 0.9, lastUsed: new Date().toISOString() },
+      { id: 'b', confidence: 0.1, lastUsed: new Date(Date.now() - 120 * 86400000).toISOString() },
+    ] }));
+    const r = setup.doctorReport({ pluginRoot: root, projectDir: proj, pluginsFile: pf, instinctsFile: inf });
+    assert.strictEqual(r.instincts.total, 2);
+    assert.strictEqual(r.instincts.prunable, 1);
+  });
+});

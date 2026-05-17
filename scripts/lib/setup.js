@@ -6,7 +6,8 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
-const { getClaudeConfigDir, readJsonFile } = require('./utils');
+const { getClaudeConfigDir, readJsonFile, getInstinctsDir } = require('./utils');
+const { instinctHealth } = require('./instincts');
 
 const SERVERS = ['mobile-memory', 'ios-memory', 'kmp-context'];
 
@@ -102,7 +103,7 @@ const PROJECT_DATA_DIRS = [
   '.claude/mobile-memory', '.claude/ios-memory', '.claude/kmp-context', '.claude/checkpoints',
 ];
 
-function doctorReport({ pluginRoot, projectDir, pluginsFile }) {
+function doctorReport({ pluginRoot, projectDir, pluginsFile, instinctsFile } = {}) {
   const state = detectState({ pluginRoot, projectDir });
   const companions = detectCompanions(pluginsFile ? { pluginsFile } : {});
   const mcp = {};
@@ -111,6 +112,8 @@ function doctorReport({ pluginRoot, projectDir, pluginsFile }) {
     Object.values(state.mcpDeps).every(Boolean) &&
     state.disciplineSkillPresent &&
     state.sessionStartHookRegistered;
+  const instFile = instinctsFile || path.join(getInstinctsDir(), 'mobile-instincts.json');
+  const instincts = instinctHealth(readJsonFile(instFile) || { instincts: [] });
   return {
     mcp,
     platform: state.platform,
@@ -119,6 +122,7 @@ function doctorReport({ pluginRoot, projectDir, pluginsFile }) {
     companions,
     projectDataDirs: PROJECT_DATA_DIRS.slice(),
     ok,
+    instincts,
   };
 }
 
