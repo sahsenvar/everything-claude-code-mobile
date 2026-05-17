@@ -24,3 +24,21 @@ describe('Feature G — accessibility-reviewer agent', () => {
     assert.ok(c.includes('accessibility-patterns'), 'references the sibling skill');
   });
 });
+
+describe('Feature G — localization-reviewer agent', () => {
+  it('exists, valid read-only frontmatter, discipline ref, i18n scope + skill ref', () => {
+    const p = path.join(ROOT, 'agents', 'localization-reviewer.md');
+    assert.ok(fs.existsSync(p), 'agent file must exist');
+    const c = fs.readFileSync(p, 'utf8');
+    const m = c.match(/^---\n([\s\S]*?)\n---\n/);
+    assert.ok(m, 'frontmatter block');
+    assert.match(m[1], /name:\s*localization-reviewer/);
+    assert.match(m[1], /model:\s*opus/);
+    assert.ok(!/"Write"|"Edit"/.test(m[1]), 'read-only: no Write/Edit tool');
+    assert.ok(c.includes(DISC), 'operating-discipline ref');
+    assert.ok(/stringResource|R\.string/.test(c), 'Android i18n scope');
+    assert.ok(/NSLocalizedString|String\(localized/.test(c), 'iOS i18n scope');
+    assert.ok(/RTL|start.*end|plural/i.test(c), 'RTL/plurals scope');
+    assert.ok(c.includes('localization-patterns'), 'references the sibling skill');
+  });
+});
