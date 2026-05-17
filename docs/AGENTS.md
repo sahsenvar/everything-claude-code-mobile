@@ -87,6 +87,10 @@ Optimizes Gradle: version catalogs, convention plugins, build caching, configura
 Generates and fixes GitHub Actions Android CI workflows (build/test/lint/detekt, Gradle caching, artifact upload). Applies minimal-diff repairs to existing workflows.
 **Engaged:** `/android-ci`.
 
+### `mobile-dependency-upgrader`
+Bumps AGP/Kotlin/Gradle, SwiftPM, and KMP versions with coordinated version sets + minimal-diff migration (forward upgrades, not conflict resolution).
+**Engaged:** `/dependency-upgrade`.
+
 ## UI & design
 
 ### `compose-guide`

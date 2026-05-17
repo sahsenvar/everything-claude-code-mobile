@@ -87,6 +87,10 @@ Gradle'ı optimize eder: version catalog'lar, convention plugin'ler, build önbe
 GitHub Actions Android CI workflow'larını üretir ve onarır (build/test/lint/detekt, Gradle önbelleği, artefakt yükleme). Mevcut workflow'lara minimal-diff onarım uygular.
 **Devreye girer:** `/android-ci`.
 
+### `mobile-dependency-upgrader`
+AGP/Kotlin/Gradle, SwiftPM ve KMP sürümlerini eşgüdümlü sürüm setleriyle + minimal-diff migration ile yükseltir (ileri yükseltme, çakışma çözümü değil).
+**Devreye girer:** `/dependency-upgrade`.
+
 ## UI & Tasarım
 
 ### `compose-guide`

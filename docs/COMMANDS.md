@@ -55,6 +55,7 @@ The headline workflow. `/feature-build` runs all 6 phases; the rest let you driv
 | `/crash-triage` | Triages a pasted stacktrace/logcat/Crashlytics/Sentry crash into root cause + minimal fix via `mobile-crash-resolver`. | `/crash-triage` |
 | `/android-ci [generate\|fix]` | Generates or repairs the GitHub Actions Android CI workflow via `android-ci-generator`. | `/android-ci` |
 | `/kmp-dependency-fix` | Resolves KMP dependency conflicts/version mismatches. | `/kmp-dependency-fix` |
+| `/dependency-upgrade [--check]` | Upgrades AGP/Kotlin/Gradle/SwiftPM/KMP versions (coordinated sets + migration) via `mobile-dependency-upgrader`; `--check` is read-only. | `/dependency-upgrade kotlin` |
 | `/release-build [apk\|bundle]` | Signed, R8-optimized production build with size report. | `/release-build bundle` |
 | `/compose-preview [<Component>]` | Adds/verifies `@Preview`s and checks they render. | `/compose-preview HomeScreen` |
 

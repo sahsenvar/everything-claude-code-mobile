@@ -55,6 +55,7 @@ Ana iş akışı. `/feature-build` 6 fazın tamamını çalıştırır; diğerle
 | `/crash-triage` | Yapıştırılan stacktrace/logcat/Crashlytics/Sentry kazasını `mobile-crash-resolver` aracılığıyla kök neden + minimal düzeltmeye dönüştürür. | `/crash-triage` |
 | `/android-ci [generate\|fix]` | `android-ci-generator` aracılığıyla GitHub Actions Android CI workflow'unu üretir veya onarır. | `/android-ci` |
 | `/kmp-dependency-fix` | KMP bağımlılık çakışmalarını/sürüm uyumsuzluklarını çözer. | `/kmp-dependency-fix` |
+| `/dependency-upgrade [--check]` | AGP/Kotlin/Gradle/SwiftPM/KMP sürümlerini eşgüdümlü setler + migration ile `mobile-dependency-upgrader` aracılığıyla yükseltir; `--check` salt okunurdur. | `/dependency-upgrade kotlin` |
 | `/release-build [apk\|bundle]` | Boyut raporuyla imzalı, R8 ile optimize edilmiş production derlemesi. | `/release-build bundle` |
 | `/compose-preview [<Component>]` | `@Preview` ekler/doğrular ve bunların render edildiğini kontrol eder. | `/compose-preview HomeScreen` |
 
