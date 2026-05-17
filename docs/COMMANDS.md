@@ -2,7 +2,7 @@
 
 # Commands reference
 
-**35 slash commands.** Type them in Claude Code. These are the things *you* invoke; they orchestrate the [agents](AGENTS.md) and [skills](SKILLS.md) behind the scenes.
+**42 slash commands.** Type them in Claude Code. These are the things *you* invoke; they orchestrate the [agents](AGENTS.md) and [skills](SKILLS.md) behind the scenes.
 
 ---
 
@@ -12,6 +12,18 @@
 |---|---|---|
 | `/ecc-setup` | One-command setup: installs the 3 bundled MCP server deps, verifies health. Idempotent. | `/ecc-setup` |
 | `/ecc-doctor` | Read-only health report: MCP deps, platform, discipline skill, SessionStart hook, detected companion plugins. | `/ecc-doctor` |
+
+---
+
+## Companion bridges
+
+These connect ECC to the official Atlassian/GitHub/Figma plugins. They soft-detect: if the companion plugin is not installed they explain and skip — never fail. Run `/ecc-doctor` to see which companions are detected.
+
+| Command | What it does | Example |
+|---|---|---|
+| `/jira-feature-build <KEY>` | Fetches a Jira issue (Atlassian MCP) and runs `/feature-build` with it as the description. | `/jira-feature-build PROJ-123` |
+| `/github-pr-feature [name]` | Opens/updates a GitHub PR (GitHub MCP) for the current feature branch. | `/github-pr-feature auth` |
+| `/figma-ui-impl <url>` | Fetches Figma design context (Figma MCP) and hands it to `ui-impl`. | `/figma-ui-impl https://figma.com/design/…` |
 
 ---
 
@@ -40,6 +52,8 @@ The headline workflow. `/feature-build` runs all 6 phases; the rest let you driv
 | `/ios-build [release\|test]` | Xcode build; auto-fixes via `xcode-build-resolver`; produces IPA. | `/ios-build release` |
 | `/kmp-build [android\|ios]` | Builds all KMP targets; fixes dependency errors. | `/kmp-build` |
 | `/gradle-fix [dependencies\|sync]` | Resolves Gradle sync/dependency/cache problems. | `/gradle-fix dependencies` |
+| `/crash-triage` | Triages a pasted stacktrace/logcat/Crashlytics/Sentry crash into root cause + minimal fix via `mobile-crash-resolver`. | `/crash-triage` |
+| `/android-ci [generate\|fix]` | Generates or repairs the GitHub Actions Android CI workflow via `android-ci-generator`. | `/android-ci` |
 | `/kmp-dependency-fix` | Resolves KMP dependency conflicts/version mismatches. | `/kmp-dependency-fix` |
 | `/release-build [apk\|bundle]` | Signed, R8-optimized production build with size report. | `/release-build bundle` |
 | `/compose-preview [<Component>]` | Adds/verifies `@Preview`s and checks they render. | `/compose-preview HomeScreen` |

@@ -2,7 +2,7 @@
 
 # Agents reference
 
-This plugin ships **27 specialized agents**. Each owns one job and is engaged by Claude Code **automatically** — there are no `/agent-name` slash commands. An agent runs when:
+This plugin ships **29 specialized agents**. Each owns one job and is engaged by Claude Code **automatically** — there are no `/agent-name` slash commands. An agent runs when:
 
 - the **[Feature Builder pipeline](../README.md#️-the-feature-builder-pipeline)** reaches the phase it owns (e.g. `/feature-build` → planning → `feature-planner`),
 - a **[command](COMMANDS.md)** orchestrates it (e.g. `/android-build` → `android-build-resolver`),
@@ -71,6 +71,10 @@ Reviews startup time, memory, rendering, and battery cost; flags regressions.
 Diagnoses and fixes Gradle/AGP/dependency build failures with minimal, non-architectural changes.
 **Engaged:** `/android-build`, `/gradle-fix`, build-fix loop.
 
+### `mobile-crash-resolver`
+Triages a pasted stacktrace/logcat/Crashlytics/Sentry crash into a ranked root cause + minimal fix at the exact file:line (text-only, no external service calls).
+**Engaged:** `/crash-triage`.
+
 ### `xcode-build-resolver`
 Fixes Xcode build, Swift Package Manager, and signing/certificate failures.
 **Engaged:** `/ios-build`.
@@ -78,6 +82,10 @@ Fixes Xcode build, Swift Package Manager, and signing/certificate failures.
 ### `gradle-expert`
 Optimizes Gradle: version catalogs, convention plugins, build caching, configuration.
 **Engaged:** Auto, when build configuration or performance is the task.
+
+### `android-ci-generator`
+Generates and fixes GitHub Actions Android CI workflows (build/test/lint/detekt, Gradle caching, artifact upload). Applies minimal-diff repairs to existing workflows.
+**Engaged:** `/android-ci`.
 
 ## UI & design
 

@@ -2,7 +2,7 @@
 
 # Agent referansı
 
-Bu plugin **27 özelleşmiş agent** içerir. Her agent tek bir işe sahiptir ve Claude Code tarafından **otomatik olarak** devreye alınır — `/agent-adı` şeklinde slash command yoktur. Bir agent şu durumlarda çalışır:
+Bu plugin **29 özelleşmiş agent** içerir. Her agent tek bir işe sahiptir ve Claude Code tarafından **otomatik olarak** devreye alınır — `/agent-adı` şeklinde slash command yoktur. Bir agent şu durumlarda çalışır:
 
 - **[Feature Builder pipeline](../../README.md#️-the-feature-builder-pipeline)**, o agentin sorumlu olduğu aşamaya ulaştığında (örneğin `/feature-build` → planlama → `feature-planner`),
 - bir **[command](COMMANDS.md)** tarafından yönlendirildiğinde (örneğin `/android-build` → `android-build-resolver`),
@@ -71,6 +71,10 @@ Başlatma süresi, bellek, rendering ve pil maliyetini inceler; gerileme noktala
 Gradle/AGP/bağımlılık build hatalarını minimal, mimari olmayan değişikliklerle tespit eder ve düzeltir.
 **Devreye girer:** `/android-build`, `/gradle-fix`, build-fix döngüsü.
 
+### `mobile-crash-resolver`
+Yapıştırılan stacktrace/logcat/Crashlytics/Sentry kazasını sıralı kök neden + tam `file:line`'da minimal düzeltmeye dönüştürür (yalnızca metin, dış servis çağrısı yok).
+**Devreye girer:** `/crash-triage`.
+
 ### `xcode-build-resolver`
 Xcode build, Swift Package Manager ve signing/sertifika hatalarını düzeltir.
 **Devreye girer:** `/ios-build`.
@@ -78,6 +82,10 @@ Xcode build, Swift Package Manager ve signing/sertifika hatalarını düzeltir.
 ### `gradle-expert`
 Gradle'ı optimize eder: version catalog'lar, convention plugin'ler, build önbellekleme, yapılandırma.
 **Devreye girer:** Auto — build yapılandırması veya performansı görev olduğunda.
+
+### `android-ci-generator`
+GitHub Actions Android CI workflow'larını üretir ve onarır (build/test/lint/detekt, Gradle önbelleği, artefakt yükleme). Mevcut workflow'lara minimal-diff onarım uygular.
+**Devreye girer:** `/android-ci`.
 
 ## UI & Tasarım
 

@@ -2,7 +2,7 @@
 
 # Komut referansı
 
-**35 slash komutu.** Claude Code'da yazarak çalıştırırsınız. Bunlar *sizin* çağırdığınız komutlardır; arka planda [ajanları](AGENTS.md) ve [becerileri](SKILLS.md) düzenlerler.
+**42 slash komutu.** Claude Code'da yazarak çalıştırırsınız. Bunlar *sizin* çağırdığınız komutlardır; arka planda [ajanları](AGENTS.md) ve [becerileri](SKILLS.md) düzenlerler.
 
 ---
 
@@ -12,6 +12,18 @@
 |---|---|---|
 | `/ecc-setup` | Tek komutla kurulum: 3 paket halinde gelen MCP sunucu bağımlılıklarını kurar, sağlığı doğrular. Idempotent. | `/ecc-setup` |
 | `/ecc-doctor` | Salt okunur sağlık raporu: MCP bağımlılıkları, platform, disiplin skill'i, SessionStart hook'u, tespit edilen tamamlayıcı eklentiler. | `/ecc-doctor` |
+
+---
+
+## Tamamlayıcı köprüler
+
+Bunlar ECC'yi resmi Atlassian/GitHub/Figma eklentilerine bağlar. Soft-detect: companion kurulu değilse açıklayıp atlar — asla başarısız olmaz. Hangileri tespit edildi görmek için `/ecc-doctor`.
+
+| Komut | Ne yapar | Örnek |
+|---|---|---|
+| `/jira-feature-build <KEY>` | Bir Jira sorununu (Atlassian MCP) getirir ve açıklama olarak `/feature-build` ile çalıştırır. | `/jira-feature-build PROJ-123` |
+| `/github-pr-feature [name]` | Mevcut özellik dalı için bir GitHub PR'ı (GitHub MCP) açar/günceller. | `/github-pr-feature auth` |
+| `/figma-ui-impl <url>` | Figma tasarım bağlamını (Figma MCP) getirir ve `ui-impl`'e iletir. | `/figma-ui-impl https://figma.com/design/…` |
 
 ---
 
@@ -40,6 +52,8 @@ Ana iş akışı. `/feature-build` 6 fazın tamamını çalıştırır; diğerle
 | `/ios-build [release\|test]` | Xcode derlemesi; `xcode-build-resolver` aracılığıyla otomatik düzeltir; IPA üretir. | `/ios-build release` |
 | `/kmp-build [android\|ios]` | Tüm KMP hedeflerini derler; bağımlılık hatalarını düzeltir. | `/kmp-build` |
 | `/gradle-fix [dependencies\|sync]` | Gradle senkronizasyon/bağımlılık/önbellek sorunlarını çözer. | `/gradle-fix dependencies` |
+| `/crash-triage` | Yapıştırılan stacktrace/logcat/Crashlytics/Sentry kazasını `mobile-crash-resolver` aracılığıyla kök neden + minimal düzeltmeye dönüştürür. | `/crash-triage` |
+| `/android-ci [generate\|fix]` | `android-ci-generator` aracılığıyla GitHub Actions Android CI workflow'unu üretir veya onarır. | `/android-ci` |
 | `/kmp-dependency-fix` | KMP bağımlılık çakışmalarını/sürüm uyumsuzluklarını çözer. | `/kmp-dependency-fix` |
 | `/release-build [apk\|bundle]` | Boyut raporuyla imzalı, R8 ile optimize edilmiş production derlemesi. | `/release-build bundle` |
 | `/compose-preview [<Component>]` | `@Preview` ekler/doğrular ve bunların render edildiğini kontrol eder. | `/compose-preview HomeScreen` |
