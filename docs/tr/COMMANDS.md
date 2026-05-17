@@ -11,7 +11,7 @@
 | Komut | Ne yapar | Örnek |
 |---|---|---|
 | `/ecc-setup` | Tek komutla kurulum: 3 paket halinde gelen MCP sunucu bağımlılıklarını kurar, sağlığı doğrular. Idempotent. | `/ecc-setup` |
-| `/ecc-doctor` | Salt okunur sağlık raporu: MCP bağımlılıkları, platform, disiplin skill'i, SessionStart hook'u, tespit edilen tamamlayıcı eklentiler. | `/ecc-doctor` |
+| `/ecc-doctor` | Salt okunur sağlık raporu: MCP bağımlılıkları, platform, disiplin skill'i, SessionStart hook'u, tespit edilen tamamlayıcı eklentiler. Instinct sağlığını da içerir. | `/ecc-doctor` |
 
 ---
 
@@ -93,6 +93,7 @@ Bunlar [sürekli öğrenme sistemini](HOOKS-AND-MCP.md#continuous-learning) yön
 | `/instinct-export [<file>]` | İçgüdüleri paylaşım için JSON'a dışa aktarır. | `/instinct-export patterns.json` |
 | `/instinct-import <file>` | İçgüdüleri içe aktarır ve birleştirir (tekrarları kaldırır, güveni korur). | `/instinct-import patterns.json` |
 | `/evolve [--context <ctx>]` | Olgun içgüdüleri yeni yeniden kullanılabilir `SKILL.md` becerilerine kümelendirir. | `/evolve` |
+| `/instinct-review [--prune]` | Instinct sağlığını + budanabilirleri (bayat/düşük-güven) raporlar; yalnızca açık onayla, .bak sonrası budar. | `/instinct-review` |
 
 ---
 

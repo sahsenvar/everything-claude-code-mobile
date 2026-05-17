@@ -11,7 +11,7 @@
 | Command | What it does | Example |
 |---|---|---|
 | `/ecc-setup` | One-command setup: installs the 3 bundled MCP server deps, verifies health. Idempotent. | `/ecc-setup` |
-| `/ecc-doctor` | Read-only health report: MCP deps, platform, discipline skill, SessionStart hook, detected companion plugins. | `/ecc-doctor` |
+| `/ecc-doctor` | Read-only health report: MCP deps, platform, discipline skill, SessionStart hook, detected companion plugins. Includes instinct health. | `/ecc-doctor` |
 
 ---
 
@@ -93,6 +93,7 @@ These drive the [continuous-learning system](HOOKS-AND-MCP.md#continuous-learnin
 | `/instinct-export [<file>]` | Exports instincts to JSON for sharing. | `/instinct-export patterns.json` |
 | `/instinct-import <file>` | Imports + merges instincts (dedupes, keeps confidence). | `/instinct-import patterns.json` |
 | `/evolve [--context <ctx>]` | Clusters mature instincts into new reusable `SKILL.md` skills. | `/evolve` |
+| `/instinct-review [--prune]` | Reports instinct health + prunable (stale/low-confidence); prunes only on explicit confirm, after a `.bak`. | `/instinct-review` |
 
 ---
 
