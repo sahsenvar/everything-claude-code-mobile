@@ -36,6 +36,15 @@ describe('scripts/lib/setup.js — detectState', () => {
     assert.strictEqual(setup.detectState({ pluginRoot: root, projectDir: u }).platform, 'unknown');
   });
 
+  it('detects kmp via a shared/ dir even with non-kts build.gradle', () => {
+    const root = tmpdir('ecc-root-');
+    const k2 = tmpdir('p-k2-');
+    fs.writeFileSync(path.join(k2, 'build.gradle'), '');
+    fs.writeFileSync(path.join(k2, 'settings.gradle'), '');
+    fs.mkdirSync(path.join(k2, 'shared'), { recursive: true });
+    assert.strictEqual(setup.detectState({ pluginRoot: root, projectDir: k2 }).platform, 'kmp');
+  });
+
   it('disciplineSkillPresent + sessionStartHookRegistered reflect files', () => {
     const root = tmpdir('ecc-root-');
     let state = setup.detectState({ pluginRoot: root, projectDir: root });

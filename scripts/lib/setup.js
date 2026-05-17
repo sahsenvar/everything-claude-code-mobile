@@ -16,12 +16,10 @@ function detectPlatform(projectDir) {
   try {
     const has = (f) => fs.existsSync(path.join(projectDir, f));
     const gradleKts = path.join(projectDir, 'build.gradle.kts');
-    if (fs.existsSync(gradleKts)) {
-      const txt = fs.readFileSync(gradleKts, 'utf8');
-      if (txt.includes('kotlin("multiplatform")') || fs.existsSync(path.join(projectDir, 'shared'))) {
-        return 'kmp';
-      }
-    }
+    const isKmp =
+      has('shared') ||
+      (fs.existsSync(gradleKts) && fs.readFileSync(gradleKts, 'utf8').includes('kotlin("multiplatform")'));
+    if (isKmp) return 'kmp';
     if (has('build.gradle') || has('build.gradle.kts') || has('settings.gradle') || has('settings.gradle.kts')) {
       return 'android';
     }
